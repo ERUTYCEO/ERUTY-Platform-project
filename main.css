@@ -1,0 +1,101 @@
+@import "reset.css";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+
+#main-logo {
+  color: #418fd1;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+#main-logo-img {
+  width: 8rem;
+  height: 3rem;
+}
+
+.login-btn {
+  color: #2d6391;
+  border: 1px solid #2d6391;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.signup-btn {
+  color: white;
+  background-color: #418fd1;
+  border: 1px solid #418fd1;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+.upload-btn {
+  background: #85570f;
+  color: white;
+  border: 1px solid #85570f;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+#nav-main {
+  color: #8bbae3;
+}
+
+#nav-info {
+  color: #8bbae3;
+}
+
+#nav-design {
+  color: #8bbae3;
+}
+
+#main-page {
+  background: #418fd1;
+}
+
+#main-3d {
+  background: white;
+  text-align: center;
+}
+
+#main-title {
+  color: white;
+}
+
+#main-info {
+  color: white;
+}
+
+#main-btn {
+  color: white;
+  background: black;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+#info-title {
+  font-size: 7rem;
+  margin-bottom: 2rem;
+  color: #418fd1;
+}
+
+#info-content {
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+#design-gallery {
+  height: 100vh;
+  width: 100vw;
+}
+
+#highlights1 {
+  background: #418fd1;
+}
+
+#highlights1 h1 {
+  color: white;
+}
