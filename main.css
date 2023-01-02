@@ -17,16 +17,16 @@
 }
 
 .login-btn {
-  color: #2d6391;
-  border: 1px solid #2d6391;
+  color: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
   border-radius: 6px;
   padding: 2px 6px;
 }
 
 .signup-btn {
   color: white;
-  background-color: #418fd1;
-  border: 1px solid #418fd1;
+  background-color: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
   border-radius: 6px;
   padding: 2px 6px;
 }
@@ -40,51 +40,60 @@
 }
 
 #nav-main {
-  color: #8bbae3;
+  color: rgb(36, 170, 225);
 }
 
 #nav-info {
-  color: #8bbae3;
+  color: rgb(36, 170, 225);
 }
 
 #nav-design {
-  color: #8bbae3;
+  color: rgb(36, 170, 225);
 }
 
 #main-page {
-  background: #418fd1;
+  background: white;
 }
 
 #main-3d {
-  background: white;
+  background: rgb(36, 170, 225);
   text-align: center;
 }
 
 #main-title {
-  color: white;
+  color: rgb(36, 170, 225);
 }
 
 #main-info {
-  color: white;
+  color: black;
 }
 
 #main-btn {
   color: white;
-  background: black;
-  border: 1px solid black;
+  background: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}
+
+#intro1 {
+  background: rgb(36, 170, 225);
 }
 
 #info-title {
   font-size: 7rem;
   margin-bottom: 2rem;
-  color: #418fd1;
+  color: white;
 }
 
 #info-content {
   width: 50%;
   margin-bottom: 2rem;
+}
+
+#info-btn {
+  color: rgb(36, 170, 225);
 }
 
 #design-gallery {
@@ -93,9 +102,24 @@
 }
 
 #highlights1 {
-  background: #418fd1;
+  background: white;
 }
 
 #highlights1 h1 {
-  color: white;
+  color: rgb(36, 170, 225);
+}
+
+#test1 {
+  font-family: Calluna, Arial, sans-serif;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)),
+    url(./background.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed !important;
+  background-size: 100% !important;
+  background-position: center top !important;
+  padding: 1rem;
+  padding-top: 45%;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
 }
