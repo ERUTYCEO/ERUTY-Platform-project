@@ -62,8 +62,11 @@
             <li class="nav-item">
               <a class="nav-link" href="#contact1">-</a>
             </li>
+            <input type="text" id="nav-search">
+            <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" id="nav-icon"viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg></button>
           </ul>
-          <form class="d-flex" role="search">
             <button
               class="login-btn"
               type="button"
@@ -80,15 +83,14 @@
             >
               SIGN UP
             </button>
-            <button
+            <!-- <button
               class="upload-btn ms-3"
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#about-modal"
             >
               UPLOAD
-            </button>
-          </form>
+            </button> -->
         </div>
       </div>
     </nav>
@@ -131,12 +133,13 @@
         id="main-page"
       >
         <div class="w-50 p-5" >
-          <h1 class="mb-3" id="main-title">이루티 공식 홈페이지</h1>
-          <p id="main-info">
-            홈페이지 설명 문구 홈페이지 설명 문구 홈페이지 설명 문구 홈페이지
-            설명 문구 홈페이지 설명 문구 홈페이지 설명 문구 홈페이지 설명 문구
-            홈페이지 설명 문구 홈페이지 설명 문구 홈페이지 설명 문구 홈페이지
-            설명 문구 홈페이지 설명 문구
+          <h1 class="mb-3 main-title" >안전하고 빠른 3D 디자인</h1>
+          <h1 class="main-title2" >거래 플랫폼</h1>
+          <p class="main-info">
+             <span class="main-info-name">이루티</span> 에선 다양한 3D 그래픽 디자인들을 검색하고 확인해 보실 수 있습니다   </p>
+
+          <p class="main-info">
+            <span class="main-info-name">이루티</span> 에선 안전한 블록체인 저작권을 통해 3D 그래픽을 빠르게 거래할 수 있습니다
           </p>
           <a href="#intro1"><button id="main-btn">회사 설명</button></a>
         </div>
@@ -149,12 +152,9 @@
         id="intro1"
       >
         <h1 id="info-title">ERUTY</h1>
-        <h5 class="text-black" id="info-content">
-          회사소개문구 회사소개문구 회사소개문구 회사소개문구 회사소개문구
-          회사소개문구 회사소개문구 회사소개문구 회사소개문구 회사소개문구
-          회사소개문구 회사소개문구 회사소개문구 회사소개문구 회사소개문구
-          회사소개문구
-        </h5>
+        <p class="text-secondary" id="info-content">
+          회사 소개
+        </p>
         <a href="#highlights1" class="mt-2"
           ><button type="button" class="btn btn-light" id="info-btn">
             디자인 보러가기
@@ -171,64 +171,84 @@
         >
           <h1 class="mt-5">디자인 갤러리</h1>
           <hr class="w-75" />
-          <div class="py-5" id="design-gallery" id="gallery1">
-            <div class="container mt-3">
-              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5">
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      src="./luna3.jpeg"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
-                </div>
 
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
+          <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>           </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
                 </div>
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
                 </div>
-                <div class="col">
-                  <div class="shadow-sm">
-                    <img
-                      src="./designexp.png"
-                      class="img-fluid"
-                      alt="profile"
-                    />
-                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="./designexp.png" class="card-img-top" alt="designexp">
+                <div class="card-body">
+                  <h5 class="card-title">title</h5>
+                  <p class="card-text">판매자</p>
+                  <p class="card-text">좋아요 조회수</p>  
                 </div>
               </div>
             </div>
@@ -237,6 +257,7 @@
           <div></div>
         </div>
       </div>
+      
     </main>
 
     <!-- <div id="example"></div>
@@ -248,6 +269,7 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+
     <script type="text/javascript" src="./main.js"></script>
   </body>
 </html>

@@ -23,6 +23,11 @@
   padding: 2px 6px;
 }
 
+.login-btn:hover {
+  color: white;
+  background: rgb(36, 170, 225);
+}
+
 .signup-btn {
   color: white;
   background-color: rgb(36, 170, 225);
@@ -31,13 +36,36 @@
   padding: 2px 6px;
 }
 
-.upload-btn {
+.signup-btn:hover {
+  color: rgb(36, 170, 225);
+  background: white;
+}
+
+#nav-search {
+  margin-left:5rem;
+  margin-top: 0.5rem;
+  border: 1px solid lightgray;
+  width: 50vw;
+  height: 60%;
+  margin-right: 0.5rem;
+}
+#nav-icon{
+  color: rgb(36, 170, 225);
+  border-radius: 3px;
+}
+
+/* .upload-btn {
   background: #85570f;
   color: white;
   border: 1px solid #85570f;
   border-radius: 6px;
   padding: 2px 6px;
 }
+
+.upload-btn:hover {
+  background-color: white;
+  color: #85570f;
+} */
 
 #nav-main {
   color: rgb(36, 170, 225);
@@ -60,12 +88,22 @@
   text-align: center;
 }
 
-#main-title {
+.main-title {
   color: rgb(36, 170, 225);
 }
 
-#main-info {
+.main-title2 {
+  color: rgb(36, 170, 225);
+  margin-bottom: 5rem;
+}
+
+.main-info {
   color: black;
+}
+
+.main-info-name {
+  color: rgb(36, 170, 225);
+  font-size: 1.3rem;
 }
 
 #main-btn {
@@ -90,6 +128,7 @@
 #info-content {
   width: 50%;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 #info-btn {
@@ -122,4 +161,9 @@
   color: #fff;
   width: 100vw;
   height: 100vh;
+}
+
+.card-text {
+  text-align: right;
+  margin-bottom: 0.5rem;
 }
