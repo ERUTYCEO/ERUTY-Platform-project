@@ -5,15 +5,53 @@
   font-family: "Noto Sans KR", sans-serif !important;
 }
 
-#main-logo {
-  color: #418fd1;
-  text-decoration: none;
-  margin-right: 20px;
+#navbarCollapse {
+  justify-content: space-between;
+  align-items: center;
 }
 
 #main-logo-img {
-  width: 8rem;
-  height: 3rem;
+  width: 12rem;
+  height: 5rem;
+}
+
+.navbar-nav {
+  align-items: center;
+  width: 30%;
+}
+
+#navbar-search {
+  display: flex;
+  align-items: center;
+  width: 55%;
+  padding-left: 8rem;
+}
+
+#navbar-btn {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: 1.5rem;
+}
+
+#nav-search {
+  border: 1px solid lightgray;
+  width: 80%;
+  height: 2.8rem;
+}
+
+#search-btn {
+  margin-left: 0.5rem;
+}
+
+#search-icon {
+  color: rgb(36, 170, 225);
+}
+
+.nav-link {
+  color: rgb(36, 170, 225) !important;
+  font-size: 1.7rem;
 }
 
 .login-btn {
@@ -41,19 +79,6 @@
   background: white;
 }
 
-#nav-search {
-  margin-left:5rem;
-  margin-top: 0.5rem;
-  border: 1px solid lightgray;
-  width: 50vw;
-  height: 60%;
-  margin-right: 0.5rem;
-}
-#nav-icon{
-  color: rgb(36, 170, 225);
-  border-radius: 3px;
-}
-
 /* .upload-btn {
   background: #85570f;
   color: white;
@@ -66,18 +91,6 @@
   background-color: white;
   color: #85570f;
 } */
-
-#nav-main {
-  color: rgb(36, 170, 225);
-}
-
-#nav-info {
-  color: rgb(36, 170, 225);
-}
-
-#nav-design {
-  color: rgb(36, 170, 225);
-}
 
 #main-page {
   background: white;
