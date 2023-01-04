@@ -5,15 +5,53 @@
   font-family: "Noto Sans KR", sans-serif !important;
 }
 
-#main-logo {
-  color: #418fd1;
-  text-decoration: none;
-  margin-right: 20px;
+#navbarCollapse {
+  justify-content: space-between;
+  align-items: center;
 }
 
 #main-logo-img {
-  width: 8rem;
-  height: 3rem;
+  width: 12rem;
+  height: 5rem;
+}
+
+.navbar-nav {
+  align-items: center;
+  width: 30%;
+}
+
+#navbar-search {
+  display: flex;
+  align-items: center;
+  width: 55%;
+  padding-left: 8rem;
+}
+
+#navbar-btn {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  font-size: 1.5rem;
+}
+
+#nav-search {
+  border: 1px solid lightgray;
+  width: 80%;
+  height: 2.8rem;
+}
+
+#search-btn {
+  margin-left: 0.5rem;
+}
+
+#search-icon {
+  color: rgb(36, 170, 225);
+}
+
+.nav-link {
+  color: rgb(36, 170, 225) !important;
+  font-size: 1.7rem;
 }
 
 .login-btn {
@@ -21,6 +59,11 @@
   border: 1px solid rgb(36, 170, 225);
   border-radius: 6px;
   padding: 2px 6px;
+}
+
+.login-btn:hover {
+  color: white;
+  background: rgb(36, 170, 225);
 }
 
 .signup-btn {
@@ -31,7 +74,12 @@
   padding: 2px 6px;
 }
 
-.upload-btn {
+.signup-btn:hover {
+  color: rgb(36, 170, 225);
+  background: white;
+}
+
+/* .upload-btn {
   background: #85570f;
   color: white;
   border: 1px solid #85570f;
@@ -39,17 +87,10 @@
   padding: 2px 6px;
 }
 
-#nav-main {
-  color: rgb(36, 170, 225);
-}
-
-#nav-info {
-  color: rgb(36, 170, 225);
-}
-
-#nav-design {
-  color: rgb(36, 170, 225);
-}
+.upload-btn:hover {
+  background-color: white;
+  color: #85570f;
+} */
 
 #main-page {
   background: white;
@@ -60,12 +101,22 @@
   text-align: center;
 }
 
-#main-title {
+.main-title {
   color: rgb(36, 170, 225);
 }
 
-#main-info {
+.main-title2 {
+  color: rgb(36, 170, 225);
+  margin-bottom: 5rem;
+}
+
+.main-info {
   color: black;
+}
+
+.main-info-name {
+  color: rgb(36, 170, 225);
+  font-size: 1.3rem;
 }
 
 #main-btn {
@@ -90,6 +141,7 @@
 #info-content {
   width: 50%;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 #info-btn {
@@ -122,4 +174,9 @@
   color: #fff;
   width: 100vw;
   height: 100vh;
+}
+
+.card-text {
+  text-align: right;
+  margin-bottom: 0.5rem;
 }
