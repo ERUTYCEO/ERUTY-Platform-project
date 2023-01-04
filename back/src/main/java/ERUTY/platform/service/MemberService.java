@@ -2,6 +2,8 @@ package ERUTY.platform.service;
 
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public void saveMember(Member member) {
+        log.info("member name : {}, email : {}, pwd : {}, cfpwd : {}", member.getName(), member.getEmail(), member.getPassword(), member.getConfirmpassword());
         validateDuplicateMember(member);
-        validatePasswordCheck(member);
+        validateConfirmPassword(member);
         memberRepository.save(member);
     }
 
@@ -29,9 +32,27 @@ public class MemberService {
         }
     }
 
-    private void validatePasswordCheck(Member member) {
-        if(!(member.getPassword() == member.getConfirmpassword())) {
-            throw new IllegalStateException("비밀번호 확인을 다시 해주십시오.");
+    private void validateConfirmPassword(Member member) {
+        String pwd = member.getPassword();
+        String confirmpwd = member.getConfirmpassword();
+
+        if(!(pwd.equals(confirmpwd))) {
+            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오");
+        }
+    }
+
+    public String selectMember(Member member) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            if(memberRepository.findMemberByEmail(member.getEmail()) == null) {
+                return String.format("member email does not exist.");
+            } else {
+                return objectMapper.writeValueAsString(memberRepository.findMemberByEmail(member.getEmail()));
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "ERROR";
         }
     }
 }
