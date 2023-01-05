@@ -17,13 +17,11 @@ public class Member {
     private String name;
     private String email;
     private String password;
-    private String confirmpassword;
 
     @Builder
-    public Member(String name, String email, String password, String confirmpassword) {
+    public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.confirmpassword = confirmpassword;
     }
 }

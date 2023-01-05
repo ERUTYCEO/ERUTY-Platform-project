@@ -1,5 +1,6 @@
 package ERUTY.platform.service;
 
+import ERUTY.platform.controller.MemberForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,9 +19,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public void saveMember(Member member) {
-        log.info("member name : {}, email : {}, pwd : {}, cfpwd : {}", member.getName(), member.getEmail(), member.getPassword(), member.getConfirmpassword());
         validateDuplicateMember(member);
-        validateConfirmPassword(member);
+
         memberRepository.save(member);
     }
 
@@ -32,27 +32,12 @@ public class MemberService {
         }
     }
 
-    private void validateConfirmPassword(Member member) {
-        String pwd = member.getPassword();
-        String confirmpwd = member.getConfirmpassword();
+    public void validateConfirmPassword(MemberForm memberForm) {
+        String pwd = memberForm.getPassword();
+        String confirmpwd = memberForm.getConfirmpassword();
 
         if(!(pwd.equals(confirmpwd))) {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오");
-        }
-    }
-
-    public String selectMember(Member member) {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            if(memberRepository.findMemberByEmail(member.getEmail()) == null) {
-                return String.format("member email does not exist.");
-            } else {
-                return objectMapper.writeValueAsString(memberRepository.findMemberByEmail(member.getEmail()));
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "ERROR";
         }
     }
 }

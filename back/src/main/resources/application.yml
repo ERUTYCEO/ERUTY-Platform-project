@@ -5,6 +5,9 @@ spring:
       port: 27017
       database: ERUTY_Member
 
+  thymeleaf:
+    prefix: classpath:/templates/
+
 logging:
   level:
     org.springframework.data.mongodb: DEBUG
