@@ -3,8 +3,6 @@ package ERUTY.platform.service;
 import ERUTY.platform.controller.MemberForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +35,32 @@ public class MemberService {
         String confirmpwd = memberForm.getConfirmpassword();
 
         if(!(pwd.equals(confirmpwd))) {
-            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오");
+            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
+
+    /*
+    public void ERUTY_Login(Member member) {
+        checkExistMember(member);
+        checkPassword(member);
+
+
+    }
+
+    private void checkExistMember(Member member) {
+        Boolean findMember = memberRepository.existsMemberByEmail(member.getEmail());
+
+        if(!findMember) {
+            throw new IllegalStateException("이메일을 다시 확인해 주십시오.");
+        }
+    }
+
+    private void checkPassword(Member member) {
+        Member findMember = memberRepository.findMemberByEmail(member.getEmail());
+
+        if(!(member.getPassword().equals(findMember.getPassword()))) {
+            throw new IllegalStateException("비밀번호가 틀렸습니다.");
+        }
+    }
+    */
 }
