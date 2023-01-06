@@ -11,34 +11,30 @@
 }
 
 #main-logo-img {
-  width: 12rem;
-  height: 5rem;
+  width: 7rem;
+  height: 3rem;
 }
 
 .navbar-nav {
   align-items: center;
-  width: 30%;
 }
 
 #navbar-search {
   display: flex;
   align-items: center;
-  width: 55%;
-  padding-left: 8rem;
 }
 
 #navbar-btn {
-  width: 15%;
   display: flex;
   align-items: center;
   justify-content: right;
-  font-size: 1.5rem;
+  font-size: 0.8rem;
 }
 
 #nav-search {
   border: 1px solid lightgray;
-  width: 80%;
-  height: 2.8rem;
+  width: 40vw;
+  height: 1.4rem;
 }
 
 #search-btn {
@@ -51,7 +47,7 @@
 
 .nav-link {
   color: rgb(36, 170, 225) !important;
-  font-size: 1.7rem;
+  font-size: 1rem;
 }
 
 .login-btn {
@@ -101,6 +97,10 @@
 
 #main-page {
   background: white;
+}
+
+#main-page p {
+  font-size: 0.9rem;
 }
 
 #main-3d {
