@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -36,6 +37,30 @@ public class MemberController {
 
         Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword());
         memberService.saveMember(member);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/member/login")
+    public String login_check(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+
+        return "members/loginsession";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@Valid MemberLoginForm memberLoginForm, BindingResult result, HttpSession session) {
+        Member loginMember = memberService.findLoginMember(memberLoginForm);
+
+        session.setAttribute("memberId", loginMember.getId());
+        session.setAttribute("memberEmail", loginMember.getEmail());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
 
         return "redirect:/";
     }
