@@ -38,7 +38,6 @@ public class MemberService {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
-
     /*
     public void ERUTY_Login(Member member) {
         checkExistMember(member);

@@ -39,4 +39,11 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/member/changepwd")
+    public String changePwd(Model model) {
+        model.addAttribute("changepwdForm", new changepwdForm());
+
+        return "members/changepassword";
+    }
 }
