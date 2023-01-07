@@ -1,6 +1,7 @@
 package ERUTY.platform.service;
 
 import ERUTY.platform.controller.MemberForm;
+import ERUTY.platform.controller.changepwdForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,13 @@ public class MemberService {
         String confirmpwd = memberForm.getConfirmpassword();
 
         if(!(pwd.equals(confirmpwd))) {
+            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
+        }
+    }
+    public void validateChangepassword(changepwdForm changepwdform){
+        String newpwd = changepwdform.getPassword();
+        String newconfirm = changepwdform.getConfirmpassword();
+        if(!(newpwd.equals(newconfirm))){
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }

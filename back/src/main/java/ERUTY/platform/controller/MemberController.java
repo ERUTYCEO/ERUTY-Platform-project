@@ -1,6 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.repository.MemberRepository;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,5 +46,21 @@ public class MemberController {
         model.addAttribute("changepwdForm", new changepwdForm());
 
         return "members/changepassword";
+    }
+    @PostMapping("/member/changepwd")
+    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result, MemberRepository memberRepository) {
+        Member findmember = memberRepository.findMemberByEmail(changepwdform.getEmail());
+        if(findmember.getEmail()==null){
+            return "members/changepassword";
+        }
+        memberService.validateChangepassword(changepwdform);
+        if(result.hasErrors()){
+            return "members/changepassword";
+        }
+        //findmember.setPassword(changepwdform.getConfirmpassword());
+        //member.setPassword(changepwdform.getPassword());
+        Member member = new Member(changepwdform.getEmail(), changepwdform.getPassword(),changepwdform.getConfirmpassword());
+        memberRepository.save(member);
+        return "redirect:/";
     }
 }
