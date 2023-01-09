@@ -11,5 +11,4 @@ public interface MemberRepository extends MongoRepository<Member, String> {
 
      Member findMemberByEmail(String email);
      List<Member> findMembersByEmail(String email);
-     Boolean existsMemberByEmail(String email);
 }

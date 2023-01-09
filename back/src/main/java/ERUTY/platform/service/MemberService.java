@@ -1,6 +1,7 @@
 package ERUTY.platform.service;
 
 import ERUTY.platform.controller.MemberForm;
+import ERUTY.platform.controller.MemberLoginForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,28 +40,26 @@ public class MemberService {
         }
     }
 
-    /*
-    public void ERUTY_Login(Member member) {
-        checkExistMember(member);
-        checkPassword(member);
+    public Member findLoginMember(MemberLoginForm memberLoginForm) {
+        validateExistEmail(memberLoginForm);
 
+        Member findMember = memberRepository.findMemberByEmail(memberLoginForm.getEmail());
+        validateCorrectPassword(memberLoginForm, findMember);
 
+        return findMember;
     }
 
-    private void checkExistMember(Member member) {
-        Boolean findMember = memberRepository.existsMemberByEmail(member.getEmail());
+    private void validateExistEmail(MemberLoginForm memberLoginForm) {
+        List<Member> findMembers = memberRepository.findMembersByEmail(memberLoginForm.getEmail());
 
-        if(!findMember) {
-            throw new IllegalStateException("이메일을 다시 확인해 주십시오.");
+        if(findMembers.isEmpty()) {
+            throw new IllegalStateException("이메일을 다시 확인해주십시오.");
         }
     }
 
-    private void checkPassword(Member member) {
-        Member findMember = memberRepository.findMemberByEmail(member.getEmail());
-
-        if(!(member.getPassword().equals(findMember.getPassword()))) {
-            throw new IllegalStateException("비밀번호가 틀렸습니다.");
+    private void validateCorrectPassword(MemberLoginForm memberLoginForm, Member findMember) {
+        if(!(memberLoginForm.getPassword().equals(findMember.getPassword()))) {
+            throw new IllegalStateException("비밀번호를 다시 확인해주십시오");
         }
     }
-    */
 }
