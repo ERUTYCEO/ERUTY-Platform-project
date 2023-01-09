@@ -57,10 +57,10 @@ public class MemberController {
         if(result.hasErrors()){
             return "members/changepassword";
         }
-        //findmember.setPassword(changepwdform.getConfirmpassword());
-        //member.setPassword(changepwdform.getPassword());
-        Member member = new Member(changepwdform.getEmail(), changepwdform.getPassword(),changepwdform.getConfirmpassword());
+        
+        Member member = new Member(changepwdform.getEmail(), changepwdform.getPassword(),changepwdform.getConfirmPassword());
         memberRepository.save(member);
+
         return "redirect:/";
     }
 }
