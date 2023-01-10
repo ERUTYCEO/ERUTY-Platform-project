@@ -54,7 +54,7 @@ public class MemberController {
         Member loginMember = memberService.findLoginMember(memberLoginForm);
 
         session.setAttribute("loginId", loginMember.getId());
-
+        log.info("session : " + session.getAttribute("loginId"));
         /*
         // 로그인 전에 요청한 페이지가 있으면 그 페이지를 redirect
         String dest = (String) session.getAttribute("dest");
