@@ -42,6 +42,7 @@ public class MemberService {
     public void validateChangepassword(changepwdForm changepwdform){
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
+
         if(!(newpwd.equals(newconfirm))){
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
