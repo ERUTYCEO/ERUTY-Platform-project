@@ -54,6 +54,8 @@ public class MemberService {
         }
         member.getPassword();
         memberRepository.save(member);
+
+        log.info(member.getPassword());
     }
     /*
     public void ERUTY_Login(Member member) {

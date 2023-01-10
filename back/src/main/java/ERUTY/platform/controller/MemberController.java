@@ -41,13 +41,13 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/member/changepwd")
+    @GetMapping("/members/changepwd")
     public String changePwd(Model model) {
         model.addAttribute("changepwdForm", new changepwdForm());
 
         return "members/changepassword";
     }
-    @PostMapping("/member/changepwd")
+    @PostMapping("/members/changepwd")
     public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
         memberService.CheckAndUpdate(changepwdform);
         if(result.hasErrors()){
