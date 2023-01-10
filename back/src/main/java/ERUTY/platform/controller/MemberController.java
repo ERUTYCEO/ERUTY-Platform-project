@@ -50,7 +50,6 @@ public class MemberController {
     @PostMapping("/member/changepwd")
     public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
         memberService.CheckAndUpdate(changepwdform);
-
         if(result.hasErrors()){
             return "members/changepassword";
         }

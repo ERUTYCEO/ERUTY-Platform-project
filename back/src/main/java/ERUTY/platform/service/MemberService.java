@@ -46,7 +46,6 @@ public class MemberService {
         if(member == null){
             throw new IllegalStateException("존재하지 않는 이메일입니다");
         }
-
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
 
