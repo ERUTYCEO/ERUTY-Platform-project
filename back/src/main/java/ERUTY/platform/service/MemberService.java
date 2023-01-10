@@ -52,10 +52,13 @@ public class MemberService {
         if(!(newpwd.equals(newconfirm))){
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
-        member.getPassword();
-        memberRepository.save(member);
 
-        log.info(member.getPassword());
+        Member newMember = new Member(member.getName(), member.getEmail(), newpwd);
+
+        memberRepository.save(newMember);
+        memberRepository.delete(member);
+
+        log.info(newMember.getPassword());
     }
     /*
     public void ERUTY_Login(Member member) {
