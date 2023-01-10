@@ -48,19 +48,12 @@ public class MemberController {
         return "members/changepassword";
     }
     @PostMapping("/member/changepwd")
-    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result, MemberRepository memberRepository) {
-        Member findmember = memberRepository.findMemberByEmail(changepwdform.getEmail());
-        if(findmember.getEmail()==null){
-            return "members/changepassword";
-        }
-        memberService.validateChangepassword(changepwdform);
+    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
+        memberService.CheckAndUpdate(changepwdform);
+
         if(result.hasErrors()){
             return "members/changepassword";
         }
-        
-        Member member = new Member(changepwdform.getEmail(), changepwdform.getPassword(),changepwdform.getConfirmPassword());
-        memberRepository.save(member);
-
         return "redirect:/";
     }
 }

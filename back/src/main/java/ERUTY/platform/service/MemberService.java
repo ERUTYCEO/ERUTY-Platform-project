@@ -39,12 +39,22 @@ public class MemberService {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
-    public void validateChangepassword(changepwdForm changepwdform){
+    public void CheckAndUpdate(changepwdForm changepwdform){
+        String email = changepwdform.getEmail();
+        Member member = memberRepository.findMemberByEmail(email);
+
+        if(member == null){
+            throw new IllegalStateException("존재하지 않는 이메일입니다");
+        }
+
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
+
         if(!(newpwd.equals(newconfirm))){
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
+        member.getPassword();
+        memberRepository.save(member);
     }
     /*
     public void ERUTY_Login(Member member) {
