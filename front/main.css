@@ -4,19 +4,41 @@
 * {
   font-family: "Noto Sans KR", sans-serif !important;
 }
-
+main {
+  width: 100%;
+}
+#main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 1200px;
+  margin: 0;
+}
 #navbarCollapse {
   justify-content: space-between;
   align-items: center;
+  display: flex;
+  height: 60px;
 }
 
 #main-logo-img {
-  width: 7rem;
-  height: 3rem;
+  margin: 15px;
+  width: 100px;
+  height: 45px;
+}
+
+.header-nav {
+  width: 100%;
+}
+
+.nav-container {
+  width: 100%;
 }
 
 .navbar-nav {
   align-items: center;
+  flex-direction: row !important;
 }
 
 #navbar-search {
@@ -29,6 +51,7 @@
   align-items: center;
   justify-content: right;
   font-size: 0.8rem;
+  width: 200px;
 }
 
 #nav-search {
@@ -48,6 +71,7 @@
 .nav-link {
   color: rgb(36, 170, 225) !important;
   font-size: 1rem;
+  width: 50px;
 }
 
 .login-btn {
@@ -97,6 +121,7 @@
 
 #main-page {
   background: white;
+  width: 1200px;
 }
 
 #main-page p {
@@ -104,17 +129,22 @@
 }
 
 #main-3d {
-  background: rgb(36, 170, 225);
   text-align: center;
+}
+
+.main-page-content {
+  width: 800px;
 }
 
 .main-title {
   color: rgb(36, 170, 225);
+  font-size: 35px;
 }
 
 .main-title2 {
   color: rgb(36, 170, 225);
   margin-bottom: 5rem;
+  font-size: 35px;
 }
 
 .main-info {
@@ -137,6 +167,7 @@
 
 #intro1 {
   background: rgb(36, 170, 225);
+  width: 100%;
 }
 
 #info-title {
@@ -155,13 +186,9 @@
   color: rgb(36, 170, 225);
 }
 
-#design-gallery {
-  height: 100vh;
-  width: 100vw;
-}
-
 #highlights1 {
   background: white;
+  width: 100%;
 }
 
 #highlights1 h1 {
@@ -179,11 +206,15 @@
   padding: 1rem;
   padding-top: 45%;
   color: #fff;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 }
 
 .card-text {
   text-align: right;
   margin-bottom: 0.5rem;
+}
+
+.card a {
+  text-decoration: none;
 }
