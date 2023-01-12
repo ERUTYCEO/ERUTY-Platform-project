@@ -1,6 +1,7 @@
 package ERUTY.platform.service;
 
 import ERUTY.platform.controller.MemberForm;
+import ERUTY.platform.controller.changepwdForm;
 import ERUTY.platform.controller.MemberLoginForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
@@ -39,7 +40,26 @@ public class MemberService {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
+    public void CheckAndUpdate(changepwdForm changepwdform){
+        String email = changepwdform.getEmail();
+        Member member = memberRepository.findMemberByEmail(email);
 
+        if(member == null){
+            throw new IllegalStateException("존재하지 않는 이메일입니다");
+        }
+        String newpwd = changepwdform.getPassword();
+        String newconfirm = changepwdform.getConfirmPassword();
+
+        if(!(newpwd.equals(newconfirm))){
+            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
+        }
+
+        Member newMember = new Member(member.getName(), member.getEmail(), newpwd);
+
+        memberRepository.save(newMember);
+        memberRepository.delete(member);
+
+    }
     public Member findLoginMember(MemberLoginForm memberLoginForm) {
         validateExistEmail(memberLoginForm);
 

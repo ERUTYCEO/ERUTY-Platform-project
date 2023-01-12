@@ -1,6 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.repository.MemberRepository;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,6 @@ public class MemberController {
 
         return "redirect:/";
     }
-
     @GetMapping("/members/login")
     public String login_check(Model model) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());
@@ -59,7 +59,6 @@ public class MemberController {
         // 로그인 전에 요청한 페이지가 있으면 그 페이지를 redirect
         String dest = (String) session.getAttribute("dest");
         String redirect = (dest == null) ? "/" : dest;
-
         return "redirect:" + redirect;
          */
         return "redirect:/";
@@ -69,6 +68,21 @@ public class MemberController {
     public String logout(HttpSession session) {
         session.invalidate();
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/members/changepwd")
+    public String changePwd(Model model) {
+        model.addAttribute("changepwdForm", new changepwdForm());
+
+        return "members/changepassword";
+    }
+    @PostMapping("/members/changepwd")
+    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
+        memberService.CheckAndUpdate(changepwdform);
+        if(result.hasErrors()){
+            return "members/changepassword";
+        }
         return "redirect:/";
     }
 }
