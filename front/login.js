@@ -7,6 +7,7 @@ function checkFindPassword() {
   $("#findPWCheckMessage").hide();
   return true;
 }
+
 function checkLogin() {
   if (
     loginform.exampleInputEmail1.value == "" ||
@@ -18,6 +19,7 @@ function checkLogin() {
   $("#loginMessage").hide();
   return true;
 }
+
 function checkSignUp() {
   if (signUpform.exampleInputEmail1.value == "") {
     $("#signUpEmailMessage").show();
@@ -53,6 +55,33 @@ function checkSignUp() {
   return true;
 }
 
+function checkChangePassword() {
+  if (
+    changePasswordform.exampleInputEmail1.value == "" ||
+    changePasswordform.exampleInputPassword1.value == ""
+  ) {
+    $("#changeMessage").show();
+    return false;
+  }
+  $("#changeMessage").hide();
+
+  if (changePasswordform.exampleInputPassword2.value == "") {
+    $("#changePWMessage").show();
+    return false;
+  }
+  $("#changePWMessage").hide();
+
+  if (
+    changePasswordform.exampleInputPassword2.value !=
+    changePasswordform.exampleInputPassword3.value
+  ) {
+    $("#changePWDMessage").show();
+    return false;
+  }
+  $("#changePWDMessage").hide();
+  console.log("come in");
+  return false;
+}
 // 전체선택
 
 $("#allcheck").on("click", function () {
