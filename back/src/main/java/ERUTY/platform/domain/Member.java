@@ -1,14 +1,11 @@
 package ERUTY.platform.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "member")
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
@@ -18,7 +15,6 @@ public class Member {
     private String email;
     private String password;
 
-    @Builder
     public Member(String name, String email, String password) {
         this.name = name;
         this.email = email;

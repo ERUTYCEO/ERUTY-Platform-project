@@ -38,6 +38,7 @@ public class MemberController {
         }
 
         Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword());
+
         memberService.saveMember(member);
 
         return "redirect:/";
@@ -77,12 +78,28 @@ public class MemberController {
 
         return "members/changepassword";
     }
+
     @PostMapping("/members/changepwd")
     public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
         memberService.CheckAndUpdate(changepwdform);
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "members/changepassword";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/members/findpwd")
+    public String findPassword(Model model) {
+        model.addAttribute("findPwdForm", new findPwdForm());
+
+        return "members/findbyemail";
+    }
+
+    @PostMapping("/members/findpwd")
+    public String change_Pwd_by_Email(@Valid findPwdForm pwdForm) {
+        EmailForm emailForm = memberService.find_Email_by_Email_and_Name(pwdForm);
+        memberService.sendEmail(emailForm);
+
+        return "redirect:/members/login";
     }
 }
