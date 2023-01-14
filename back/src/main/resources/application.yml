@@ -8,6 +8,18 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: arheon2469@gmail.com
+    password: (dlsdnr95)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 logging:
   level:
     org.springframework.data.mongodb: DEBUG
