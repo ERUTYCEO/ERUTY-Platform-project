@@ -350,6 +350,7 @@
           </div>
         </div>
       </div>
+
       <!-- 비밀번호찾기 모달-->
       <div
         class="modal fade"
@@ -408,6 +409,120 @@
                 </div>
                 <button type="submit" class="login-btn w-100">
                   FindPassword
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="signup"
+                data-bs-toggle="modal"
+                data-bs-target="#changePassword-modal"
+              >
+                ChangePassword
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 비밀번호 변경 모달-->
+      <div
+        class="modal fade"
+        id="changePassword-modal"
+        data-bs-backdrop="static"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <img
+                width="60"
+                height="60"
+                className="img-thumbnail"
+                src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
+                alt="aaafs"
+              />
+              <h1 class="modal-title fs-5 m-2" id="exampleModalLabel">
+                이루티 비밀번호 변경
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                name="changePasswordform"
+                onsubmit="return checkChangePassword()"
+              >
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="emailfind"
+                    placeholder="E-mail"
+                    aria-describedby="emailHelp"
+                  />
+                  <div id="emailHelp" class="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                  <div>
+                    <label for="exampleInputPassword1" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      id="exampleInputPassword1"
+                    />
+                  </div>
+                  <div
+                    id="changeMessage"
+                    style="color: red; font-size: 13px; display: none"
+                  >
+                    *이메일 및 비밀번호를 입력해주세요
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >New Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Password"
+                    id="exampleInputPassword2"
+                  />
+                  <input
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="check Password"
+                    id="exampleInputPassword3"
+                  />
+                </div>
+                <div
+                  id="changePWDMessage"
+                  style="color: red; font-size: 13px; display: none"
+                >
+                  *비밀번호가 다릅니다
+                </div>
+                <div
+                  id="changePWMessage"
+                  style="color: red; font-size: 13px; display: none"
+                >
+                  *비밀번호를 입력해주세요
+                </div>
+                <button type="submit" class="login-btn w-100">
+                  ChangePassword
                 </button>
               </form>
             </div>
