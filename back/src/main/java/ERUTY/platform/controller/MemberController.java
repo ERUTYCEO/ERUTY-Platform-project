@@ -31,7 +31,7 @@ public class MemberController {
 
     @PostMapping("/members/new")
     public String registration(@Valid MemberForm memberForm, BindingResult result) {
-        memberService.validateConfirmPassword(memberForm);
+        memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
         if(result.hasErrors()) {
             return "members/regist";
