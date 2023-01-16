@@ -218,3 +218,14 @@ main {
 .card a {
   text-decoration: none;
 }
+
+.goto-gallery {
+  font-size: 20px;
+  width: 500px;
+  background-color: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: white;
+  margin: 30px 0;
+}
