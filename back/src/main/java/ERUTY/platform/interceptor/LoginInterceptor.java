@@ -15,7 +15,7 @@ import java.util.List;
 public class LoginInterceptor implements HandlerInterceptor {
 
     public List loginEssential = Arrays.asList("/**");
-    public List loginInessential = Arrays.asList("/", "/members/new", "/members/login");
+    public List loginInessential = Arrays.asList("/", "/members/new", "/members/login", "/items/new");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
