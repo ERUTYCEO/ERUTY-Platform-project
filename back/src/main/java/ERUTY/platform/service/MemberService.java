@@ -1,10 +1,10 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.controller.EmailForm;
-import ERUTY.platform.controller.MemberForm;
-import ERUTY.platform.controller.changepwdForm;
-import ERUTY.platform.controller.MemberLoginForm;
-import ERUTY.platform.controller.findPwdForm;
+import ERUTY.platform.form.EmailForm;
+import ERUTY.platform.form.MemberForm;
+import ERUTY.platform.form.changepwdForm;
+import ERUTY.platform.form.MemberLoginForm;
+import ERUTY.platform.form.findPwdForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

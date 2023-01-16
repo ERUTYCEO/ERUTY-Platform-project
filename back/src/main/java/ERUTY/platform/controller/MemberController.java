@@ -1,7 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Member;
-import ERUTY.platform.repository.MemberRepository;
+import ERUTY.platform.form.*;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

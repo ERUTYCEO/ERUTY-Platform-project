@@ -1,4 +1,4 @@
-package ERUTY.platform.controller;
+package ERUTY.platform.form;
 
 import javax.validation.constraints.NotEmpty;
 
