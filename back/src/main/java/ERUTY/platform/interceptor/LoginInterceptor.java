@@ -26,7 +26,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         if(session.getAttribute("loginId") != null) {
             log.info("로그인 상태입니다");
-            session.invalidate();
             return true;
         }
         else {

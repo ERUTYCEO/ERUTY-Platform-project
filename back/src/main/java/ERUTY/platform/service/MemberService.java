@@ -53,10 +53,8 @@ public class MemberService {
 
         validateConfirmPassword(newpwd, newconfirm);
 
-        Member newMember = new Member(member.getName(), member.getEmail(), newpwd);
-
-        memberRepository.save(newMember);
-        memberRepository.delete(member);
+        member.setPassword(newpwd);
+        memberRepository.save(member);
     }
 
     public Member findLoginMember(MemberLoginForm memberLoginForm) {
