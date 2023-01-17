@@ -27,23 +27,24 @@ public class ItemController {
     @GetMapping("/items/new")
     public String createForm(Model model) {
         model.addAttribute("itemForm", new ItemForm());
-        return "members/regist";
+        return "items/regist";
     }
 
     @PostMapping("/items/new")
     public String registration(@Valid ItemForm itemForm, BindingResult result) throws ParseException {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/itemRegist";
+            return "items/regist";
         }
 
-        String s = itemForm.getCreatedDate();
+        String s = String.valueOf(itemForm.getCreatedDate());
         java.sql.Date sqlDate = java.sql.Date.valueOf(s);
-
         Item item = new Item(itemForm.getDesignName(), itemForm.getCreator(), sqlDate,
                 itemForm.getDescription(), itemForm.getTool(), itemForm.getPrice());
 
         itemService.saveItem(item);
+
+
 
         return "redirect:/";
     }
