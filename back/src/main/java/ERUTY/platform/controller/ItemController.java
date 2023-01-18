@@ -28,7 +28,7 @@ public class ItemController {
     public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/regist";
+            return "items/itemRegist";
         }
         String s = String.valueOf(itemForm.getCreatedDate());
         java.sql.Date sqlDate = java.sql.Date.valueOf(s);
