@@ -1,8 +1,8 @@
 <div align="center">
-    <a href="https://github.com/ERUTYCEO/ERUTY-Platform-project/blob/master/front/logo.png?raw=true">
-        <img src="https://github.com/ERUTYCEO/ERUTY-Platform-project/blob/master/front/logo.png?raw=true" alt="Logo" width="300" height="250">
+    <a href="https://user-images.githubusercontent.com/64780539/213195321-60df76c6-6cc3-43f5-8be8-63c69b51cb18.png">
+        <img src="https://user-images.githubusercontent.com/64780539/213195321-60df76c6-6cc3-43f5-8be8-63c69b51cb18.png" alt="Logo" width="300" height="250">
     </a>
-    <h1 align="center">ERUTY_PLATFORM_PROJECT</h3>
+    <h1 align="center">ERUTY_PLATFORM_PROJECT</h1>
     <p align="left">
     다양한 3D 그래픽 디자인들을 검색하고 확인해볼 수 있는 거래 플랫폼
     <br />
@@ -10,10 +10,17 @@
     </p>
 </div>
 
+<br/>
+
 ### __Built With__
 
+* [![HTML][HTML.io]][HTML-url]
+* [![CSS][CSS.io]][CSS-url]
+* [![Javascript][Javascript.io]][Javascript-url]
+* [![Java][Java.io]][Java-url]
 * [![Spring][Spring.io]][Spring-url]
-* [![React][React.js]][React-url]
+
+<br/>
 
 ### __Function__
 
@@ -23,10 +30,13 @@
 
 2. Read
     - Home 화면에서 3D 디자인 클릭 시 해당 디자인의 정보 페이지로 이동
+    - 3D 디자인 검색 기능
     - 다운로드한 3D 디자인 리스트 확인
+    - 업로드한 3D 디자인 리스트 확인 (Uploader)
 
 3. Update
     - 비밀번호 변경
+    - 비밀번호 찾기 -> 임시 비밀번호 발급
     - 3D 디자인 정보 변경 (Uploader)
 
 4. Delete
@@ -40,6 +50,7 @@
     - 이름
     - 이메일
     - 비밀번호
+    - 업로드 리스트
     - 다운로드 리스트
 
 2. Item
@@ -71,9 +82,21 @@
 >   >   > - Validation
 >   >   > - Spring Data MongoDB
 
->   > [Build.gradle](https://github.com/ERUTYCEO/ERUTY-Platform-project/blob/master/back/build.gradle)
+> > [Build.gradle](https://github.com/ERUTYCEO/ERUTY-Platform-project/blob/master/back/build.gradle)
+
+> > [application.yml](https://github.com/ERUTYCEO/ERUTY-Platform-project/blob/master/back/src/main/resources/application.yml)
+
+[HTML.io]: https://img.shields.io/badge/html-orange?style=for-the-badge&logo=html&logoColor=white
+[HTML-url]: https://html.spec.whatwg.org
+
+[CSS.io]: https://img.shields.io/badge/css-blue?style=for-the-badge&logo=css&logoColor=white
+[CSS-url]: https://developer.mozilla.org/ko/docs/Web/CSS/Reference
+
+[Javascript.io]: https://img.shields.io/badge/javascript-black?style=for-the-badge&logo=javascript&logoColor=yellow
+[Javascript-url]: https://developer.mozilla.org/ko/docs/Web/JavaScript
+
+[Java.io]: https://img.shields.io/badge/java-chocolate?style=for-the-badge&logo=java&logoColor=orangebrown
+[Java-url]: https://developer.mozilla.org/ko/docs/Web/JavaScript
 
 [Spring.io]: https://img.shields.io/badge/spring-white?style=for-the-badge&logo=spring&logoColor=green
 [Spring-url]: https://spring.io
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
