@@ -28,7 +28,7 @@ public class ItemController {
     public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/itemRegist";
+            return "items/regist";
         }
         String s = String.valueOf(itemForm.getCreatedDate());
         java.sql.Date sqlDate = java.sql.Date.valueOf(s);
@@ -39,7 +39,6 @@ public class ItemController {
                 itemForm.isCanModification(), itemForm.isCanCommercialUse());
 
         itemService.saveItem(item);
-
         return "redirect:/";
     }
 }
