@@ -14,6 +14,7 @@ import java.sql.Date;
 
 public class Item {
 
+    private String id;
     private long likes; // 좋아요
     private long views; // 조회수
     
