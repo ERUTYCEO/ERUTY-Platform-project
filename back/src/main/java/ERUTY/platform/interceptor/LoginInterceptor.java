@@ -15,7 +15,7 @@ import java.util.List;
 public class LoginInterceptor implements HandlerInterceptor {
 
     public List loginEssential = Arrays.asList("/**");
-    public List loginInessential = Arrays.asList("/", "/members/new", "/members/login", "/items/new");
+    public List loginInessential = Arrays.asList("/", "/members/new", "/members/login", "/items/new", "/members/findpwd"));
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -26,7 +26,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         if(session.getAttribute("loginId") != null) {
             log.info("로그인 상태입니다");
-            session.invalidate();
             return true;
         }
         else {
