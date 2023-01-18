@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter @Setter
 public class ItemForm{
@@ -16,8 +16,12 @@ public class ItemForm{
     private String createdDate;
     @NotEmpty(message = "창작 내용을 입력해주세요.")
     private String description;
-    @NotEmpty(message = "제작 툴을 입력해주세요.")
-    private String tool;
     @NotNull(message = "가격를 입력해주세요.")
     private long price;
+    @NotNull
+    private boolean isOrigin;
+    @NotNull
+    private boolean canCommercialUse;
+    @NotNull
+    private boolean canModification;
 }

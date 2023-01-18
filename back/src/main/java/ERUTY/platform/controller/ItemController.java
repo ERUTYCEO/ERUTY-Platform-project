@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
-
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -31,17 +25,18 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String registration(@Valid ItemForm itemForm, BindingResult result) throws ParseException {
+    public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/itemRegist";
         }
-
-        String s = itemForm.getCreatedDate();
+        String s = String.valueOf(itemForm.getCreatedDate());
         java.sql.Date sqlDate = java.sql.Date.valueOf(s);
 
-        Item item = new Item(itemForm.getDesignName(), itemForm.getCreator(), sqlDate,
-                itemForm.getDescription(), itemForm.getTool(), itemForm.getPrice());
+        Item item = new Item(
+                itemForm.getDesignName(), itemForm.getCreator(), sqlDate,
+                itemForm.getDescription(), itemForm.getPrice(), itemForm.isOrigin(),
+                itemForm.isCanModification(), itemForm.isCanCommercialUse());
 
         itemService.saveItem(item);
 
