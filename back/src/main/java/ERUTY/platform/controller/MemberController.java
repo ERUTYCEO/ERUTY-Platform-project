@@ -1,7 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Member;
-import ERUTY.platform.repository.MemberRepository;
+import ERUTY.platform.form.*;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class MemberController {
 
     @PostMapping("/members/new")
     public String registration(@Valid MemberForm memberForm, BindingResult result) {
-        memberService.validateConfirmPassword(memberForm);
+        memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
         if(result.hasErrors()) {
             return "members/regist";
@@ -43,6 +43,7 @@ public class MemberController {
 
         return "redirect:/";
     }
+
     @GetMapping("/members/login")
     public String login_check(Model model) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());

@@ -1,10 +1,10 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.controller.EmailForm;
-import ERUTY.platform.controller.MemberForm;
-import ERUTY.platform.controller.changepwdForm;
-import ERUTY.platform.controller.MemberLoginForm;
-import ERUTY.platform.controller.findPwdForm;
+import ERUTY.platform.form.EmailForm;
+import ERUTY.platform.form.MemberForm;
+import ERUTY.platform.form.changepwdForm;
+import ERUTY.platform.form.MemberLoginForm;
+import ERUTY.platform.form.findPwdForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +36,7 @@ public class MemberService {
         }
     }
 
-    public void validateConfirmPassword(MemberForm memberForm) {
-        String pwd = memberForm.getPassword();
-        String confirmpwd = memberForm.getConfirmpassword();
-
+    public void validateConfirmPassword(String pwd, String confirmpwd) {
         if(!(pwd.equals(confirmpwd))) {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
@@ -54,21 +51,17 @@ public class MemberService {
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
 
-        if(!(newpwd.equals(newconfirm))){
-            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
-        }
+        validateConfirmPassword(newpwd, newconfirm);
 
-        Member newMember = new Member(member.getName(), member.getEmail(), newpwd);
-
-        memberRepository.save(newMember);
-        memberRepository.delete(member);
-
+        member.setPassword(newpwd);
+        memberRepository.save(member);
     }
+
     public Member findLoginMember(MemberLoginForm memberLoginForm) {
         validateExistEmail(memberLoginForm);
 
         Member findMember = memberRepository.findMemberByEmail(memberLoginForm.getEmail());
-        validateCorrectPassword(memberLoginForm, findMember);
+        validateConfirmPassword(memberLoginForm.getPassword(), findMember.getPassword());
 
         return findMember;
     }
@@ -78,12 +71,6 @@ public class MemberService {
 
         if(findMembers.isEmpty()) {
             throw new IllegalStateException("이메일을 다시 확인해주십시오.");
-        }
-    }
-
-    private void validateCorrectPassword(MemberLoginForm memberLoginForm, Member findMember) {
-        if(!(memberLoginForm.getPassword().equals(findMember.getPassword()))) {
-            throw new IllegalStateException("비밀번호를 다시 확인해주십시오");
         }
     }
 

@@ -1,13 +1,9 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.controller.ItemForm;
-import ERUTY.platform.controller.MemberForm; //
+import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.ItemRepository; //
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
