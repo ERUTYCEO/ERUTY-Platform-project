@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -28,10 +30,10 @@ public class ItemController {
     public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/regist";
+            return "items/itemRegist";
         }
-        String s = String.valueOf(itemForm.getCreatedDate());
-        java.sql.Date sqlDate = java.sql.Date.valueOf(s);
+
+        java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
 
         Item item = new Item(
                 itemForm.getDesignName(), itemForm.getCreator(), sqlDate,

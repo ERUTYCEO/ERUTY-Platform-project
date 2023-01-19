@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Document(collection = "item")
 @Getter
