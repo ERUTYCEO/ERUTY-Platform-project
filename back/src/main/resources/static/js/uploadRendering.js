@@ -23,7 +23,7 @@ controls.maxDistance = 100; // 마우스 휠로 카메라 거리 조작시 최�
 
 const object = new THREE.Object3D();
 loader.load(
-  "../img/cat.obj",
+  "https://eruty.s3.ap-northeast-2.amazonaws.com/3dObj/cat.obj",
   function (objectload) {
     object.add(objectload);
     scene.add(object);
