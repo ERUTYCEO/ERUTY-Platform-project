@@ -16,8 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -28,14 +26,14 @@ public class ItemController {
     @GetMapping("/items/new")
     public String createForm(Model model) {
         model.addAttribute("itemForm", new ItemForm());
-        return "items/itemRegist";
+        return "items/upload2";
     }
 
     @PostMapping("/items/new")
     public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/itemRegist";
+            return "items/upload2";
         }
 
         java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
