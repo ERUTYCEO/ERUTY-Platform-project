@@ -88,7 +88,15 @@
             </p>
           </div>
           <label class="file-label" for="chooseFile">Choose File</label>
-          <input class="file" id="chooseFile" type="file" accept=".obj, .fbx" />
+          <form action="" method="post" enctype="multipart/form-data">
+            <input
+              class="file"
+              id="chooseFile"
+              name="3dFile"
+              type="file"
+              accept=".obj, .fbx"
+            />
+          </form>
         </div>
       </div>
     </div>
