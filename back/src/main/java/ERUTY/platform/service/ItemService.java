@@ -2,10 +2,13 @@ package ERUTY.platform.service;
 
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.repository.ItemRepository; //
-
+import ERUTY.platform.form.findItemForm;
+import ERUTY.platform.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 
@@ -34,5 +37,19 @@ public class ItemService {
         if(!items.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 이름의 디자인입니다.");
         }
+    }
+
+    public Page<Item> TotalItem(Pageable pageable){
+        Page<Item> TotalItemList = itemRepository.findAll(pageable);
+        return TotalItemList;
+    }
+
+    public Page<Item> searchItemList(findItemForm finditemForm, Pageable pageable){
+        String searchKeyword = finditemForm.getDesignName();
+        Page<Item> searchitems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
+        if (searchitems.isEmpty()){
+            throw new IllegalStateException("검색결과가 없습니다.");
+        }
+        return searchitems;
     }
 }
