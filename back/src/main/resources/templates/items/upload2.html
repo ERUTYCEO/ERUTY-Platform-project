@@ -162,7 +162,12 @@
     </h2>
     <hr style="width: 90%; margin: 0 auto" />
 
-    <form role="form" action="/items/new" th:object="${itemForm}" method="post">
+    <form
+      role="form"
+      action="/items/upload2"
+      th:object="${itemForm}"
+      method="post"
+    >
       <div class="outline flex_layout">
         <div class="olb layout_left">
           <canvas class="obj" id="server-3d">obj</canvas>
@@ -200,7 +205,6 @@
                     th:field="*{designName}"
                     class="form-control"
                     placeholder="디자인 이름을 입력하세요"
-                    th:class="${#fields.hasErrors('designName')}? 'form-control fieldError' : 'form-control'"
                   />
                 </li>
                 <li>
@@ -209,7 +213,6 @@
                     th:field="*{createdDate}"
                     class="form-control"
                     placeholder="창작연월일을 입력하세요"
-                    th:class="${#fields.hasErrors('createdDate')}? 'form-control fieldError' : 'form-control'"
                   />
                 </li>
                 <li>
@@ -218,7 +221,6 @@
                     th:field="*{creator}"
                     class="form-control"
                     placeholder="창작자 이름을 입력하세요"
-                    th:class="${#fields.hasErrors('creator')}? 'form-control fieldError' : 'form-control'"
                   />
                 </li>
                 <li>
@@ -227,7 +229,6 @@
                     th:field="*{price}"
                     class="form-control"
                     placeholder="판매 가격을 입력하세요"
-                    th:class="${#fields.hasErrors('price')}? 'form-control fieldError' : 'form-control'"
                   />
                 </li>
               </ul>
@@ -240,7 +241,6 @@
                     th:field="*{description}"
                     class="form-control"
                     placeholder="창작 내용을 입력하세요"
-                    th:class="${#fields.hasErrors('description')}? 'form-control fieldError' : 'form-control'"
                   ></textarea>
                 </li>
               </ul>
@@ -251,37 +251,24 @@
           <div class="right_line">
             <div class="right_title mb-3">저작권한설정</div>
             <div class="form-check form-switch">
-              <label class="form-check-label" for="originCheck"
-                >출처 표시</label
-              >
-              <input
-                class="form-check-input"
-                type="checkbox"
-                th:field="*{isOrigin}"
-                name="isOrigin"
-              />
+              출처 표시
+              <input class="form-check-input" type="checkbox" name="isOrigin" />
             </div>
             <div class="form-check form-switch">
+              상업적 이용 금지
               <input
                 class="form-check-input"
                 type="checkbox"
-                th:field="*{canCommercialUse}"
                 name="canCommercialUse"
               />
-              <label class="form-check-label" for="commerceCheck"
-                >상업적 이용 금지</label
-              >
             </div>
             <div class="form-check form-switch">
+              변경 금지
               <input
                 class="form-check-input"
                 type="checkbox"
-                th:field="*{canModification}"
                 name="canModification"
               />
-              <label class="form-check-label" for="changeCheck"
-                >변경 금지</label
-              >
             </div>
           </div>
           <div class="btn_block">
@@ -379,7 +366,7 @@
 
       const object = new THREE.Object3D();
       loader.load(
-        "https://eruty.s3.ap-northeast-2.amazonaws.com/upload1/3dfile",
+        "https://eruty.s3.ap-northeast-2.amazonaws.com/upload1/3dFile",
         function (objectload) {
           object.add(objectload);
           scene.add(object);

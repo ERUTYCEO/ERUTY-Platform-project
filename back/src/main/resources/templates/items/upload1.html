@@ -152,7 +152,7 @@
 
           var files = document.getElementById(chooseFile).files;
           var file = files[0];
-          var fileName = file.name;
+          var fileName = "3dFile "; //file.name;
           var upload1 = encodeURIComponent("upload1") + "/";
           var saveKey = upload1 + fileName;
 
@@ -167,7 +167,7 @@
           promise.then(
             function (data) {
               alert("Successfully uploaded.");
-              location.href = "upload2.html";
+              location.href = "/items/upload2";
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
@@ -200,7 +200,7 @@
 
           var files = e.dataTransfer?.files;
           var file = files[0];
-          var fileName = "3dfile"; //file.name;
+          var fileName = "3dFile"; //file.name;
           var upload1 = encodeURIComponent("upload1") + "/";
           var saveKey = upload1 + fileName;
 
@@ -215,7 +215,7 @@
           promise.then(
             function (data) {
               alert("Successfully uploaded.");
-              location.href = "upload2.html";
+              location.href = "/items/upload2";
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
