@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1298.0/aws-sdk.min.js"></script>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +12,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+
     <title>ERUTY</title>
     <style>
       #root {
@@ -100,18 +103,35 @@
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
     <script>
-      function UploadFile(chooseFile) {
+      ///// 환경변수 설정/////
+      var albumBucketName = "eruty";
+      var bucketRegion = "ap-northeast-2";
+      var IdentityPoolId =
+        "ap-northeast-2:ad9e4563-487d-40f1-9394-4710693f7fab";
+
+      AWS.config.update({
+        region: bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: IdentityPoolId,
+        }),
+      });
+      var s3 = new AWS.S3({
+        apiVersion: "2006-03-01",
+        params: { Bucket: albumBucketName },
+      });
+
+      ///// 파일 선택한 경우 /////
+      function ChooseFile(chooseFile) {
         let uploadFile = document.getElementById(chooseFile);
         function upload(e) {
-          const file = e.target.files;
-
-          var DOM_img = document.createElement("img");
-          DOM_img.src = URL.createObjectURL(file[0]);
-          console.log(file[0]);
-          console.log(DOM_img.src);
-          document.body.appendChild(DOM_img);
+          // const file = e.target.files;
+          // var DOM_img = document.createElement("img");
+          // DOM_img.src = URL.createObjectURL(file[0]);
+          // console.log(file[0]);
+          // console.log(DOM_img.src);
+          // document.body.appendChild(DOM_img);
           //
           // var formData = new FormData();
           // formData.append("file", file[0]);
@@ -129,12 +149,38 @@
           // const fileUrl = URL.createObjectURL(file[0]);
           // console.log(URL.createObjectURL(file[0]));
           // location.href = "test3.html?fileUrl=" + fileUrl;
+
+          var files = document.getElementById(chooseFile).files;
+          var file = files[0];
+          var fileName = "3dFile "; //file.name;
+          var upload1 = encodeURIComponent("upload1") + "/";
+          var saveKey = upload1 + fileName;
+
+          var upload = new AWS.S3.ManagedUpload({
+            params: {
+              Bucket: albumBucketName,
+              Key: saveKey,
+              Body: file,
+            },
+          });
+          var promise = upload.promise();
+          promise.then(
+            function (data) {
+              alert("Successfully uploaded.");
+              location.href = "/items/upload2";
+            },
+            function (err) {
+              return alert("There was an error upload: ", err.message);
+            }
+          );
         }
         uploadFile.addEventListener("input", upload);
       }
 
+      ///// 파일 드래그 한 경우 /////
       function DropFile(dropAreaId) {
         let dropArea = document.getElementById(dropAreaId);
+
         function preventDefaults(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -149,8 +195,32 @@
         }
         function handleDrop(e) {
           unhighlight(e);
-          const file = e.dataTransfer?.files;
-          //location.href = "http://naver.com";
+          // const file = e.dataTransfer?.files;
+          // location.href = "http://naver.com";
+
+          var files = e.dataTransfer?.files;
+          var file = files[0];
+          var fileName = "3dFile"; //file.name;
+          var upload1 = encodeURIComponent("upload1") + "/";
+          var saveKey = upload1 + fileName;
+
+          var upload = new AWS.S3.ManagedUpload({
+            params: {
+              Bucket: albumBucketName,
+              Key: saveKey,
+              Body: file,
+            },
+          });
+          var promise = upload.promise();
+          promise.then(
+            function (data) {
+              alert("Successfully uploaded.");
+              location.href = "/items/upload2";
+            },
+            function (err) {
+              return alert("There was an error upload: ", err.message);
+            }
+          );
         }
 
         dropArea.addEventListener("dragenter", highlight, false);
@@ -159,7 +229,7 @@
         dropArea.addEventListener("drop", handleDrop, false);
       }
       const dropFile = new DropFile("drop-file");
-      const uploadFile = new UploadFile("chooseFile");
+      const chooseFile = new ChooseFile("chooseFile");
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

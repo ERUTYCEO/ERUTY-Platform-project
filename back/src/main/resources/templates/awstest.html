@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1298.0/aws-sdk.min.js"></script>
+  </head>
+  <body>
+    <h1>Photo Album Viewer</h1>
+    <div id="viewer"></div>
+  </body>
+  <script>
+    var albumBucketName = "eruty";
+    AWS.config.region = "ap-northeast-2";
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-northeast-2:ad9e4563-487d-40f1-9394-4710693f7fab",
+    });
+
+    var s3 = new AWS.S3({
+      apiVersion: "2006-03-01",
+    });
+
+    function getHtml(template) {
+      return template.join("\n");
+    }
+    function listAlbums() {
+      s3.listObjects(
+        {
+          Delimiter: "/",
+          Bucket: "eruty",
+        },
+        function (err, data) {
+          console.log(data);
+          var albums = data.CommonPrefixes.map(function (commonPrefix) {
+            var prefix = commonPrefix.Prefix;
+            var albumName = decodeURIComponent(prefix.replace("/", ""));
+            console.log(albumName);
+            show(albumName);
+          });
+        }
+      );
+      function show(albumName) {
+        var albumPhotosKey = encodeURIComponent(albumName) + "/";
+        s3.listObjects(
+          { Prefix: albumPhotosKey, Bucket: "eruty" },
+          function (err, data) {
+            if (err) {
+              return alert(
+                "There was an error viewing your album: " + err.message
+              );
+            }
+            var href = this.request.httpRequest.endpoint.href;
+            var bucketUrl = href + "eruty" + "/";
+
+            var photos = data.Contents.map(function (photo) {
+              var photoKey = photo.Key;
+              var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+              console.log(photoUrl);
+            });
+          }
+        );
+      }
+    }
+  </script>
+  <script>
+    listAlbums();
+  </script>
+</html>
