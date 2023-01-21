@@ -23,13 +23,22 @@ import javax.validation.Valid;
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping("/items/new")
+    @GetMapping("/items/upload1")
+    public String upload1() {
+        log.info("upload1 controller");
+
+        return "items/upload1";
+    }
+    
+    @GetMapping("/items/upload2")
     public String createForm(Model model) {
+        log.info("upload2 controller");
+
         model.addAttribute("itemForm", new ItemForm());
         return "items/upload2";
     }
 
-    @PostMapping("/items/new")
+    @PostMapping("/items/upload2")
     public String registration(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
