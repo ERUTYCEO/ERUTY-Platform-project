@@ -52,4 +52,8 @@ public class ItemService {
         }
         return searchitems;
     }
+
+    public List<Item> findItemsByCreator(String creator){
+        return itemRepository.findItemsByCreator(creator);
+    }
 }

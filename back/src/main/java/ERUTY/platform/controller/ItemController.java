@@ -3,6 +3,7 @@ package ERUTY.platform.controller;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
+import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -71,5 +74,20 @@ public class ItemController {
         model.addAttribute("searchlist", searchlist);
         return "itemSearch";
     }*/
-
+    @GetMapping("/items/test")
+    public String test1(@ModelAttribute("creator") String creator, Model model){
+        List<Item> items = itemService.findItemsByCreator("윤건우");
+        for(Item item : items){
+            System.out.println(item.getCreator());
+        }
+        return "/home";
+    }
+    @PostMapping("/items/test")
+    public String test(@ModelAttribute("creator") String creator, Model model){
+        List<Item> items = itemService.findItemsByCreator("윤건우");
+        for(Item item : items){
+            System.out.println(item.getCreator());
+        }
+        return "/home";
+    }
 }
