@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: 172.31.40.150
+      host: 54.180.89.196
       port: 27017
       database: ERUTY_Member
       username: eruty
@@ -22,7 +22,7 @@ spring:
           starttls:
             enable: true
 server:
-  host: http://13.209.87.106
+  host: 54.180.89.196
   port: 8080
 
 logging:
