@@ -4,12 +4,14 @@ import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
+import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service

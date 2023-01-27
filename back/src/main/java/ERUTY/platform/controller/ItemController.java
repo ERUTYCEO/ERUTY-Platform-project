@@ -4,6 +4,7 @@ import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
+import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.web.PageableDefault;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -22,6 +25,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
+    private final MemberService memberService;
 
     @GetMapping("/items/upload1")
     public String upload1() {
@@ -39,7 +43,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/upload2")
-    public String registration(@Valid ItemForm itemForm, BindingResult result) {
+    public String registration(@Valid ItemForm itemForm, BindingResult result, HttpSession session) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload2";
@@ -52,7 +56,15 @@ public class ItemController {
                 itemForm.getDescription(), itemForm.getPrice(), itemForm.isOrigin(),
                 itemForm.isCanModification(), itemForm.isCanCommercialUse());
 
+        session.getAttribute("loginId");
+
+        log.info("session : " + session);
+
+        String memberId = String.valueOf(session);
+
         itemService.saveItem(item);
+        memberService.uploadListUpdate(item.getId(), memberId);
+
         return "redirect:/";
     }
     @GetMapping("/items/search")
