@@ -19,8 +19,10 @@ spring:
           auth: true
           starttls:
             enable: true
+server:
+  host: http://13.209.87.106
+  port: 8080
 
 logging:
   level:
     org.springframework.data.mongodb: DEBUG
-
