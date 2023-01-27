@@ -9,10 +9,12 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +43,7 @@ public class MemberService {
             throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
+
     public void CheckAndUpdate(changepwdForm changepwdform){
         String email = changepwdform.getEmail();
         Member member = memberRepository.findMemberByEmail(email);
@@ -141,5 +144,9 @@ public class MemberService {
         mailMessage.setText(emailForm.getMessage());
 
         mailSender.send(mailMessage);
+    }
+
+    public List<Member> getAllMember() {
+        return memberRepository.findBy();
     }
 }
