@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.sql.Date;
@@ -12,6 +13,9 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
+
+    @Id
+    private String id;
 
     private long likes; // 좋아요
     private long views; // 조회수
@@ -26,6 +30,8 @@ public class Item {
     private boolean isOrigin;
     private boolean canCommercialUse;
     private boolean canModification;
+
+
 
     @Builder
     public Item(String designName, String creator, Date createdDate,

@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "member")
@@ -17,7 +18,7 @@ public class Member {
     private String email;
     private String password;
     private boolean marketingOk;
-    private List<Item> uploadList;
+    private List<String> uploadList = new ArrayList<>();
 
     public Member(String name, String email, String password, boolean marketingOk) {
         this.name = name;
