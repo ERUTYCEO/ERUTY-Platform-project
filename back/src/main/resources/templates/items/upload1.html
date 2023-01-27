@@ -106,11 +106,10 @@
 
     <script>
       ///// 환경변수 설정/////
-      var albumBucketName = "eruty";
+      var albumBucketName = "eruty-s3";
       var bucketRegion = "ap-northeast-2";
       var IdentityPoolId =
-        "ap-northeast-2:ad9e4563-487d-40f1-9394-4710693f7fab";
-
+        "ap-northeast-2:d98b565f-6372-4ae0-ad72-72a4873f4223";
       AWS.config.update({
         region: bucketRegion,
         credentials: new AWS.CognitoIdentityCredentials({
@@ -126,33 +125,9 @@
       function ChooseFile(chooseFile) {
         let uploadFile = document.getElementById(chooseFile);
         function upload(e) {
-          // const file = e.target.files;
-          // var DOM_img = document.createElement("img");
-          // DOM_img.src = URL.createObjectURL(file[0]);
-          // console.log(file[0]);
-          // console.log(DOM_img.src);
-          // document.body.appendChild(DOM_img);
-          //
-          // var formData = new FormData();
-          // formData.append("file", file[0]);
-          // $.ajax({
-          //   url: "test3.html",
-          //   type: "get",
-          //   //data: formData,
-          //   processData: false,
-          //   contentType: false,
-          //   success: function (data) {
-          //     console.log(data);
-          //   },
-          // });
-          //
-          // const fileUrl = URL.createObjectURL(file[0]);
-          // console.log(URL.createObjectURL(file[0]));
-          // location.href = "test3.html?fileUrl=" + fileUrl;
-
           var files = document.getElementById(chooseFile).files;
           var file = files[0];
-          var fileName = "3dFile "; //file.name;
+          var fileName = "3dFile"; //file.name;
           var upload1 = encodeURIComponent("upload1") + "/";
           var saveKey = upload1 + fileName;
 
@@ -195,9 +170,6 @@
         }
         function handleDrop(e) {
           unhighlight(e);
-          // const file = e.dataTransfer?.files;
-          // location.href = "http://naver.com";
-
           var files = e.dataTransfer?.files;
           var file = files[0];
           var fileName = "3dFile"; //file.name;

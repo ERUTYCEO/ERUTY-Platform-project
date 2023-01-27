@@ -280,10 +280,10 @@
 
     <script>
       ///// 환경변수 설정 /////
-      var albumBucketName = "eruty";
+      var albumBucketName = "eruty-s3";
       var bucketRegion = "ap-northeast-2";
       var IdentityPoolId =
-        "ap-northeast-2:ad9e4563-487d-40f1-9394-4710693f7fab";
+        "ap-northeast-2:d98b565f-6372-4ae0-ad72-72a4873f4223";
 
       AWS.config.update({
         region: bucketRegion,
@@ -366,7 +366,7 @@
 
       const object = new THREE.Object3D();
       loader.load(
-        "https://eruty.s3.ap-northeast-2.amazonaws.com/upload1/3dFile",
+        "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/upload1/3dFile",
         function (objectload) {
           object.add(objectload);
           scene.add(object);

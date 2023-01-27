@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'ERUTY'
-version = 'eruty'
+version = '0.1'
 sourceCompatibility = '11'
 
 jar {
