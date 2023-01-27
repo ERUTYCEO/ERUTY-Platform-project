@@ -21,11 +21,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns(loginInterceptor.loginEssential)
                 .excludePathPatterns(loginInterceptor.loginInessential);*/
     }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("file:/templates/", "file:/static/")
-                .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
-    }
 }

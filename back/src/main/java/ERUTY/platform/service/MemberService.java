@@ -146,7 +146,7 @@ public class MemberService {
         mailSender.send(mailMessage);
     }
 
-    public List<Member> getAllMember() {
-        return memberRepository.findBy();
+    public List<Member> getMarketingMember() {
+        return memberRepository.findAllByOrderByMarketingOkDesc();
     }
 }

@@ -38,7 +38,7 @@ public class MemberController {
             return "members/regist";
         }
 
-        Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword());
+        Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
 
         memberService.saveMember(member);
 
@@ -107,11 +107,10 @@ public class MemberController {
 
     @GetMapping("/members/authmember")
     public String list(Model model) {
-        List<Member> memberList = memberService.getAllMember();
-        model.addAttribute("memberList", memberList);
+        List<Member> marketingList = memberService.getMarketingMember();
 
-        log.info("진입");
+        model.addAttribute("memberList", marketingList);
 
-        return "members/manage";
+        return "members/mange";
     }
 }
