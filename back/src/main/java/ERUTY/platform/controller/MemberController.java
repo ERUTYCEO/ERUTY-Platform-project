@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -102,5 +103,15 @@ public class MemberController {
         memberService.sendEmail(emailForm);
 
         return "redirect:/members/login";
+    }
+
+    @GetMapping("/members/authmember")
+    public String list(Model model) {
+        List<Member> memberList = memberService.getAllMember();
+        model.addAttribute("memberList", memberList);
+
+        log.info("진입");
+
+        return "members/manage";
     }
 }
