@@ -1,10 +1,9 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.form.ItemForm;
+import ERUTY.platform.form.ItemForm2;
 import ERUTY.platform.form.ItemForm1;
 import ERUTY.platform.form.findItemForm;
-import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,12 +43,12 @@ public class ItemController {
 
     @GetMapping("/items/upload2")
     public String createForm2(Model model) {
-        model.addAttribute("itemForm", new ItemForm());
+        model.addAttribute("itemForm2", new ItemForm2());
         return "items/upload2";
     }
 
     @PostMapping("/items/upload2")
-    public String registration2(@Valid ItemForm itemForm, BindingResult result) {
+    public String registration2(@Valid ItemForm2 itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload2";
