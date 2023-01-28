@@ -23,4 +23,6 @@ public class ItemForm{
     private boolean canCommercialUse;
     @NotNull
     private boolean canModification;
+    @NotEmpty
+    private String imagePath;
 }

@@ -2,6 +2,7 @@ package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.ItemForm;
+import ERUTY.platform.form.ItemForm1;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.service.ItemService;
@@ -25,15 +26,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
+    private String modelPath;
 
-    @GetMapping("/items/new")
-    public String createForm(Model model) {
+    @GetMapping("/items/upload1")
+    public String createForm1(Model model){
+        model.addAttribute("itemForm1", new ItemForm1());
+        return "items/upload1";
+    }
+    @PostMapping("/items/upload1")
+    public String registration1(@Valid ItemForm1 itemForm1, BindingResult result){
+        if(result.hasErrors()){
+            return "items/upload1";
+        }
+        modelPath = itemForm1.getModelPath();
+        return "items/upload2";
+    }
+
+    @GetMapping("/items/upload2")
+    public String createForm2(Model model) {
         model.addAttribute("itemForm", new ItemForm());
         return "items/upload2";
     }
 
-    @PostMapping("/items/new")
-    public String registration(@Valid ItemForm itemForm, BindingResult result) {
+    @PostMapping("/items/upload2")
+    public String registration2(@Valid ItemForm itemForm, BindingResult result) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload2";
@@ -41,10 +57,18 @@ public class ItemController {
 
         java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
 
-        Item item = new Item(
-                itemForm.getDesignName(), itemForm.getCreator(), sqlDate,
-                itemForm.getDescription(), itemForm.getPrice(), itemForm.isOrigin(),
-                itemForm.isCanModification(), itemForm.isCanCommercialUse());
+        Item item = Item.builder()
+                .designName(itemForm.getDesignName())
+                .creator(itemForm.getCreator())
+                .createdDate(sqlDate)
+                .description(itemForm.getDescription())
+                .price(itemForm.getPrice())
+                .isOrigin(itemForm.isOrigin())
+                .canModification(itemForm.isCanModification())
+                .canModification(itemForm.isCanCommercialUse())
+                .modelPath(modelPath)
+                .imagePath(itemForm.getImagePath())
+                .build();
 
         itemService.saveItem(item);
         return "redirect:/";
@@ -74,6 +98,8 @@ public class ItemController {
         model.addAttribute("searchlist", searchlist);
         return "itemSearch";
     }*/
+
+    
     @GetMapping("/items/test")
     public String test1(@ModelAttribute("creator") String creator, Model model){
         List<Item> items = itemService.findItemsByCreator("윤건우");
