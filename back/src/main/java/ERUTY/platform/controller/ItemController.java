@@ -70,7 +70,7 @@ public class ItemController {
     @GetMapping("/items/search")
     public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
         Page<Item> list = null;
-        String searchKeyword = finditemForm.getDesignName();
+        String searchKeyword = finditemForm.getSearchKeyword();
         if (searchKeyword == null){
             list = itemService.TotalItem(pageable); // 검색 X -> 아이템 전체 리스트들 띄우기
         }
@@ -84,13 +84,21 @@ public class ItemController {
         model.addAttribute("nowPage",nowPage);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
-        return "itemSearch";
+        return "items/itemSearch";
     }
-    /*@GetMapping("/items/search")
-    public String search(Model model, findItemForm finditemForm) {
-        List<Item> searchlist = itemService.searchItemList(finditemForm);
-        model.addAttribute("searchlist", searchlist);
-        return "itemSearch";
-    }*/
+
+    @GetMapping("/items/view")
+    public String itemview(Model model, String designName){
+        model.addAttribute("info",itemService.iteminfo(designName));
+        String name = itemService.iteminfo(designName).getDesignName();
+        String description = itemService.iteminfo(designName).getDescription();
+        String creator = itemService.iteminfo(designName).getCreator();
+        long price = itemService.iteminfo(designName).getPrice();
+        model.addAttribute("name", name);
+        model.addAttribute("description",description);
+        model.addAttribute("creator", creator);
+        model.addAttribute("price",price);
+        return "items/itemInfo";
+    }
 
 }

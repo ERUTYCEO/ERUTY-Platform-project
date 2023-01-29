@@ -47,11 +47,15 @@ public class ItemService {
     }
 
     public Page<Item> searchItemList(findItemForm finditemForm, Pageable pageable){
-        String searchKeyword = finditemForm.getDesignName();
+        String searchKeyword = finditemForm.getSearchKeyword();
         Page<Item> searchitems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
         if (searchitems.isEmpty()){
             throw new IllegalStateException("검색결과가 없습니다.");
         }
         return searchitems;
+    }
+
+    public Item iteminfo(String designName){
+        return itemRepository.findItemByDesignName(designName);
     }
 }
