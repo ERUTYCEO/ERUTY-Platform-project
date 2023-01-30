@@ -31,12 +31,16 @@ public class Item {
     private boolean canCommercialUse;
     private boolean canModification;
 
+    private String modelPath;
+    private String imagePath;
+
 
 
     @Builder
     public Item(String designName, String creator, Date createdDate,
                 String description, long price, boolean isOrigin,
-                boolean canModification, boolean canCommercialUse) {
+                boolean canModification, boolean canCommercialUse,
+                String modelPath, String imagePath) {
         this.designName = designName;
         this.creator = creator;
         this.createdDate = createdDate;
@@ -45,5 +49,7 @@ public class Item {
         this.isOrigin = isOrigin;
         this.canModification = canModification;
         this.canCommercialUse = canCommercialUse;
+        this.modelPath = modelPath;
+        this.imagePath = imagePath;
     }
 }

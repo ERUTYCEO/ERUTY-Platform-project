@@ -1,6 +1,6 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.form.ItemForm;
+import ERUTY.platform.form.ItemForm2;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
@@ -33,7 +33,7 @@ public class ItemService {
         }
     }
 
-    public void validateDuplicateMember(ItemForm itemForm) {
+    public void validateDuplicateMember(ItemForm2 itemForm) {
         List<Item> items = itemRepository.findItemsByDesignName(itemForm.getDesignName());
 
         if(!items.isEmpty()) {
@@ -55,6 +55,8 @@ public class ItemService {
         return searchitems;
     }
 
+    public List<Item> findItemsByCreator(String creator){
+        return itemRepository.findItemsByCreator(creator);
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
     }
