@@ -6,12 +6,29 @@
     }
 </style>
 <body>
-<div class="container">
-    <form role="form" action="/items/search" method="GET">
-        <input type="text" th:field="*{designName}" class="form-control"
-               placeholder="디자인 이름을 입력하세요">
+<div class="layout">
+    <table>
+        <thead>
+        <tr>
+        </tr>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        </thead>
+        <tbody>
+        <tr th:each="item: ${list}">
+            <td>
+                <a th:text="${item.designName}" th:href="@{/items/view(designName=${item.designName})}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+        <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+    </th:block>
+    <form th:action="@{/items/search}" method = "GET">
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
     </form>
 </div>
 </body>

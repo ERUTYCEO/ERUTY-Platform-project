@@ -8,5 +8,5 @@ import javax.validation.constraints.NotEmpty;
 @Getter @Setter
 public class findItemForm {
     @NotEmpty(message = "디자인 이름 입력.")
-    private String designName;
+    private String searchKeyword;
 }

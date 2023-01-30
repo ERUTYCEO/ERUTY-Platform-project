@@ -5,6 +5,7 @@ import ERUTY.platform.form.ItemForm2;
 import ERUTY.platform.form.ItemForm1;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
+import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.web.PageableDefault;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -48,7 +51,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/upload2")
-    public String registration2(@Valid ItemForm2 itemForm, BindingResult result) {
+    public String registration2(@Valid ItemForm2 itemForm, BindingResult result, HttpSession session) {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload2";
@@ -69,13 +72,21 @@ public class ItemController {
                 .imagePath(itemForm.getImagePath())
                 .build();
 
+        session.getAttribute("loginId");
+
+        log.info("session : " + session);
+
+        String memberId = String.valueOf(session);
+
         itemService.saveItem(item);
+        memberService.uploadListUpdate(item.getId(), memberId);
+
         return "redirect:/";
     }
     @GetMapping("/items/search")
     public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
         Page<Item> list = null;
-        String searchKeyword = finditemForm.getDesignName();
+        String searchKeyword = finditemForm.getSearchKeyword();
         if (searchKeyword == null){
             list = itemService.TotalItem(pageable); // 검색 X -> 아이템 전체 리스트들 띄우기
         }
@@ -89,14 +100,22 @@ public class ItemController {
         model.addAttribute("nowPage",nowPage);
         model.addAttribute("startPage",startPage);
         model.addAttribute("endPage",endPage);
-        return "itemSearch";
+        return "items/itemSearch";
     }
-    /*@GetMapping("/items/search")
-    public String search(Model model, findItemForm finditemForm) {
-        List<Item> searchlist = itemService.searchItemList(finditemForm);
-        model.addAttribute("searchlist", searchlist);
-        return "itemSearch";
-    }*/
+
+    @GetMapping("/items/view")
+    public String itemview(Model model, String designName){
+        model.addAttribute("info",itemService.iteminfo(designName));
+        String name = itemService.iteminfo(designName).getDesignName();
+        String description = itemService.iteminfo(designName).getDescription();
+        String creator = itemService.iteminfo(designName).getCreator();
+        long price = itemService.iteminfo(designName).getPrice();
+        model.addAttribute("name", name);
+        model.addAttribute("description",description);
+        model.addAttribute("creator", creator);
+        model.addAttribute("price",price);
+        return "items/itemInfo";
+    }
 
     
     @GetMapping("/items/test")
