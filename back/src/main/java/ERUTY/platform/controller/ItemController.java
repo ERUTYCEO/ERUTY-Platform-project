@@ -83,6 +83,7 @@ public class ItemController {
 
         return "redirect:/";
     }
+    
     @GetMapping("/items/search")
     public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
         Page<Item> list = null;
