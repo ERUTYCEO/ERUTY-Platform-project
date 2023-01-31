@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/login.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <p class="login-logo">ERUTY</p>
+      <div class="login-container">
+        <form
+          role="form"
+          action="/members/login"
+          th:object="${memberLoginForm}"
+          method="post"
+        >
+          <div class="mb-3">
+            <input
+              type="email"
+              class="form-control login-email"
+              id="exampleInputEmail1"
+              placeholder="이메일"
+              aria-describedby="emailHelp"
+              th:field="*{email}"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control login-password"
+              placeholder="비밀번호"
+              id="exampleInputPassword1"
+              th:field="*{password}"
+            />
+          </div>
+
+          <div
+            id="loginMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *이메일 및 비밀번호를 입력해주세요
+          </div>
+          <button type="submit" class="login-btn w-100">Login</button>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#findPassword-modal"
+        >
+          FindPassword
+        </button>
+        <a href="/members/new"
+          ><button
+            type="button"
+            class="signup"
+            data-bs-toggle="modal"
+            data-bs-target="#signUp-modal"
+          >
+            SignUp
+          </button></a
+        >
+      </div>
+    </div>
+  </body>
+</html>
