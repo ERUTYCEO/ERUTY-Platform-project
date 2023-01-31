@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -108,6 +110,8 @@ public class MemberController {
     @GetMapping("/members/authmember")
     public String list(Model model) {
         List<Member> marketingList = memberService.getMarketingMember();
+        int count = Array.getLength(marketingList.toArray());
+        log.info("count : " + marketingList);
 
         model.addAttribute("memberList", marketingList);
 

@@ -155,6 +155,7 @@ public class MemberService {
     public void uploadListUpdate(String itemId, String memberId) {
 
         Member member = memberRepository.findMemberById(memberId);
+        log.info("itemID : " + itemId);
 
         member.getUploadList().add(itemId);
     }
