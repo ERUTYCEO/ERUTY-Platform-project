@@ -28,6 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemService itemService;
+    private final MemberService memberService;
     private String modelPath;
 
     @GetMapping("/items/upload1")
@@ -72,11 +73,7 @@ public class ItemController {
                 .imagePath(itemForm.getImagePath())
                 .build();
 
-        session.getAttribute("loginId");
-
-        log.info("session : " + session);
-
-        String memberId = String.valueOf(session);
+        String memberId = (String)session.getAttribute("loginId");
 
         itemService.saveItem(item);
         memberService.uploadListUpdate(item.getId(), memberId);
