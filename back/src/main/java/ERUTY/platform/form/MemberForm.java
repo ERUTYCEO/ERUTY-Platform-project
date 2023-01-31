@@ -11,4 +11,5 @@ public class MemberForm {
     private String email;
     private String password;
     private String confirmpassword;
+    private boolean marketingOk;
 }

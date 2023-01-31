@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+<div class="layout">
+    <table>
+        <thead>
+        <tr>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr th:each="item: ${list}">
+            <td>
+                <a th:text="${item.designName}" th:href="@{/items/view(designName=${item.designName})}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a th:if="${page != nowPage}" th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+        <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+    </th:block>
+    <form th:action="@{/items/search}" method = "GET">
+        <input type="text" name="searchKeyword">
+        <button type="submit">검색</button>
+    </form>
+</div>
+</body>
+</html>
