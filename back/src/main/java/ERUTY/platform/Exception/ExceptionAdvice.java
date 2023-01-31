@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionAdvice {
 
     @ExceptionHandler(BaseException.class)
-    public String handleBaseEx(BaseException exception) {
+    public ResponseEntity handleBaseEx(BaseException exception) {
 
         log.error("BaseException errorMessage(): {}",exception.getExceptionType().getErrorMessage());
         log.error("BaseException errorCode(): {}",exception.getExceptionType().getErrorCode());
 
-        return "main";
+        return new ResponseEntity(new ExceptionDto(exception.getExceptionType().getErrorCode()), exception.getExceptionType().getHttpStatus());
     }
 
     @ExceptionHandler(Exception.class)

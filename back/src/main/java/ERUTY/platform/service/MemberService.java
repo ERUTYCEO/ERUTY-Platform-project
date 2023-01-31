@@ -72,7 +72,7 @@ public class MemberService {
         List<Member> findMembers = memberRepository.findMembersByEmail(memberLoginForm.getEmail());
 
         if(findMembers.isEmpty()) {
-            throw new IllegalStateException("email no exist");
+            throw new MemberException(MemberExceptionType.NOT_FOUND_MEMBER);
         }
     }
 
