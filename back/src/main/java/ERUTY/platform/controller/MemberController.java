@@ -26,16 +26,16 @@ public class MemberController {
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
 
-        return "members/regist";
+        return "signup";
     }
 
     @PostMapping("/members/new")
     public String registration(@Valid MemberForm memberForm, BindingResult result) {
         memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
-        if(result.hasErrors()) {
-            return "members/regist";
-        }
+        // if(result.hasErrors()) {
+        //     return "members/regist";
+        // }
 
         Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword());
 
@@ -48,7 +48,7 @@ public class MemberController {
     public String login_check(Model model) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());
 
-        return "members/loginsession";
+        return "login";
     }
 
     @PostMapping("/members/login")
