@@ -1,15 +1,12 @@
 package ERUTY.platform.form;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import java.util.Date;
-
 @Getter @Setter
-public class ItemForm{
+public class ItemForm2 {
     @NotEmpty(message = "디자인 이름을 입력해주세요.")
     private String designName;
     @NotEmpty(message = "창작자를 입력해주세요.")
@@ -26,4 +23,6 @@ public class ItemForm{
     private boolean canCommercialUse;
     @NotNull
     private boolean canModification;
+    @NotEmpty
+    private String imagePath;
 }

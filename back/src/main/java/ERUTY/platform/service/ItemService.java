@@ -1,6 +1,6 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.form.ItemForm;
+import ERUTY.platform.form.ItemForm2;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
@@ -33,7 +33,7 @@ public class ItemService {
         }
     }
 
-    public void validateDuplicateMember(ItemForm itemForm) {
+    public void validateDuplicateMember(ItemForm2 itemForm) {
         List<Item> items = itemRepository.findItemsByDesignName(itemForm.getDesignName());
 
         if(!items.isEmpty()) {
@@ -47,11 +47,17 @@ public class ItemService {
     }
 
     public Page<Item> searchItemList(findItemForm finditemForm, Pageable pageable){
-        String searchKeyword = finditemForm.getDesignName();
+        String searchKeyword = finditemForm.getSearchKeyword();
         Page<Item> searchitems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
         if (searchitems.isEmpty()){
             throw new IllegalStateException("검색결과가 없습니다.");
         }
         return searchitems;
+    }
+
+    public List<Item> findItemsByCreator(String creator){
+        return itemRepository.findItemsByCreator(creator);
+    public Item iteminfo(String designName){
+        return itemRepository.findItemByDesignName(designName);
     }
 }
