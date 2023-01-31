@@ -55,8 +55,10 @@ public class ItemService {
         return searchitems;
     }
 
-    public List<Item> findItemsByCreator(String creator){
+    public List<Item> findItemsByCreator(String creator) {
         return itemRepository.findItemsByCreator(creator);
+    }
+
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
     }

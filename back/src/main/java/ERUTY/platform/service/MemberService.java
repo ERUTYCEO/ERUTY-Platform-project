@@ -1,8 +1,8 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.domain.Item;
+import ERUTY.platform.Exception.MemberException;
+import ERUTY.platform.Exception.MemberExceptionType;
 import ERUTY.platform.form.EmailForm;
-import ERUTY.platform.form.MemberForm;
 import ERUTY.platform.form.changepwdForm;
 import ERUTY.platform.form.MemberLoginForm;
 import ERUTY.platform.form.findPwdForm;
@@ -10,13 +10,10 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Slf4j
@@ -36,13 +33,13 @@ public class MemberService {
         List<Member> findMember = memberRepository.findMembersByEmail(member.getEmail());
 
         if(!findMember.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+           throw new MemberException(MemberExceptionType.ALREADY_EXIST_EMAIL);
         }
     }
 
     public void validateConfirmPassword(String pwd, String confirmpwd) {
         if(!(pwd.equals(confirmpwd))) {
-            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
+            throw new MemberException(MemberExceptionType.WRONG_PASSWORD);
         }
     }
 
@@ -51,7 +48,7 @@ public class MemberService {
         Member member = memberRepository.findMemberByEmail(email);
 
         if(member == null){
-            throw new IllegalStateException("존재하지 않는 이메일입니다");
+            throw new MemberException(MemberExceptionType.NOT_FOUND_MEMBER);
         }
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
@@ -75,7 +72,7 @@ public class MemberService {
         List<Member> findMembers = memberRepository.findMembersByEmail(memberLoginForm.getEmail());
 
         if(findMembers.isEmpty()) {
-            throw new IllegalStateException("이메일을 다시 확인해주십시오.");
+            throw new IllegalStateException("email no exist");
         }
     }
 

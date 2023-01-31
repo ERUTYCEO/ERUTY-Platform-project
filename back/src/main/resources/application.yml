@@ -1,5 +1,6 @@
 server:
-  port: 8234
+  host: 54.180.89.196
+  port: 8080
 
 spring:
   data:
@@ -24,9 +25,6 @@ spring:
           auth: true
           starttls:
             enable: true
-server:
-  host: 54.180.89.196
-  port: 8080
 
 logging:
   level:

@@ -34,9 +34,9 @@ public class MemberController {
     public String registration(@Valid MemberForm memberForm, BindingResult result) {
         memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
-        // if(result.hasErrors()) {
-        //     return "members/regist";
-        // }
+        if(result.hasErrors()) {
+            return "members/regist";
+        }
 
         Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
 
@@ -53,8 +53,12 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public String login(@Valid MemberLoginForm memberLoginForm, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String login(@Valid MemberLoginForm memberLoginForm, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
         Member loginMember = memberService.findLoginMember(memberLoginForm);
+
+        if(result.hasErrors()) {
+            return "redirect:/";
+        }
 
         session.setAttribute("loginId", loginMember.getId());
         log.info("session : " + session.getAttribute("loginId"));
