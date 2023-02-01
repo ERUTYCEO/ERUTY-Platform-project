@@ -1,5 +1,6 @@
 package ERUTY.platform.controller;
 
+import ERUTY.platform.common.Messsage;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.*;
 import ERUTY.platform.service.MemberService;
@@ -10,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -31,18 +31,27 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String registration(@Valid MemberForm memberForm, BindingResult result) {
-        memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
+    public String registration(@Valid MemberForm memberForm, Model model, BindingResult result) {
 
-        // if(result.hasErrors()) {
-        //     return "members/regist";
-        // }
+        try {
+            memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
-        Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
+            if(result.hasErrors()) {
+                return "members/regist";
+            }
 
-        memberService.saveMember(member);
+            Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
 
-        return "redirect:/";
+            memberService.saveMember(member);
+        } catch (IllegalStateException exception) {
+            model.addAttribute("data", new Messsage(exception.getMessage(), "/members/new"));
+
+            return "message";
+        }
+        model.addAttribute("data", new Messsage("성공적으로 회원가입이 되셨습니다.", "/"));
+
+        return "message";
+        //return "redirect:/";
     }
 
     @GetMapping("/members/login")
@@ -53,25 +62,39 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public String login(@Valid MemberLoginForm memberLoginForm, HttpSession session, RedirectAttributes redirectAttributes) {
-        Member loginMember = memberService.findLoginMember(memberLoginForm);
+    public String login(@Valid MemberLoginForm memberLoginForm, Model model, HttpSession session) {
+        try {
+            Member loginMember = memberService.findLoginMember(memberLoginForm);
 
-        session.setAttribute("loginId", loginMember.getId());
-        log.info("session : " + session.getAttribute("loginId"));
-        /*
+            session.setAttribute("loginId", loginMember.getId());
+            log.info("session : " + session.getAttribute("loginId"));
+
+        } catch (IllegalStateException exception) {
+            log.info("exception : " + exception.getMessage());
+
+            model.addAttribute("data", new Messsage(exception.getMessage(), "/members/login"));
+
+            return "message";
+        }
+
         // 로그인 전에 요청한 페이지가 있으면 그 페이지를 redirect
         String dest = (String) session.getAttribute("dest");
         String redirect = (dest == null) ? "/" : dest;
-        return "redirect:" + redirect;
-         */
-        return "redirect:/";
+
+        model.addAttribute("data", new Messsage("로그인 되었습니다.", redirect));
+
+        //return "redirect:" + redirect;
+
+        return "message";
     }
 
     @GetMapping("/members/logout")
-    public String logout(HttpSession session) {
+    public String logout(Model model, HttpSession session) {
         session.invalidate();
+        model.addAttribute("data", new Messsage("로그아웃 되었습니다.", "/"));
 
-        return "redirect:/";
+        return "message";
+        //return "redirect:/";
     }
 
     @GetMapping("/members/changepwd")
@@ -82,12 +105,23 @@ public class MemberController {
     }
 
     @PostMapping("/members/changepwd")
-    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result) {
-        memberService.CheckAndUpdate(changepwdform);
-        if (result.hasErrors()) {
-            return "members/changepassword";
+    public String changePassword(@Valid changepwdForm changepwdform,Model model, BindingResult result) {
+        try {
+            memberService.CheckAndUpdate(changepwdform);
+
+            if (result.hasErrors()) {
+                return "members/changepassword";
+            }
+
+        } catch (IllegalStateException exception) {
+            model.addAttribute("data", new Messsage(exception.getMessage(), "/members/changepwd"));
+
+            return "message";
         }
-        return "redirect:/";
+        model.addAttribute("data", new Messsage("비밀번호 변경을 완료하였습니다.", "/"));
+
+        return "message";
+        //return "redirect:/";
     }
 
     @GetMapping("/members/findpwd")
@@ -98,11 +132,19 @@ public class MemberController {
     }
 
     @PostMapping("/members/findpwd")
-    public String change_Pwd_by_Email(@Valid findPwdForm pwdForm) {
-        EmailForm emailForm = memberService.find_Email_by_Email_and_Name(pwdForm);
-        memberService.sendEmail(emailForm);
+    public String change_Pwd_by_Email(@Valid findPwdForm pwdForm, Model model) {
+        try {
+            EmailForm emailForm = memberService.find_Email_by_Email_and_Name(pwdForm);
+            memberService.sendEmail(emailForm);
+        } catch (IllegalStateException exception) {
+            model.addAttribute("data", new Messsage(exception.getMessage(), "/members/findpwd"));
 
-        return "redirect:/members/login";
+            return "message";
+        }
+        model.addAttribute("data", new Messsage("로그인 페이지로 이동합니다", "/members/login"));
+
+        return "message";
+        //return "redirect:/members/login";
     }
 
     @GetMapping("/members/authmember")
