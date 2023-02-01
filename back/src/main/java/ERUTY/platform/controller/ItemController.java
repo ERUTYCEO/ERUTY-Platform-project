@@ -1,8 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.form.ItemForm2;
-import ERUTY.platform.form.ItemForm1;
+import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
@@ -30,33 +29,19 @@ public class ItemController {
     private final ItemService itemService;
     private final MemberService memberService;
 
-    private String modelPath;
-
-    @GetMapping("/items/upload1")
-    public String createForm1(Model model){
-        model.addAttribute("itemForm1", new ItemForm1());
-        return "items/upload1";
-    }
-    @PostMapping("/items/upload1")
-    public String registration1(@Valid ItemForm1 itemForm1, BindingResult result){
-        if(result.hasErrors()){
-            return "items/upload1";
-        }
-        modelPath = itemForm1.getModelPath();
-        return "items/upload2";
-    }
-
-    @GetMapping("/items/upload2")
+    @GetMapping("/items/upload")
     public String createForm2(Model model) {
-        model.addAttribute("itemForm2", new ItemForm2());
-        return "items/upload2";
+        log.info("item controller getmapping");
+        model.addAttribute("itemForm", new ItemForm());
+        return "items/upload";
     }
 
-    @PostMapping("/items/upload2")
-    public String registration2(@Valid ItemForm2 itemForm, BindingResult result, HttpSession session) {
+    @PostMapping("/items/upload")
+    public String registration2(@Valid ItemForm itemForm, BindingResult result, HttpSession session) {
+        log.info("item controller");
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
-            return "items/upload2";
+            return "items/upload";
         }
 
         java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
@@ -70,8 +55,8 @@ public class ItemController {
                 .isOrigin(itemForm.isOrigin())
                 .canModification(itemForm.isCanModification())
                 .canModification(itemForm.isCanCommercialUse())
-                .modelPath(modelPath)
                 .imagePath(itemForm.getImagePath())
+                .modelPath(itemForm.getModelPath())
                 .build();
 
         session.getAttribute("loginId");
@@ -81,10 +66,11 @@ public class ItemController {
         String memberId = String.valueOf(session);
 
         itemService.saveItem(item);
-        memberService.uploadListUpdate(item.getId(), memberId);
+        //memberService.uploadListUpdate(item.getId(), memberId);
 
         return "redirect:/";
     }
+
     @GetMapping("/items/search")
     public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
         Page<Item> list = null;

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter @Setter
-public class ItemForm2 {
+public class ItemForm {
     @NotEmpty(message = "디자인 이름을 입력해주세요.")
     private String designName;
     @NotEmpty(message = "창작자를 입력해주세요.")
@@ -25,4 +25,7 @@ public class ItemForm2 {
     private boolean canModification;
     @NotEmpty
     private String imagePath;
+    @NotEmpty
+    private String modelPath;
+
 }
