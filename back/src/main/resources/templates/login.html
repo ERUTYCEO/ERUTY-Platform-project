@@ -25,6 +25,7 @@
               placeholder="이메일"
               aria-describedby="emailHelp"
               th:field="*{email}"
+              required
             />
           </div>
           <div class="mb-3">
@@ -34,28 +35,31 @@
               placeholder="비밀번호"
               id="exampleInputPassword1"
               th:field="*{password}"
+              required
             />
           </div>
 
-          <div
+          <!-- <div
             id="loginMessage"
             style="color: red; font-size: 13px; display: none"
           >
             *이메일 및 비밀번호를 입력해주세요
-          </div>
+          </div> -->
           <button type="submit" class="login-btn w-100">Login</button>
         </form>
       </div>
 
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-toggle="modal"
-          data-bs-target="#findPassword-modal"
+        <a href="/members/findbyemail">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-toggle="modal"
+            data-bs-target="#findPassword-modal"
+          >
+            FindPassword
+          </button></a
         >
-          FindPassword
-        </button>
         <a href="/members/new"
           ><button
             type="button"
