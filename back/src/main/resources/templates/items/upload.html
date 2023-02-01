@@ -215,13 +215,7 @@
       File Edit
     </h2>
     <hr style="width: 90%; margin: 0 auto" />
-    <form
-      id="submitForm"
-      name="upload2"
-      action="/items/upload2"
-      th:object="${itemForm2}"
-      method="post"
-    >
+    <form action="/items/upload" th:object="${itemForm}" method="post">
       <div class="outline flex_layout">
         <div class="olb layout_left" id="leftContents">
           <div id="contentsClass" class="contents">
@@ -370,7 +364,7 @@
             />
           </div>
           <div class="btn_block">
-            <button type="button" class="bt1" id="submitButton">save</button>
+            <button class="bt1" type="submit">save</button>
           </div>
         </div>
       </div>
