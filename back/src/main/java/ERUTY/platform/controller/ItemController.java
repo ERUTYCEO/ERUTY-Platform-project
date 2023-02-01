@@ -79,11 +79,11 @@ public class ItemController {
         String memberId = String.valueOf(session);
 
         itemService.saveItem(item);
-        memberService.uploadListUpdate(item.getId(), memberId);
+        //memberService.uploadListUpdate(item.getId(), memberId);
 
         return "redirect:/";
     }
-    
+
     @GetMapping("/items/search")
     public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
         Page<Item> list = null;
