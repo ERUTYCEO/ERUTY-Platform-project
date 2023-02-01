@@ -14,4 +14,10 @@ public class HomeController {
 
         return "home";
     }
+    @GetMapping("/gallery")
+    public String gallery() {
+        log.info("gallery controller");
+
+        return "gallery";
+    }
 }

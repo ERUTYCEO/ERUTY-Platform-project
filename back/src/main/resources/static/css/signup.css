@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+* {
+  margin: 0;
+}
+
+body {
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-logo {
+  margin-top: 20px;
+  font-size: 4rem;
+  color: rgb(36, 170, 225);
+  font-weight: 900;
+}
+
+.signup-container {
+  width: 465px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.signup-input input {
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  width: 100%;
+  height: 45px;
+}
+
+.signup-input p {
+  margin-top: 27px;
+  font-weight: 800;
+}
+
+.agreement-container {
+  margin: 20px 0;
+}
+
+.signup-btn {
+  background-color: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
+  height: 60px;
+  color: white;
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="/css/signup.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="signup-container">
+      <p class="signup-logo">ERUTY</p>
+      <form
+        role="form"
+        id="signUpform"
+        action="/members/new"
+        th:object="${memberForm}"
+        method="post"
+      >
+        <div class="mb-3">
+          <div class="signup-input">
+            <p>이름</p>
+            <input
+              id="signUpName"
+              type="text"
+              th:field="*{name}"
+              class="form-control"
+            />
+          </div>
+          <div
+            id="signUpNameMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *이름을 입력해주세요
+          </div>
+          <div class="signup-input">
+            <p>이메일</p>
+            <input
+              type="email"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              th:field="*{email}"
+              class="form-control"
+            />
+          </div>
+
+          <div
+            id="signUpEmailMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *이메일을 입력해주세요
+          </div>
+        </div>
+        <div class="mb-3 signup-input">
+          <p>비밀번호</p>
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            th:field="*{password}"
+          />
+          <p>비밀번호 확인</p>
+          <input
+            type="password"
+            class="form-control mt-1"
+            id="exampleInputPassword2"
+            th:field="*{confirmpassword}"
+          />
+          <div
+            id="signUpPWDMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *비밀번호가 다릅니다
+          </div>
+          <div
+            id="signUpPWMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *비밀번호를 입력해주세요
+          </div>
+        </div>
+
+        <div class="agreement-container mt-3">
+          <div>
+            <input type="checkbox" id="allcheck" class="form-check-input" />
+            <span style="color: rgb(36, 170, 225); font-size: 18px"
+              >모두동의</span
+            >
+          </div>
+          <div class="check-group">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck2"
+            />
+            만 14세 이상입니다.<span style="color: red; font-size: 12px"
+              >(필수)</span
+            >
+          </div>
+          <div class="check-group">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck3"
+            />
+            서비스 이용약관에 동의합니다.<span
+              style="color: red; font-size: 12px"
+              >(필수)</span
+            >
+          </div>
+          <div class="check-group">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck4"
+            />
+            개인정보 수집/이용에 동의합니다.<span
+              style="color: red; font-size: 12px"
+              >(필수)</span
+            >
+          </div>
+          <div class="check-group">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck5"
+            />
+            개인정보 제 3자 제공에 동의합니다.<span
+              style="color: red; font-size: 12px"
+              >(필수)</span
+            >
+          </div>
+          <div class="check-group">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck6"
+            />
+            이벤트 할인 혜택 알람 수신에 동의합니다.
+          </div>
+          <div
+            id="signUpTermMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *필수약관에 동의해주세요
+          </div>
+        </div>
+        <button
+          type="button"
+          id="signUpSubmit"
+          class="login-btn w-100 mt-3 signup-btn"
+        >
+          가입하기
+        </button>
+      </form>
+    </div>
+    <script>
+      function checkSignUp() {
+        var check = 0;
+        if (signUpform.exampleInputEmail1.value == "") {
+          $("#signUpEmailMessage").show();
+        } else {
+          $("#signUpEmailMessage").hide();
+          check = check + 1;
+        }
+        if (signUpform.signUpName.value == "") {
+          $("#signUpNameMessage").show();
+        } else {
+          $("#signUpNameMessage").hide();
+          check = check + 1;
+        }
+
+        if (signUpform.exampleInputPassword1.value == "") {
+          $("#signUpPWMessage").show();
+        } else {
+          $("#signUpPWMessage").hide();
+          check = check + 1;
+        }
+
+        if (
+          signUpform.exampleInputPassword1.value !=
+          signUpform.exampleInputPassword2.value
+        ) {
+          $("#signUpPWDMessage").show();
+        } else {
+          $("#signUpPWDMessage").hide();
+          check = check + 1;
+        }
+
+        if (
+          signUpform.exampleCheck4.checked == false ||
+          signUpform.exampleCheck3.checked == false ||
+          signUpform.exampleCheck2.checked == false ||
+          signUpform.exampleCheck5.checked == false
+        ) {
+          $("#signUpTermMessage").show();
+        } else {
+          $("#signUpTermMessage").hide();
+          check = check + 1;
+        }
+        if (check == 5) {
+          console.log("통과");
+          document.getElementById("signUpform").submit();
+        }
+      }
+
+      signUpSubmit.addEventListener("click", checkSignUp);
+
+      // 전체선택
+      $("#allcheck").on("click", function () {
+        var checked = $(this).is(":checked");
+        if (checked) {
+          $(this)
+            .closest(".agreement-container")
+            .find(".form-check-input")
+            .prop("checked", true);
+        } else {
+          $(this)
+            .closest(".agreement-container")
+            .find(".form-check-input")
+            .prop("checked", false);
+        }
+        console.log($(this).closest(".agreement-container"));
+      });
+
+      $(".agreement-container .form-check-input").on("click", function () {
+        var chkGroup = $(this)
+          .closest(".agreement-container")
+          .find(".check-group");
+        var chkGroup_cnt = chkGroup.length;
+        checked_cnt = $(".check-group .form-check-input:checked").length;
+
+        if (checked_cnt < chkGroup_cnt) {
+          $("#allcheck").prop("checked", false);
+        } else if (checked_cnt == chkGroup_cnt) {
+          $("#allcheck").prop("checked", true);
+        }
+      });
+    </script>
+  </body>
+</html>

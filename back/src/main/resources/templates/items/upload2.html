@@ -206,6 +206,7 @@
                     th:field="*{designName}"
                     class="form-control"
                     placeholder="디자인 이름을 입력하세요"
+                    id="designName"
                   />
                 </li>
                 <li>
@@ -273,9 +274,25 @@
             </div>
           </div>
           <div class="btn_block">
-            <button type="submit" class="bt1">save</button>
+            <button type="submit" class="bt1" id="submitForm">save</button>
           </div>
         </div>
+      </div>
+      <div style="background-color: red; display: none">
+        <input
+          type="text"
+          th:field="*{item3dFile}"
+          id="item3dFile"
+          value=""
+          class="form-control"
+        />
+        <input
+          type="text"
+          th:field="*{itemTitleImg}"
+          id="itemTitleImg"
+          value=""
+          class="form-control"
+        />
       </div>
     </form>
 
@@ -326,8 +343,33 @@
         });
         var promise = upload.promise();
       }
+      function submitItem() {
+        ///// item titleImg upload /////
+        // var fileName1 = document.getElementById("designName"); //file.name;
+        // var fileName2 = fileName1.value;
+        var fileName = document.getElementById("mainImg"); //file.name;
+        var fileName2 = fileName.querySelector("img");
+        console.log(fileName2);
+        var file = fileName2.src;
+
+        var itemTitleImg = encodeURIComponent("item") + "/"; //+ itemid
+        var saveKey = itemTitleImg + "fileName2";
+        // var file =
+        //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/upload2/titleImg.png";
+        var upload = new AWS.S3.ManagedUpload({
+          params: {
+            Bucket: albumBucketName,
+            Key: saveKey,
+            Body: file,
+          },
+        });
+        var promise = upload.promise();
+
+        ///// item 3dFile upload /////
+      }
       titleImg.addEventListener("click", handleClick, false);
       uploadImg.addEventListener("input", upload);
+      // submitForm.addEventListener("click", submitItem);
     </script>
 
     <!-- tree.js-->
