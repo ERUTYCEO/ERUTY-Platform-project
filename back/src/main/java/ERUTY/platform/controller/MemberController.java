@@ -31,13 +31,15 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String registration(@Valid MemberForm memberForm, Model model, BindingResult result) {
+    public String registration(@Valid MemberForm memberForm, BindingResult result, Model model) {
 
         try {
             memberService.validateConfirmPassword(memberForm.getPassword(), memberForm.getConfirmpassword());
 
             if(result.hasErrors()) {
-                return "members/regist";
+                model.addAttribute("data", new Messsage("모든 항목을 채워주십시오.", "/members/new"));
+
+                return "message";
             }
 
             Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
@@ -48,6 +50,7 @@ public class MemberController {
 
             return "message";
         }
+
         model.addAttribute("data", new Messsage("성공적으로 회원가입이 되셨습니다.", "/"));
 
         return "message";
@@ -62,9 +65,15 @@ public class MemberController {
     }
 
     @PostMapping("/members/login")
-    public String login(@Valid MemberLoginForm memberLoginForm, Model model, HttpSession session) {
+    public String login(@Valid MemberLoginForm memberLoginForm, BindingResult result, Model model, HttpSession session) {
         try {
             Member loginMember = memberService.findLoginMember(memberLoginForm);
+
+            if(result.hasErrors()) {
+                model.addAttribute("data", new Messsage("모든 항목을 채워주십시오.", "/members/login"));
+
+                return "message";
+            }
 
             session.setAttribute("loginId", loginMember.getId());
             log.info("session : " + session.getAttribute("loginId"));
@@ -105,12 +114,14 @@ public class MemberController {
     }
 
     @PostMapping("/members/changepwd")
-    public String changePassword(@Valid changepwdForm changepwdform,Model model, BindingResult result) {
+    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result,Model model) {
         try {
             memberService.CheckAndUpdate(changepwdform);
 
             if (result.hasErrors()) {
-                return "members/changepassword";
+                model.addAttribute("data", new Messsage("모든 항목을 채워주십시오.", "/members/changepwd"));
+
+                return "message";
             }
 
         } catch (IllegalStateException exception) {
