@@ -31,7 +31,7 @@ public class ItemController {
 
     @GetMapping("/items/upload")
     public String createForm2(Model model) {
-        model.addAttribute("itemForm2", new ItemForm());
+        model.addAttribute("itemForm", new ItemForm());
         return "items/upload";
     }
 
