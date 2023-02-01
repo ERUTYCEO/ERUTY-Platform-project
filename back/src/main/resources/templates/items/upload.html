@@ -216,10 +216,9 @@
     </h2>
     <hr style="width: 90%; margin: 0 auto" />
     <form
-      id="submitForm"
-      name="upload2"
-      action="/items/upload2"
-      th:object="${itemForm2}"
+      role = "form"
+      action="/items/upload"
+      th:object="${itemForm}"
       method="post"
     >
       <div class="outline flex_layout">
@@ -370,7 +369,7 @@
             />
           </div>
           <div class="btn_block">
-            <button type="button" class="bt1" id="submitButton">save</button>
+            <button type="submit" class="bt1" id="submitButton">save</button>
           </div>
         </div>
       </div>

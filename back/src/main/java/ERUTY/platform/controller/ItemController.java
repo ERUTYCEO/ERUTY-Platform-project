@@ -31,12 +31,14 @@ public class ItemController {
 
     @GetMapping("/items/upload")
     public String createForm2(Model model) {
+        log.info("item controller getmapping");
         model.addAttribute("itemForm", new ItemForm());
         return "items/upload";
     }
 
     @PostMapping("/items/upload")
     public String registration2(@Valid ItemForm itemForm, BindingResult result, HttpSession session) {
+        log.info("item controller");
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload";
