@@ -3,9 +3,11 @@ package ERUTY.platform.controller;
 import ERUTY.platform.common.Messsage;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.*;
+import ERUTY.platform.service.EmailService;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final EmailService emailService;
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
@@ -145,8 +148,11 @@ public class MemberController {
     @PostMapping("/members/findpwd")
     public String change_Pwd_by_Email(@Valid findPwdForm pwdForm, Model model) {
         try {
-            EmailForm emailForm = memberService.find_Email_by_Email_and_Name(pwdForm);
-            memberService.sendEmail(emailForm);
+            log.info("이메일 생성");
+            EmailForm emailForm = emailService.createMailAndChangePwd(pwdForm);
+
+            log.info("이메일 전송");
+            emailService.sendEmail(emailForm);
         } catch (IllegalStateException exception) {
             model.addAttribute("data", new Messsage(exception.getMessage(), "/members/findpwd"));
 
