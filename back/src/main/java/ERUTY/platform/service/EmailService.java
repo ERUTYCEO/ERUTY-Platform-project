@@ -17,7 +17,7 @@ public class EmailService {
 
     private final MemberRepository memberRepository;
     private final JavaMailSender mailSender;
-    private static final String FROM_ADDRESS = "dragonica123@naver.com";
+    private static final String FROM_ADDRESS = "eruty7057@naver.com";
 
     public EmailForm createMailAndChangePwd(findPwdForm pwdForm) {
         Member member = memberRepository.findMemberByEmail(pwdForm.getEmail());
