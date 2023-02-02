@@ -61,4 +61,8 @@ public class ItemService {
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
     }
+
+    public List<Item> getItemList() {
+        return null;
+    }
 }

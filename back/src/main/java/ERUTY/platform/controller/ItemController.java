@@ -1,6 +1,7 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
+import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
@@ -121,5 +122,14 @@ public class ItemController {
             System.out.println(item.getCreator());
         }
         return "/home";
+    }
+
+    @GetMapping("/togallery")
+    public String galleryList(Model model) {
+        List<Item> galleryList = itemService.getItemList();
+
+        model.addAttribute("memberList", galleryList);
+
+        return "gallery";
     }
 }
