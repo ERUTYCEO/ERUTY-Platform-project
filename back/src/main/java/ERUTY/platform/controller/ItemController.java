@@ -92,14 +92,6 @@ public class ItemController {
         model.addAttribute("endPage",endPage);
         return "gallery";
     }
-    /*
-    1. a href 경로
-                2. img src 경로
-                3. h4 판매 디자인이름
-                4. p 가격
-                5. p 좋아요
-                6. p 조회수
-     */
 
     @GetMapping("/items/view")
     public String itemview(Model model, String designName){
