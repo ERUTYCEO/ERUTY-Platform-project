@@ -65,4 +65,10 @@ public class ItemService {
     public List<Item> getItemList() {
         return null;
     }
+
+    public Item findOne(String itemId) {
+        Item item = itemRepository.findItemById(itemId);
+
+        return item;
+    }
 }
