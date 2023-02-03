@@ -20,4 +20,11 @@ public class HomeController {
 
         return "gallery";
     }
+    @GetMapping("/designpage")
+    public String designpage() {
+        log.info("designpage controller");
+
+        return "designpage";
+    }
+    
 }
