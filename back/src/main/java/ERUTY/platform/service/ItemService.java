@@ -61,4 +61,16 @@ public class ItemService {
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
     }
+
+    public List<Item> getItemList() {
+        return null;
+    }
+
+    public Item findOne(String itemId) {
+        Item item = itemRepository.findItemById(itemId);
+//        item.setViews(item.getViews() + 1);
+//        itemRepository.save(item);
+
+        return item;
+    }
 }
