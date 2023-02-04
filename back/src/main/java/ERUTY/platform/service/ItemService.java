@@ -64,6 +64,7 @@ public class ItemService {
         return null;
     }
 
+
     public Item updateView(String itemId) {
         Item item = itemRepository.findItemById(itemId);
         item.viewPlusOne();
