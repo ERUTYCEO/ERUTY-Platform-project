@@ -127,7 +127,7 @@ public class ItemController {
 
     @GetMapping("items/{itemId}/detail")
     public String itemDetail(@PathVariable("itemId") String itemId, Model model) {
-        Item item = itemService.findOne(itemId);
+        Item item = itemService.updateView(itemId);
 
         model.addAttribute("item", item);
 

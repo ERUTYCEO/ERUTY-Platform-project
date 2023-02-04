@@ -52,4 +52,7 @@ public class Item {
         this.modelPath = modelPath;
         this.imagePath = imagePath;
     }
+    public void viewPlusOne(){
+        this.views++;
+    }
 }
