@@ -96,13 +96,11 @@
               </div>
             </section>
             <!-- to 상명 / 좋아요, 조회수 -->
-            <li th:each="item: ${item}">
-
-              <span th:text="${item.getLikes()} "></span>
-              <span th:text="${item.getViews()} "></span>
             <section class="design-eval">
-              <div>좋아요 : 100</div>
-              <div>조회수 : 100</div>
+              좋아요:
+              <div th:text="${item.getLikes()}"></div>
+              조회수:
+              <div th:text="${item.getViews()}"></div>
             </section>
             <nav class="info-nav">
               <div class="info-nav-box">
@@ -183,42 +181,34 @@
               </p>
             </section>
           </div>
+
           <div id="design-sidebar">
             <section class="sidebar-title">
-              <li th:each="item: ${item}">
               <!-- to 상명 / 디자인 이름 -->
-                <span th:text="${item.getDesignName()}"></span>
-              <h1>예시 디자인 / 예시 3D 디자인</h1>
+              <h1 th:text="${item.getDesignName()}"></h1>
             </section>
+
             <section class="sidebar-info-box">
               <div class="sidebar-info">
-                <li th:each="item: ${item}">
                 <!-- to 상명 / 디자인 가격 -->
-                  <span th:text="${item.getPrice()} "></span>
 
+                <div>[[${item.getPrice()}]] 원</div>
 
-                <div>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-                  quia error quod eligendi natus neque. Praesentium, natus quo,
-                  eligendi dolorum omnis fuga expedita officiis ipsam, ducimus
-                  laudantium voluptatem architecto quibusdam.
-                </div>
                 <!-- to 상명 / 저작 권한(3개) -->
-                <div class="sidebar-btn"><button>구매하기</button></div>
+                <div class="sidebar-btn mt-3">
+                  <button>구매하기</button>
+                </div>
               </div>
             </section>
             <section class="seller-box">
               <div class="seller-info">
                 <!-- to 상명 / User id? -->
-                <li th:each="item: ${item}">
-
-                  <span th:text="${item.getCreator()} "></span>
-
-                <div class="seller-name">그래픽디자인컴퍼니</div>
-                <div class="seller-img">
+                <div class="seller-name" th:text="${item.getCreator()} "></div>
+                <!-- <div class="seller-img">  프로필 이미지??
                   <img src="/img/logo.png" alt="" />
-                </div>
+                </div> -->
               </div>
+
               <div class="seller-contact">
                 <div>연락 가능 시간 : 0시 ~ 0시</div>
                 <div>평균 응답 시간 : 30분 이내</div>
