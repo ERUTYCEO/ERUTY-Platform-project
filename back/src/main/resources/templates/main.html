@@ -66,6 +66,7 @@
             <div id="navbar-btn">
               <a href="/members/login">
                 <button
+                        th:if="!${session?.loginId}"
                   class="login-btn"
                   type="button"
                   data-bs-toggle="modal"
@@ -74,9 +75,21 @@
                   LOGIN
                 </button></a
               >
+              <a href="/members/logout">
+                <button
+                        th:if="${session?.loginId}"
+                        class="login-btn"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#login-modal"
+                >
+                  LOGOUT
+                </button></a
+              >
 
               <a href="/members/new"
                 ><button
+                      th:if="!${session?.loginId}"
                   class="signup-btn ms-3"
                   type="button"
                   data-bs-toggle="modal"
@@ -84,6 +97,17 @@
                 >
                   SIGN UP
                 </button></a
+              >
+              <a href="/members/changepwd"
+              ><button
+                      th:if="${session?.loginId}"
+                      class="signup-btn ms-3"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#signUp-modal"
+              >
+                CHANGE PWD
+              </button></a
               >
               <!-- <button
               class="upload-btn ms-3"
