@@ -26,9 +26,12 @@ spring:
           auth: true
           ssl:
             enable: true
+
 # server:
 #   host: 54.180.89.196
 #   port: 8080
+
+
 
 logging:
   level:

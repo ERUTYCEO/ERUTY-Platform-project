@@ -30,6 +30,8 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
     private final MemberService memberService;
+    private String modelPath;
+
 
     @GetMapping("/items/upload")
     public String createForm2(Model model) {
@@ -61,11 +63,7 @@ public class ItemController {
                 .modelPath(itemForm.getModelPath())
                 .build();
 
-        session.getAttribute("loginId");
-
-        log.info("session : " + session);
-
-        String memberId = String.valueOf(session);
+        String memberId = (String)session.getAttribute("loginId");
 
         itemService.saveItem(item);
         //memberService.uploadListUpdate(item.getId(), memberId);
