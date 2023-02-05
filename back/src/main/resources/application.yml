@@ -1,12 +1,13 @@
 server:
-  host: 54.180.89.196
   port: 8080
 
 spring:
   data:
     mongodb:
+      # host: localhost
       host: 54.180.89.196
       port: 27017
+      # database: ERUTY_Member
       database: admin
       username: eruty
       password: eruty
@@ -25,6 +26,12 @@ spring:
           auth: true
           ssl:
             enable: true
+
+# server:
+#   host: 54.180.89.196
+#   port: 8080
+
+
 
 logging:
   level:

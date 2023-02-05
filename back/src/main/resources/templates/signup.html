@@ -6,6 +6,8 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link href="/css/signup.css" rel="stylesheet" />
     <title>Document</title>
@@ -15,6 +17,7 @@
       <p class="signup-logo">ERUTY</p>
       <form
         role="form"
+        id="signUpform"
         action="/members/new"
         th:object="${memberForm}"
         method="post"
@@ -22,7 +25,18 @@
         <div class="mb-3">
           <div class="signup-input">
             <p>이름</p>
-            <input type="text" th:field="*{name}" class="form-control" />
+            <input
+              id="signUpName"
+              type="text"
+              th:field="*{name}"
+              class="form-control"
+            />
+          </div>
+          <div
+            id="signUpNameMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *이름을 입력해주세요
           </div>
           <div class="signup-input">
             <p>이메일</p>
@@ -136,10 +150,97 @@
             *필수약관에 동의해주세요
           </div>
         </div>
-        <button type="submit" class="login-btn w-100 mt-3 signup-btn">
+        <button
+          type="button"
+          id="signUpSubmit"
+          class="login-btn w-100 mt-3 signup-btn"
+        >
           가입하기
         </button>
       </form>
     </div>
+    <script>
+      function checkSignUp() {
+        var check = 0;
+        if (signUpform.exampleInputEmail1.value == "") {
+          $("#signUpEmailMessage").show();
+        } else {
+          $("#signUpEmailMessage").hide();
+          check = check + 1;
+        }
+        if (signUpform.signUpName.value == "") {
+          $("#signUpNameMessage").show();
+        } else {
+          $("#signUpNameMessage").hide();
+          check = check + 1;
+        }
+
+        if (signUpform.exampleInputPassword1.value == "") {
+          $("#signUpPWMessage").show();
+        } else {
+          $("#signUpPWMessage").hide();
+          check = check + 1;
+        }
+
+        if (
+          signUpform.exampleInputPassword1.value !=
+          signUpform.exampleInputPassword2.value
+        ) {
+          $("#signUpPWDMessage").show();
+        } else {
+          $("#signUpPWDMessage").hide();
+          check = check + 1;
+        }
+
+        if (
+          signUpform.exampleCheck4.checked == false ||
+          signUpform.exampleCheck3.checked == false ||
+          signUpform.exampleCheck2.checked == false ||
+          signUpform.exampleCheck5.checked == false
+        ) {
+          $("#signUpTermMessage").show();
+        } else {
+          $("#signUpTermMessage").hide();
+          check = check + 1;
+        }
+        if (check == 5) {
+          console.log("통과");
+          document.getElementById("signUpform").submit();
+        }
+      }
+
+      signUpSubmit.addEventListener("click", checkSignUp);
+
+      // 전체선택
+      $("#allcheck").on("click", function () {
+        var checked = $(this).is(":checked");
+        if (checked) {
+          $(this)
+            .closest(".agreement-container")
+            .find(".form-check-input")
+            .prop("checked", true);
+        } else {
+          $(this)
+            .closest(".agreement-container")
+            .find(".form-check-input")
+            .prop("checked", false);
+        }
+        console.log($(this).closest(".agreement-container"));
+      });
+
+      $(".agreement-container .form-check-input").on("click", function () {
+        var chkGroup = $(this)
+          .closest(".agreement-container")
+          .find(".check-group");
+        var chkGroup_cnt = chkGroup.length;
+        checked_cnt = $(".check-group .form-check-input:checked").length;
+
+        if (checked_cnt < chkGroup_cnt) {
+          $("#allcheck").prop("checked", false);
+        } else if (checked_cnt == chkGroup_cnt) {
+          $("#allcheck").prop("checked", true);
+        }
+      });
+    </script>
   </body>
 </html>

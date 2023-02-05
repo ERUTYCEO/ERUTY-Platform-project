@@ -1,17 +1,15 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.form.ItemForm2;
+import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
-import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -33,7 +31,7 @@ public class ItemService {
         }
     }
 
-    public void validateDuplicateMember(ItemForm2 itemForm) {
+    public void validateDuplicateMember(ItemForm itemForm) {
         List<Item> items = itemRepository.findItemsByDesignName(itemForm.getDesignName());
 
         if(!items.isEmpty()) {
@@ -61,5 +59,17 @@ public class ItemService {
 
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
+    }
+
+    public List<Item> getItemList() {
+        return null;
+    }
+
+
+    public Item updateView(String itemId) {
+        Item item = itemRepository.findItemById(itemId);
+        item.viewPlusOne();
+        itemRepository.save(item);
+        return item;
     }
 }
