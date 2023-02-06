@@ -129,6 +129,6 @@ public class ItemController {
 
         model.addAttribute("item", item);
 
-        return "/designpage";
+        return "designpage";
     }
 }
