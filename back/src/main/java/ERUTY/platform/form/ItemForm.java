@@ -18,7 +18,7 @@ public class ItemForm {
     @NotNull(message = "가격를 입력해주세요.")
     private long price;
     @NotNull
-    private boolean isOrigin;
+    private boolean origin;
     @NotNull
     private boolean canCommercialUse;
     @NotNull
