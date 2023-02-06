@@ -20,16 +20,16 @@
       <nav class="header-nav fixed-top bg-white border-bottom">
         <div class="nav-container">
           <!-- <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
           <div id="navbarCollapse">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <a class="fs-4" href="main.html"
@@ -37,11 +37,11 @@
               /></a>
 
               <!-- <li class="nav-item">
-              <a class="nav-link" href="#gallery1">-</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact1">-</a>
-            </li> -->
+          <a class="nav-link" href="#gallery1">-</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact1">-</a>
+        </li> -->
             </ul>
             <div id="navbar-search">
               <input type="text" id="nav-search" />
@@ -70,22 +70,22 @@
                 <button class="signup-btn ms-3" type="button">SIGN UP</button>
               </a>
               <!-- <button
-              class="upload-btn ms-3"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#about-modal"
-            >
-              UPLOAD
-            </button> -->
+          class="upload-btn ms-3"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#about-modal"
+        >
+          UPLOAD
+        </button> -->
             </div>
           </div>
         </div>
       </nav>
 
       <!-- <div id="example"></div>
-    <div id="example2">
-      <h2 id="highlights1">here</h2>
-    </div> -->
+<div id="example2">
+  <h2 id="highlights1">here</h2>
+</div> -->
     </div>
     <main class="gallery-main">
       <div class="gallery-container">
@@ -97,22 +97,14 @@
             <li>낮은가격순</li>
           </ul>
           <ul class="gallery-list">
-            <li>
-              <!-- to 인욱님
-                timeleaf 수정내용
-                1. a href 경로
-                2. img src 경로
-                3. h4 판매 디자인이름
-                4. p 가격
-                5. p 좋아요
-                6. p 조회수
-              -->
-              <a href="./designpage.html"
-                ><img src="../img/designexp.png" alt="" />
-                <h4>판매 디자인 이름</h4>
-                <p class="price">12,000원</p>
-                <p class="view">좋아요 조회수</p></a
-              >
+            <li th:each="item: ${itemList}">
+              <a th:href="@{/items/{id}/detail (id=${item.getId()})}"
+                ><img th:src="${item.getImagePath()}" alt="" />
+                <h4 th:text="${item.getDesignName()} "></h4>
+                <p class="price" th:text="${item.getPrice()}"></p>
+                <p class="view" th:text="${item.getLikes()}">좋아요</p>
+                <p class="view" th:text="${item.getViews()}">조회수</p>
+              </a>
             </li>
           </ul>
         </div>

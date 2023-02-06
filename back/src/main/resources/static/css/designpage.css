@@ -144,18 +144,18 @@ html {
 
 .main-img {
   position: relative;
-  height: 438px;
+  height: 300px;
   display: flex;
   align-items: center;
   background-color: lightgray;
 }
 
-.main-img > img {
+/* .main-img > img {
   width: 100%;
   max-height: 438px;
   object-fit: cover;
   object-position: center top;
-}
+} */
 
 #design-bar {
   width: 548px;

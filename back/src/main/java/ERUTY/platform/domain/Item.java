@@ -25,7 +25,7 @@ public class Item {
 
     private String designName; // 디자인 명칭
     private String creator; // 창작자
-    private Date createdDate; // 창작연월일
+    //private Date createdDate; // 창작연월일
     private String description; // 작품 설명
     private boolean isOrigin;
     private boolean canCommercialUse;
@@ -37,13 +37,13 @@ public class Item {
 
 
     @Builder
-    public Item(String designName, String creator, Date createdDate,
+    public Item(String designName, String creator, /*Date createdDate,*/
                 String description, long price, boolean isOrigin,
                 boolean canModification, boolean canCommercialUse,
                 String modelPath, String imagePath) {
         this.designName = designName;
         this.creator = creator;
-        this.createdDate = createdDate;
+        //this.createdDate = createdDate;
         this.description = description;
         this.price = price;
         this.isOrigin = isOrigin;
@@ -51,5 +51,8 @@ public class Item {
         this.canCommercialUse = canCommercialUse;
         this.modelPath = modelPath;
         this.imagePath = imagePath;
+    }
+    public void viewPlusOne(){
+        this.views++;
     }
 }

@@ -212,11 +212,11 @@
   <body>
     <div style="margin-top: 20px"></div>
     <h2 class="title" style="margin-top: 10px; text-align: center">
-      File Edit
+      File Upload
     </h2>
     <hr style="width: 90%; margin: 0 auto" />
     <form
-      role = "form"
+      role="form"
       action="/items/upload"
       th:object="${itemForm}"
       method="post"
@@ -305,7 +305,7 @@
                 </li>
                 <li>
                   가격<input
-                    type="text"
+                    type="number"
                     th:field="*{price}"
                     class="form-control"
                     placeholder="판매 가격을 입력하세요"
@@ -377,11 +377,14 @@
             />
           </div>
           <div class="btn_block">
-            <button type="submit" class="bt1" id="submitButton">save</button>
+            <button class="bt1" type="submit">item Upload</button>
           </div>
         </div>
       </div>
     </form>
+
+    <!-- hashing ../static/js/sha256.js-->
+    <script src="/js/sha256.js"></script>
     <script>
       ///// 환경변수 설정 /////
       var albumBucketName = "eruty-s3";
@@ -399,7 +402,9 @@
         apiVersion: "2006-03-01",
         params: { Bucket: albumBucketName },
       });
+      let today = new Date();
 
+      var hashing = SHA256(today);
       ///// 파일 선택한 경우 /////
       function ChooseFile(chooseFile) {
         let uploadFile = document.getElementById(chooseFile);
@@ -407,7 +412,7 @@
           var files = document.getElementById(chooseFile).files;
           var file = files[0];
           var fileName = "3dFile"; //file.name;
-          var upload1 = encodeURIComponent("item") + "/";
+          var upload1 = encodeURIComponent("item") + "/" + hashing + "/";
           var saveKey = upload1 + fileName;
 
           var upload = new AWS.S3.ManagedUpload({
@@ -429,8 +434,15 @@
               var model = document.getElementById("modelPath");
               model.value =
                 "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                hashing +
+                "/" +
                 fileName;
-              return rendering(fileName);
+              return rendering(
+                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                  hashing +
+                  "/" +
+                  fileName
+              );
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
@@ -461,7 +473,7 @@
           var files = e.dataTransfer?.files;
           var file = files[0];
           var fileName = "3dFile";
-          var upload1 = encodeURIComponent("item") + "/";
+          var upload1 = encodeURIComponent("item") + "/" + hashing + "/";
           var saveKey = upload1 + fileName;
 
           var upload = new AWS.S3.ManagedUpload({
@@ -483,8 +495,15 @@
               var model = document.getElementById("modelPath");
               model.value =
                 "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                hashing +
+                "/" +
                 fileName;
-              return rendering(fileName);
+              return rendering(
+                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                  hashing +
+                  "/" +
+                  fileName
+              );
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
@@ -509,7 +528,7 @@
         const files = e.target.files;
         var file = files[0];
         var fileName = "titleImg"; //file.name;
-        var upload2 = encodeURIComponent("item") + "/";
+        var upload2 = encodeURIComponent("item") + "/" + hashing + "/";
         var saveKey = upload2 + fileName;
 
         var upload = new AWS.S3.ManagedUpload({
@@ -535,6 +554,8 @@
             var imagePath = document.getElementById("imagePath");
             imagePath.value =
               "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+              hashing +
+              "/" +
               fileName;
           },
           function (err) {
@@ -542,34 +563,9 @@
           }
         );
       }
-      function submitItem() {
-        ///// item titleImg upload /////
-        // var fileName1 = document.getElementById("designName"); //file.name;
-        // var fileName2 = fileName1.value;
-        // var fileName = document.getElementById("mainImg"); //file.name;
-        // var fileName2 = fileName.querySelector("img");
-        // console.log(fileName2);
-        // var file = fileName2.src;
-        // var itemTitleImg = encodeURIComponent("item") + "/"; //+ itemid
-        // var saveKey = itemTitleImg + "fileName2";
-        // var file =
-        //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/upload2/titleImg.png";
-        // var upload = new AWS.S3.ManagedUpload({
-        //   params: {
-        //     Bucket: albumBucketName,
-        //     Key: saveKey,
-        //     Body: file,
-        //   },
-        // });
-        // var promise = upload.promise();
-        ///// item 3dFile upload /////
-        console.log("rr");
 
-        // document.getElementById("submitForm").submit();
-      }
       titleImg.addEventListener("click", handleClick, false);
       uploadImg.addEventListener("input", upload);
-      submitButton.addEventListener("click", submitItem);
 
       //rendering
       function rendering(fileName) {
@@ -598,7 +594,7 @@
 
         const object = new THREE.Object3D();
         loader.load(
-          "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" + fileName,
+          fileName,
           function (objectload) {
             object.add(objectload);
             scene.add(object);
