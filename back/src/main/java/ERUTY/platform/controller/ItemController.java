@@ -41,14 +41,20 @@ public class ItemController {
 
     @PostMapping("/items/upload")
     public String registration(@Valid ItemForm itemForm, BindingResult result, HttpSession session) throws ParseException {
-        log.info("item controller");
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
+
         if(result.hasErrors()) {
             return "items/upload";
         }
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(itemForm.getCreatedDate());
+
+        log.info(itemForm.getCreatedDate());
+        log.info("형변환 : "+ String.valueOf(date));
+        log.info("isOrigin : " + String.valueOf(itemForm.isOrigin()));
+        log.info("canModification : " + String.valueOf(itemForm.isCanModification()));
+        log.info("canCommercialUse : " + String.valueOf(itemForm.isCanCommercialUse()));
 
         Item item = Item.builder()
                 .designName(itemForm.getDesignName())
@@ -58,7 +64,7 @@ public class ItemController {
                 .price(itemForm.getPrice())
                 .isOrigin(itemForm.isOrigin())
                 .canModification(itemForm.isCanModification())
-                .canModification(itemForm.isCanCommercialUse())
+                .canCommercialUse(itemForm.isCanCommercialUse())
                 .imagePath(itemForm.getImagePath())
                 .modelPath(itemForm.getModelPath())
                 .build();
@@ -112,17 +118,19 @@ public class ItemController {
     
     @GetMapping("/items/test")
     public String test1(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("윤건우");
+        List<Item> items = itemService.findItemsByCreator("test4");
         for(Item item : items){
-            System.out.println(item.getCreator());
+            log.info(item.getDesignName());
+            log.info(String.valueOf(item.getCreatedDate()));
+            log.info(String.valueOf(item.isOrigin()));
         }
         return "/home";
     }
     @PostMapping("/items/test")
     public String test(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("윤건우");
+        List<Item> items = itemService.findItemsByCreator("test");
         for(Item item : items){
-            System.out.println(item.getCreator());
+            log.info(item.getDesignName());
         }
         return "/home";
     }
