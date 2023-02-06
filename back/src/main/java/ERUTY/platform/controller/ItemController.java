@@ -20,6 +20,9 @@ import org.springframework.data.domain.Sort;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -30,26 +33,27 @@ public class ItemController {
     private final MemberService memberService;
 
     @GetMapping("/items/upload")
-    public String createForm2(Model model) {
+    public String createForm(Model model) {
         log.info("item controller getmapping");
         model.addAttribute("itemForm", new ItemForm());
         return "items/upload";
     }
 
     @PostMapping("/items/upload")
-    public String registration2(@Valid ItemForm itemForm, BindingResult result, HttpSession session) {
+    public String registration(@Valid ItemForm itemForm, BindingResult result, HttpSession session) throws ParseException {
         log.info("item controller");
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
         if(result.hasErrors()) {
             return "items/upload";
         }
 
-        java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse(itemForm.getCreatedDate());
 
         Item item = Item.builder()
                 .designName(itemForm.getDesignName())
                 .creator(itemForm.getCreator())
-                .createdDate(sqlDate)
+                .createdDate(date)
                 .description(itemForm.getDescription())
                 .price(itemForm.getPrice())
                 .isOrigin(itemForm.isOrigin())
