@@ -118,19 +118,11 @@ public class ItemController {
     
     @GetMapping("/items/test")
     public String test1(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("test4");
+        List<Item> items = itemService.findItemsByCreator("test0");
         for(Item item : items){
             log.info(item.getDesignName());
             log.info(String.valueOf(item.getCreatedDate()));
             log.info(String.valueOf(item.isOrigin()));
-        }
-        return "/home";
-    }
-    @PostMapping("/items/test")
-    public String test(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("test");
-        for(Item item : items){
-            log.info(item.getDesignName());
         }
         return "/home";
     }
