@@ -22,6 +22,9 @@ import org.springframework.data.domain.Sort;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,31 +37,38 @@ public class ItemController {
 
 
     @GetMapping("/items/upload")
-    public String createForm2(Model model) {
+    public String createForm(Model model) {
         log.info("item controller getmapping");
         model.addAttribute("itemForm", new ItemForm());
         return "items/upload";
     }
 
     @PostMapping("/items/upload")
-    public String registration2(@Valid ItemForm itemForm, BindingResult result, HttpSession session) {
-        log.info("item controller");
+    public String registration(@Valid ItemForm itemForm, BindingResult result, HttpSession session) throws ParseException {
         log.info(itemForm.getCreator(), " + ", itemForm.getDesignName());
+
         if(result.hasErrors()) {
             return "items/upload";
         }
 
-        //java.sql.Date sqlDate = java.sql.Date.valueOf(itemForm.getCreatedDate());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse(itemForm.getCreatedDate());
+
+        log.info(itemForm.getCreatedDate());
+        log.info("형변환 : "+ String.valueOf(date));
+        log.info("isOrigin : " + String.valueOf(itemForm.isOrigin()));
+        log.info("canModification : " + String.valueOf(itemForm.isCanModification()));
+        log.info("canCommercialUse : " + String.valueOf(itemForm.isCanCommercialUse()));
 
         Item item = Item.builder()
                 .designName(itemForm.getDesignName())
                 .creator(itemForm.getCreator())
-                //.createdDate(sqlDate)
+                .createdDate(date)
                 .description(itemForm.getDescription())
                 .price(itemForm.getPrice())
                 .isOrigin(itemForm.isOrigin())
                 .canModification(itemForm.isCanModification())
-                .canModification(itemForm.isCanCommercialUse())
+                .canCommercialUse(itemForm.isCanCommercialUse())
                 .imagePath(itemForm.getImagePath())
                 .modelPath(itemForm.getModelPath())
                 .build();
@@ -108,17 +118,11 @@ public class ItemController {
     
     @GetMapping("/items/test")
     public String test1(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("윤건우");
+        List<Item> items = itemService.findItemsByCreator("test0");
         for(Item item : items){
-            System.out.println(item.getCreator());
-        }
-        return "/home";
-    }
-    @PostMapping("/items/test")
-    public String test(@ModelAttribute("creator") String creator, Model model){
-        List<Item> items = itemService.findItemsByCreator("윤건우");
-        for(Item item : items){
-            System.out.println(item.getCreator());
+            log.info(item.getDesignName());
+            log.info(String.valueOf(item.getCreatedDate()));
+            log.info(String.valueOf(item.isOrigin()));
         }
         return "/home";
     }
