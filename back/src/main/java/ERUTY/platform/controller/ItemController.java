@@ -124,7 +124,7 @@ public class ItemController {
             log.info(String.valueOf(item.getCreatedDate()));
             log.info(String.valueOf(item.isOrigin()));
         }
-        return "/home";
+        return "home";
     }
 
     @GetMapping("items/{itemId}/detail")
