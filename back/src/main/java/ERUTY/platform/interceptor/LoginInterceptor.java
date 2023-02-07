@@ -1,5 +1,6 @@
 package ERUTY.platform.interceptor;
 
+import ERUTY.platform.common.Messsage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -7,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,18 +16,14 @@ import java.util.List;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    public List loginEssential = Arrays.asList("/**");
+    public List loginEssential = Arrays.asList("/members/logout", "/members/changepwd", "/members/authmember", "/items/**");
     public List loginInessential = Arrays.asList("/", "/members/new", "/members/login", "/members/findpwd");
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        log.info("LoginInterceptor preHandler");
-
         HttpSession session = request.getSession();
 
         if(session.getAttribute("loginId") != null) {
-            log.info("로그인 상태입니다");
             return true;
         }
         else {
@@ -36,8 +34,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             String dest = (destQuery == null) ? destUri : destUri+"?"+destQuery;
             request.getSession().setAttribute("dest", dest);
              */
-            log.info("로그인이 필요합니다");
-            response.sendRedirect("/members/login");
+
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html; charset=UTF-8");
+
+            PrintWriter printwriter = response.getWriter();
+            printwriter.println("<script>alert('로그인이 필요합니다'); location.href='/members/login';</script>");
 
             return false;
         }
