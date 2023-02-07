@@ -224,12 +224,11 @@
       const loader = new THREE.OBJLoader();
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
-        35,
-        window.innerWidth / window.innerHeight,
+        75,
+        myCanvas.width / myCanvas.height,
         0.1,
         1000
       );
-      camera.position.z = 5;
       const renderer = new THREE.WebGLRenderer({
         canvas: myCanvas,
         alpha: true,
@@ -247,6 +246,32 @@
       loader.load(
         src3d,
         function (objectload) {
+          // console.log(objectload.children[0].geometry);
+          //size 조절
+          const { minX, maxX, minY, maxY, minZ, maxZ } =
+            getBoundingBox(objectload);
+          const width = maxX - minX;
+          const height = maxY - minY;
+          const depth = maxZ - minZ;
+          const size = Math.max(width, height, depth);
+          const center = new THREE.Vector3(
+            (minX + maxX) / 1.75,
+            (minY + maxY) / 1.75,
+            (minZ + maxZ) / 1.75
+          );
+          camera.position.set(
+            center.x + size / 1.75,
+            center.y + size / 1.75,
+            center.z + size / 1.75
+          );
+          camera.lookAt(center);
+          camera.near = size / 100;
+          camera.far = size * 100;
+          camera.updateProjectionMatrix();
+
+          //색상
+          colorMaterial(objectload);
+          //랜더링
           object.add(objectload);
           scene.add(object);
         },
@@ -254,9 +279,13 @@
           console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
         },
         function (error) {
+          console.log(error);
           console.log("An error happened");
         }
       );
+      animate();
+
+      //회전동작
       function animate() {
         requestAnimationFrame(animate);
         object.rotation.z -= 0.01;
@@ -265,7 +294,89 @@
         controls.update();
       }
 
-      animate();
+      //사이즈 크기
+      function getBoundingBox(objectload) {
+        var minX = Infinity,
+          minY = Infinity,
+          minZ = Infinity;
+        var maxX = -Infinity,
+          maxY = -Infinity,
+          maxZ = -Infinity;
+
+        for (let i = 0; i < objectload.children.length; i++) {
+          objectload.children[i].geometry.computeBoundingSphere();
+        }
+
+        for (let i = 0; i < objectload.children.length; i++) {
+          minX = Math.min(
+            minX,
+            objectload.children[i].geometry.boundingSphere.center.x
+          );
+          minY = Math.min(
+            minY,
+            objectload.children[i].geometry.boundingSphere.center.y
+          );
+          minZ = Math.min(
+            minZ,
+            objectload.children[i].geometry.boundingSphere.center.z
+          );
+          maxX = Math.max(
+            maxX,
+            objectload.children[i].geometry.boundingSphere.center.x
+          );
+          maxY = Math.max(
+            maxY,
+            objectload.children[i].geometry.boundingSphere.center.y
+          );
+          maxZ = Math.max(
+            maxZ,
+            objectload.children[i].geometry.boundingSphere.center.z
+          );
+        }
+        return {
+          minX,
+          maxX,
+          minY,
+          maxY,
+          minZ,
+          maxZ,
+        };
+      }
+
+      //색상
+      function colorMaterial(objectload) {
+        for (let i = 0; i < objectload.children.length; i++) {
+          var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+          objectload.children[i].material = material;
+        }
+        // for (let i = 0; i < objectload.children.length; i++) {
+        //   if (objectload.children[i].geometry.attributes.color === undefined) {
+        //     var colors = [];
+        //     for (
+        //       let j = 0;
+        //       j < objectload.children[i].geometry.attributes.position.count;
+        //       j++
+        //     ) {
+        //       var u =
+        //         objectload.children[i].geometry.attributes.uv.array[j * 2];
+        //       var v =
+        //         objectload.children[i].geometry.attributes.uv.array[j * 2 + 1];
+        //       colors[j * 3] = u;
+        //       colors[j * 3 + 1] = v;
+        //       colors[j * 3 + 2] = 1;
+        //     }
+        //     objectload.children[i].geometry.setAttribute(
+        //       "color",
+        //       new THREE.BufferAttribute(new Float32Array(colors), 3)
+        //     );
+        //     var material = new THREE.MeshBasicMaterial({
+        //       vertexColors: THREE.VertexColors,
+        //     });
+        //     objectload.children[i].material = material;
+        //   }
+        // }
+      }
     </script>
   </body>
 </html>
