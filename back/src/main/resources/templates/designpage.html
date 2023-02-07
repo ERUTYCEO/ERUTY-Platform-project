@@ -269,8 +269,9 @@
           camera.far = size * 100;
           camera.updateProjectionMatrix();
 
-          //색상
-          colorMaterial(objectload);
+          //조명 추가
+          shadowLight();
+
           //랜더링
           object.add(objectload);
           scene.add(object);
@@ -343,13 +344,23 @@
         };
       }
 
-      //색상
-      function colorMaterial(objectload) {
-        for (let i = 0; i < objectload.children.length; i++) {
-          var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+      //조명 추가
+      function shadowLight() {
+        var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
+        hemiLight.position.set(0, 50, 0);
+        scene.add(hemiLight);
 
-          objectload.children[i].material = material;
-        }
+        var dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
+        dirLight.position.set(-8, 12, 8);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
+        scene.add(dirLight);
+      }
+      function colorLight(objectload) {
+        // for (let i = 0; i < objectload.children.length; i++) {
+        //   var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        //   objectload.children[i].material = material;
+        // }
         // for (let i = 0; i < objectload.children.length; i++) {
         //   if (objectload.children[i].geometry.attributes.color === undefined) {
         //     var colors = [];
