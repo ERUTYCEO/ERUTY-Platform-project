@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +22,12 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder pwEncoder;
 
     public void saveMember(Member member) {
         validateDuplicateMember(member);
+
+        setEncodePwd(member);
 
         memberRepository.save(member);
     }
@@ -42,6 +46,13 @@ public class MemberService {
         }
     }
 
+    public void setEncodePwd(Member member) {
+        String encodePw = pwEncoder.encode(member.getPassword());
+        log.info("비밀번호 인코딩 : " + encodePw);
+
+        member.setPassword(encodePw);
+    }
+
     public void CheckAndUpdate(changepwdForm changepwdform){
         String email = changepwdform.getEmail();
         Member member = memberRepository.findMemberByEmail(email);
@@ -53,8 +64,10 @@ public class MemberService {
         String newconfirm = changepwdform.getConfirmPassword();
 
         validateConfirmPassword(newpwd, newconfirm);
-
         member.setPassword(newpwd);
+
+        setEncodePwd(member);
+
         memberRepository.save(member);
     }
 
@@ -62,7 +75,8 @@ public class MemberService {
         validateExistEmail(memberLoginForm);
 
         Member findMember = memberRepository.findMemberByEmail(memberLoginForm.getEmail());
-        validateConfirmPassword(memberLoginForm.getPassword(), findMember.getPassword());
+
+        validateLoginPassword(memberLoginForm.getPassword(), findMember.getPassword());
 
         return findMember;
     }
@@ -72,6 +86,12 @@ public class MemberService {
 
         if(findMembers.isEmpty()) {
             throw new IllegalStateException("이메일을 다시 확인해주십시오.");
+        }
+    }
+
+    public void validateLoginPassword(String rawPw, String encodePw) {
+        if(!(pwEncoder.matches(rawPw, encodePw))) {
+            throw new IllegalStateException("비밀번호를 다시 확인해 주십시오.");
         }
     }
 
