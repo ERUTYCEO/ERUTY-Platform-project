@@ -1,5 +1,6 @@
 package ERUTY.platform.service;
 
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.EmailForm;
 import ERUTY.platform.form.changepwdForm;
 import ERUTY.platform.form.MemberLoginForm;
@@ -103,6 +104,15 @@ public class MemberService {
 
         Member member = memberRepository.findMemberById(memberId);
 
+        log.info("업로드 리스트 추가");
+
         member.getUploadList().add(itemId);
+        log.info("업로드된 아이템 : " + member.getUploadList());
+
+        memberRepository.save(member);
+    }
+
+    public Member getPresentMember(String memberId) {
+        return memberRepository.findMemberById(memberId);
     }
 }

@@ -1,9 +1,11 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.common.Messsage;
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.*;
 import ERUTY.platform.service.EmailService;
+import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ItemService itemService;
     private final EmailService emailService;
 
     @GetMapping("/members/new")
@@ -163,11 +166,24 @@ public class MemberController {
     }
 
     @GetMapping("/members/authmember")
-    public String list(Model model) {
+    public String managedList(Model model) {
         List<Member> marketingList = memberService.getMarketingMember();
 
         model.addAttribute("memberList", marketingList);
 
         return "members/mange";
+    }
+    
+    @GetMapping("/members/uploadlist")
+    public String uploadList(Model model, HttpSession session) {
+
+        Member member = memberService.getPresentMember((String)session.getAttribute("loginId"));
+
+        List<Item> uploadlist = itemService.findUploadList(member);
+        log.info("업로드 리스트 : " + uploadlist);
+
+        model.addAttribute("uploadlist", uploadlist);
+
+        return "members/uploadlist";
     }
 }

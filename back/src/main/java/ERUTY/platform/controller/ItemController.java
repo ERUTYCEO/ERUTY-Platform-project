@@ -76,7 +76,7 @@ public class ItemController {
         String memberId = (String)session.getAttribute("loginId");
 
         itemService.saveItem(item);
-        //memberService.uploadListUpdate(item.getId(), memberId);
+        memberService.uploadListUpdate(item.getId(), memberId);
 
         return "redirect:/";
     }

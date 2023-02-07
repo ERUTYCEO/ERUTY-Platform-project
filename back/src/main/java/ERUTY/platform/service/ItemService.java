@@ -1,5 +1,6 @@
 package ERUTY.platform.service;
 
+import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.findItemForm;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -61,15 +63,24 @@ public class ItemService {
         return itemRepository.findItemByDesignName(designName);
     }
 
-    public List<Item> getItemList() {
-        return null;
-    }
-
-
     public Item updateView(String itemId) {
         Item item = itemRepository.findItemById(itemId);
         item.viewPlusOne();
         itemRepository.save(item);
         return item;
+    }
+
+    public List<Item> findUploadList(Member member) {
+
+        List<String> uploadlist = member.getUploadList();
+        List<Item> itemList = new ArrayList<>();
+
+        for(int i = 0; i < uploadlist.size(); i++) {
+            Item item = itemRepository.findItemById(uploadlist.get(i));
+
+            itemList.add(item);
+        }
+
+        return itemList;
     }
 }

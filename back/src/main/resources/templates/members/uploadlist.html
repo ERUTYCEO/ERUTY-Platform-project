@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>ERUTY</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+
+    /* 사이드바 */
+    .sidenav {
+      background-color: #f1f1f1;
+      position: fixed;
+      width: 200px;
+      height: 100%;
+      margin-left: -20px;
+      margin-top: 50px;
+    }
+    /* 본문 */
+    .page {
+      margin-top: 50px;
+      margin-left: 250px;
+    }
+
+    /* footer */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <img
+              width="60"
+              height="60"
+              src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
+              alt="aaafs"
+      />
+      <span style="color: white; font-size: 20px"
+      >업로드 리스트 페이지 입니다.</span
+      >
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <!-- 사이드바 -->
+  <nav class="mt-5 col-sm-3 sidenav">
+    <h6>&nbsp;</h6>
+    <h4 style="color: rgb(36, 170, 225)">E-mail</h4>
+    <h4>Contents</h4>
+    <h4>Sales status</h4>
+    <h4>Setting</h4>
+    <h4>Q&A</h4>
+  </nav>
+</div>
+<!-- 본문 -->
+<div style="padding: 5%; margin-left: 10%">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>itemId</th>
+      <th>itemPrice</th>
+      <th>itemDescription</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${uploadlist}">
+      <td th:text="${item.getDesignName()}"></td>
+      <td th:text="${item.getPrice()}"></td>
+      <td th:text="${item.getDescription()}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- 본문 끝 -->
+  <!-- footer -->
+  <footer id="foot" class="container-fluid navbar-fixed-bottom"></footer>
+</div>
+<!-- footer 끝 -->
+
+</body>
+</html>
