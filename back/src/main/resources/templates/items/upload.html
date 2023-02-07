@@ -404,13 +404,16 @@
       let today = new Date();
 
       var hashing = SHA256(today);
+      var fileExtension;
       ///// 파일 선택한 경우 /////
       function ChooseFile(chooseFile) {
         let uploadFile = document.getElementById(chooseFile);
         function upload(e) {
           var files = document.getElementById(chooseFile).files;
           var file = files[0];
-          var fileName = "3dFile"; //file.name;
+          fileExtension = file.name.substr(file.name.lastIndexOf(".") + 1);
+
+          var fileName = "3dFile." + fileExtension; //file.name;
           var upload1 = encodeURIComponent("item") + "/" + hashing + "/";
           var saveKey = upload1 + fileName;
 
@@ -421,6 +424,7 @@
               Body: file,
             },
           });
+
           var promise = upload.promise();
           promise.then(
             function (data) {
@@ -436,12 +440,22 @@
                 hashing +
                 "/" +
                 fileName;
-              return rendering(
-                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
-                  hashing +
-                  "/" +
-                  fileName
-              );
+              if (fileExtension == "obj")
+                return rendering(
+                  "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                    hashing +
+                    "/" +
+                    fileName,
+                  "obj"
+                );
+              if (fileExtension == "fbx")
+                return rendering(
+                  "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                    hashing +
+                    "/" +
+                    fileName,
+                  "fbx"
+                );
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
@@ -471,7 +485,9 @@
           unhighlight(e);
           var files = e.dataTransfer?.files;
           var file = files[0];
-          var fileName = "3dFile";
+          fileExtension = file.name.substr(file.name.lastIndexOf(".") + 1);
+
+          var fileName = "3dFile." + fileExtension; //file.name;
           var upload1 = encodeURIComponent("item") + "/" + hashing + "/";
           var saveKey = upload1 + fileName;
 
@@ -497,12 +513,22 @@
                 hashing +
                 "/" +
                 fileName;
-              return rendering(
-                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
-                  hashing +
-                  "/" +
-                  fileName
-              );
+              if (fileExtension == "obj")
+                return rendering(
+                  "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                    hashing +
+                    "/" +
+                    fileName,
+                  "obj"
+                );
+              if (fileExtension == "fbx")
+                return rendering(
+                  "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                    hashing +
+                    "/" +
+                    fileName,
+                  "fbx"
+                );
             },
             function (err) {
               return alert("There was an error upload: ", err.message);
@@ -567,9 +593,9 @@
       uploadImg.addEventListener("input", upload);
 
       //rendering
-      function rendering(fileName) {
+
+      function rendering(fileName, extension) {
         const myCanvas = document.getElementById("server-3d");
-        const loader = new THREE.OBJLoader();
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(
           75,
@@ -591,48 +617,81 @@
         controls.maxDistance = 100; // 마우스 휠로 카메라 거리 조작시 최대 값. 기본값(Float)은 무제한 입니다.
 
         const object = new THREE.Object3D();
-        loader.load(
-          fileName,
-          function (objectload) {
-            // console.log(objectload.children[0].geometry);
-            //size 조절
-            const { minX, maxX, minY, maxY, minZ, maxZ } =
-              getBoundingBox(objectload);
-            const width = maxX - minX;
-            const height = maxY - minY;
-            const depth = maxZ - minZ;
-            const size = Math.max(width, height, depth);
-            const center = new THREE.Vector3(
-              (minX + maxX) / 1.75,
-              (minY + maxY) / 1.75,
-              (minZ + maxZ) / 1.75
-            );
-            camera.position.set(
-              center.x + size / 1.75,
-              center.y + size / 1.75,
-              center.z + size / 1.75
-            );
-            camera.lookAt(center);
-            camera.near = size / 100;
-            camera.far = size * 100;
-            camera.updateProjectionMatrix();
 
-            //조명 추가
-            shadowLight();
+        if (extension == "obj") {
+          const loader = new THREE.OBJLoader();
+          loader.load(
+            fileName,
+            function (objectload) {
+              // console.log(objectload.children[0].geometry);
+              //size 조절
+              const { minX, maxX, minY, maxY, minZ, maxZ } =
+                getBoundingBox(objectload);
+              const width = maxX - minX;
+              const height = maxY - minY;
+              const depth = maxZ - minZ;
+              const size = Math.max(width, height, depth);
+              const center = new THREE.Vector3(
+                (minX + maxX) / 1.75,
+                (minY + maxY) / 1.75,
+                (minZ + maxZ) / 1.75
+              );
+              camera.position.set(
+                center.x + size / 1.75,
+                center.y + size / 1.75,
+                center.z + size / 1.75
+              );
+              camera.lookAt(center);
+              camera.near = size / 100;
+              camera.far = size * 100;
+              camera.updateProjectionMatrix();
 
-            //랜더링
-            object.add(objectload);
-            scene.add(object);
-          },
-          function (xhr) {
-            console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-          },
-          function (error) {
-            console.log(error);
-            console.log("An error happened");
-          }
-        );
-        animate();
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
+            }
+          );
+          animate();
+        }
+        if (extension == "fbx") {
+          const loader = new THREE.FBXLoader();
+          loader.load(
+            fileName,
+            function (objectload) {
+              //size 조절
+              var box = new THREE.Box3().setFromObject(objectload);
+              var maxX = box.max.x;
+              var desiredSize = 2.0;
+              var scale = desiredSize / maxX;
+              object.scale.set(scale, scale, scale);
+
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
+            }
+          );
+          animate();
+        }
 
         //회전동작
         function animate() {
@@ -715,6 +774,8 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <!-- bootstrap -->
