@@ -1,17 +1,11 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.domain.Item;
-import ERUTY.platform.form.EmailForm;
 import ERUTY.platform.form.changepwdForm;
 import ERUTY.platform.form.MemberLoginForm;
-import ERUTY.platform.form.findPwdForm;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

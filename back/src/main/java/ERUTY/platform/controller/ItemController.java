@@ -1,7 +1,6 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
