@@ -132,6 +132,7 @@ public class ItemController {
         item.setLiked(liked);
 
         model.addAttribute("item", item);
+        model.addAttribute("newLineChar", '\n');
 
         return "designpage";
     }

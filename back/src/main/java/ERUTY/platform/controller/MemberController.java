@@ -143,6 +143,8 @@ public class MemberController {
     public String findPassword(Model model) {
         model.addAttribute("findPwdForm", new findPwdForm());
 
+        log.info("진입");
+
         return "members/findbyemail";
     }
 
@@ -162,7 +164,6 @@ public class MemberController {
         model.addAttribute("data", new Messsage("로그인 페이지로 이동합니다", "/members/login"));
 
         return "message";
-        //return "redirect:/members/login";
     }
 
     @GetMapping("/members/authmember")
