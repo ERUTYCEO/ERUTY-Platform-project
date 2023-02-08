@@ -173,7 +173,7 @@ public class MemberController {
 
         return "members/mange";
     }
-    
+
     @GetMapping("/members/uploadlist")
     public String uploadList(Model model, HttpSession session) {
 
@@ -181,8 +181,8 @@ public class MemberController {
 
         List<Item> uploadlist = itemService.findUploadList(member);
         log.info("업로드 리스트 : " + uploadlist);
-
         model.addAttribute("uploadlist", uploadlist);
+        model.addAttribute("newLineChar", '\n');
 
         return "members/uploadlist";
     }

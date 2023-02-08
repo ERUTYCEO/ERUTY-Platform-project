@@ -78,7 +78,7 @@
     <tr th:each="item : ${uploadlist}">
       <td th:text="${item.getDesignName()}"></td>
       <td th:text="${item.getPrice()}"></td>
-      <td th:text="${item.getDescription()}"></td>
+      <td th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"></td>
     </tr>
     </tbody>
   </table>

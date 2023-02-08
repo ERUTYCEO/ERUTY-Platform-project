@@ -125,7 +125,7 @@
               <div class="info-content-title">디자인 설명</div>
               <br />
               <br />
-              <div th:text="${item.getDescription()}"></div>
+              <div th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"></div>
             </section>
             <section class="info-content" id="info-cancel">
               <div class="info-content-title">취소 및 환불 규정</div>
