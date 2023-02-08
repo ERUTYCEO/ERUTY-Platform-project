@@ -1,7 +1,6 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
@@ -76,7 +75,7 @@ public class ItemController {
         String memberId = (String)session.getAttribute("loginId");
         item.setMemberId(memberId);
         itemService.saveItem(item);
-        //memberService.uploadListUpdate(item.getId(), memberId);
+        memberService.uploadListUpdate(item.getId(), memberId);
 
         return "redirect:/";
     }
@@ -124,7 +123,7 @@ public class ItemController {
             log.info(String.valueOf(item.getCreatedDate()));
             log.info(String.valueOf(item.isOrigin()));
         }
-        return "/home";
+        return "home";
     }
 
     @GetMapping("items/{itemId}/detail")

@@ -10,7 +10,10 @@
             <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
         </p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/login">로그인</a>
+            <a th:if="!${session?.loginId}" class="btn btn-lg btn-secondary" href="/members/login">로그인</a>
+        </p>
+        <p>
+            <a th:if="${session?.loginId}" class="btn btn-lg btn-secondary" href="/members/logout">로그아웃</a>
         </p>
         <p>
             <a class="btn btn-lg btn-secondary" href="/members/changepwd">비밀번호 변경</a>
@@ -33,9 +36,12 @@
         <p>
             <a class="btn btn-lg btn-secondary" href="/togallery"> 갤러리</a>
        </p>
-       <p>
-        <a class="btn btn-lg btn-secondary" href="/designpage"> 디자인페이지</a>
-   </p>
+        <p>
+            <a class="btn btn-lg btn-secondary" href="/designpage"> 디자인페이지</a>
+        </p>
+        <p>
+            <a class="btn btn-lg btn-secondary" href="/members/uploadlist"> 업로드리스트</a>
+        </p>
     </div>
 </div> <!-- /container -->
 </body>

@@ -1,13 +1,14 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.common.Messsage;
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.*;
 import ERUTY.platform.service.EmailService;
+import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ItemService itemService;
     private final EmailService emailService;
 
     @GetMapping("/members/new")
@@ -46,8 +48,8 @@ public class MemberController {
             }
 
             Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
-
             memberService.saveMember(member);
+
         } catch (IllegalStateException exception) {
             model.addAttribute("data", new Messsage(exception.getMessage(), "/members/new"));
 
@@ -57,7 +59,6 @@ public class MemberController {
         model.addAttribute("data", new Messsage("성공적으로 회원가입이 되셨습니다.", "/"));
 
         return "message";
-        //return "redirect:/";
     }
 
     @GetMapping("/members/login")
@@ -106,7 +107,6 @@ public class MemberController {
         model.addAttribute("data", new Messsage("로그아웃 되었습니다.", "/"));
 
         return "message";
-        //return "redirect:/";
     }
 
     @GetMapping("/members/changepwd")
@@ -117,7 +117,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/changepwd")
-    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result,Model model) {
+    public String changePassword(@Valid changepwdForm changepwdform, BindingResult result, HttpSession session, Model model) {
         try {
             memberService.CheckAndUpdate(changepwdform);
 
@@ -132,10 +132,11 @@ public class MemberController {
 
             return "message";
         }
-        model.addAttribute("data", new Messsage("비밀번호 변경을 완료하였습니다.", "/"));
+        model.addAttribute("data", new Messsage("비밀번호 변경을 완료하였습니다. 다시 로그인 해주십시오", "/members/login"));
+
+        session.invalidate();
 
         return "message";
-        //return "redirect:/";
     }
 
     @GetMapping("/members/findpwd")
@@ -165,16 +166,14 @@ public class MemberController {
     }
 
     @GetMapping("/members/authmember")
-    public String list(Model model) {
+    public String managedList(Model model) {
         List<Member> marketingList = memberService.getMarketingMember();
 
         model.addAttribute("memberList", marketingList);
 
         return "members/mange";
     }
-<<<<<<< Updated upstream
-=======
-    
+
     @GetMapping("/members/uploadlist")
     public String uploadList(Model model, HttpSession session) {
 
@@ -187,5 +186,4 @@ public class MemberController {
 
         return "members/uploadlist";
     }
->>>>>>> Stashed changes
 }

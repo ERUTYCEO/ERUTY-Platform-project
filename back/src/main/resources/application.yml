@@ -1,10 +1,6 @@
-server:
-  port: 8080
-
 spring:
   data:
     mongodb:
-<<<<<<< Updated upstream
       port: 27017
       host: localhost
       database: ERUTY_Member
@@ -12,15 +8,6 @@ spring:
       # database: admin
       # username: eruty
       # password: eruty
-=======
-      host: localhost
-      database: ERUTY_Member
-      port: 27017
-      #host: 54.180.89.196
-      #database: admin
-      #username: eruty
-      #password: eruty
->>>>>>> Stashed changes
 
   thymeleaf:
     prefix: classpath:/templates/
@@ -36,12 +23,6 @@ spring:
           auth: true
           ssl:
             enable: true
-
-# server:
-#   host: 54.180.89.196
-#   port: 8080
-
-
 
 logging:
   level:
