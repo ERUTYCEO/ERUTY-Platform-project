@@ -140,9 +140,8 @@ public class ItemController {
     public String liked(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
         String memberId = (String)session.getAttribute("loginId");
 
-        Item item = itemService.findItemById(itemId);
+        Item item = memberService.likedListUpdate(itemId, memberId);
 
-        memberService.likedListUpdate(item.getId(), memberId);
         item.setLiked(1);
 
         model.addAttribute("item", item);

@@ -1,8 +1,10 @@
 package ERUTY.platform.service;
 
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.changepwdForm;
 import ERUTY.platform.form.MemberLoginForm;
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
     private final PasswordEncoder pwEncoder;
 
     public void saveMember(Member member) {
@@ -110,14 +113,25 @@ public class MemberService {
         return memberRepository.findMemberById(memberId);
     }
 
-    public void likedListUpdate(String itemId, String memberId) {
+    public Item likedListUpdate(String itemId, String memberId) {
         Member member = memberRepository.findMemberById(memberId);
+        Item item = itemRepository.findItemById(itemId);
 
-        log.info("좋아요 리스트 추가");
+        long likeCount = item.getLikes();
 
-        member.getLikedList().add(itemId);
+        if(member.getLikedList().contains(itemId)) {
+            member.getLikedList().remove(itemId);
+            item.setLikes(likeCount - 1);
+        } else {
+            member.getLikedList().add(itemId);
+            item.setLikes(likeCount + 1);
+        }
+
         log.info("좋아요한 아이템 : " + member.getLikedList());
 
         memberRepository.save(member);
+        itemRepository.save(item);
+
+        return item;
     }
 }

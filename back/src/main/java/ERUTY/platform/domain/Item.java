@@ -58,6 +58,10 @@ public class Item {
         this.views++;
     }
 
+    public void setLikes(long liked) {
+        this.likes = liked;
+    }
+
     public void setLiked(int liked) {
         this.liked = liked;
     }

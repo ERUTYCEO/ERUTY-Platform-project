@@ -102,7 +102,8 @@
             <!-- to 상명 / 좋아요, 조회수 -->
             <section class="design-eval">
               좋아요:
-              <div th:text="${item.getLikes()}"></div>
+              <div th:onclick="|location.href='@{/items/{id}/like (id=${item.getId()})}'|"
+                           th:text="${item.getLikes()}"></div>
               조회수:
               <div th:text="${item.getViews()}"></div>
             </section>
