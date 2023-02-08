@@ -44,8 +44,9 @@
         </li> -->
             </ul>
             <div id="navbar-search">
-              <input type="text" id="nav-search" />
-              <button id="search-btn">
+              <form th:action="@{/items/search}" method = "GET">
+                  <input type="text" id="nav-search" name="searchKeyword"/>
+                <button id="search-btn" type="submit">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
@@ -60,6 +61,7 @@
                   />
                 </svg>
               </button>
+              </form>
             </div>
 
             <div id="navbar-btn">
