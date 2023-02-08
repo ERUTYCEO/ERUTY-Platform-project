@@ -74,7 +74,7 @@ public class ItemController {
                 .build();
 
         String memberId = (String)session.getAttribute("loginId");
-
+        item.setMemberId(memberId);
         itemService.saveItem(item);
         //memberService.uploadListUpdate(item.getId(), memberId);
 
