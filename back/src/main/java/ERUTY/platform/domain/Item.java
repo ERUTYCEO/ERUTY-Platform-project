@@ -34,6 +34,8 @@ public class Item {
     private String modelPath;
     private String imagePath;
 
+    private int liked;
+
 
 
     @Builder
@@ -54,5 +56,9 @@ public class Item {
     }
     public void viewPlusOne(){
         this.views++;
+    }
+
+    public void setLiked(int liked) {
+        this.liked = liked;
     }
 }

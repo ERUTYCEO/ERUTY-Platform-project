@@ -109,4 +109,15 @@ public class MemberService {
     public Member getPresentMember(String memberId) {
         return memberRepository.findMemberById(memberId);
     }
+
+    public void likedListUpdate(String itemId, String memberId) {
+        Member member = memberRepository.findMemberById(memberId);
+
+        log.info("좋아요 리스트 추가");
+
+        member.getLikedList().add(itemId);
+        log.info("좋아요한 아이템 : " + member.getLikedList());
+
+        memberRepository.save(member);
+    }
 }
