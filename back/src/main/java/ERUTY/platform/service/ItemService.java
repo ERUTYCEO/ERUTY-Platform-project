@@ -1,15 +1,13 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.domain.Member;
-import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.domain.Item;
+import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +25,6 @@ public class ItemService {
 
     private void validateDuplicateItem(Item item) {
         List<Item> items = itemRepository.findItemsByDesignName(item.getDesignName());
-
-        if(!items.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 이름의 디자인입니다.");
-        }
-    }
-
-    public void validateDuplicateMember(ItemForm itemForm) {
-        List<Item> items = itemRepository.findItemsByDesignName(itemForm.getDesignName());
 
         if(!items.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 이름의 디자인입니다.");
@@ -64,9 +54,15 @@ public class ItemService {
     }
 
     public Item updateView(String itemId) {
-        Item item = itemRepository.findItemById(itemId);
+        Item item = findItemById(itemId);
         item.viewPlusOne();
         itemRepository.save(item);
+        return item;
+    }
+
+    public Item findItemById(String itemId) {
+        Item item = itemRepository.findItemById(itemId);
+
         return item;
     }
 
@@ -82,5 +78,15 @@ public class ItemService {
         }
 
         return itemList;
+    }
+
+    public int findLiked(Member member, String itemId) {
+        List<String> likedList = member.getLikedList();
+
+        if (likedList.contains(itemId)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

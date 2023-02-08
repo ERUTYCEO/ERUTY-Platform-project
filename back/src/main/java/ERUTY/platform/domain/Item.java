@@ -31,6 +31,8 @@ public class Item {
     private String modelPath;
     private String imagePath;
 
+    private int liked;
+
 
 
 
@@ -53,5 +55,13 @@ public class Item {
     }
     public void viewPlusOne(){
         this.views++;
+    }
+
+    public void setLikes(long liked) {
+        this.likes = liked;
+    }
+
+    public void setLiked(int liked) {
+        this.liked = liked;
     }
 }
