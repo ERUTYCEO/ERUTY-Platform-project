@@ -132,6 +132,7 @@ public class ItemController {
         Item item = itemService.updateView(itemId);
 
         model.addAttribute("item", item);
+        model.addAttribute("newLineChar", '\n');
 
         return "designpage";
     }

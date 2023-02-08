@@ -172,4 +172,20 @@ public class MemberController {
 
         return "members/mange";
     }
+<<<<<<< Updated upstream
+=======
+    
+    @GetMapping("/members/uploadlist")
+    public String uploadList(Model model, HttpSession session) {
+
+        Member member = memberService.getPresentMember((String)session.getAttribute("loginId"));
+
+        List<Item> uploadlist = itemService.findUploadList(member);
+        log.info("업로드 리스트 : " + uploadlist);
+        model.addAttribute("uploadlist", uploadlist);
+        model.addAttribute("newLineChar", '\n');
+
+        return "members/uploadlist";
+    }
+>>>>>>> Stashed changes
 }
