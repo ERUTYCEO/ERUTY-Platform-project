@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -33,18 +34,39 @@ public class ItemService {
         }
     }
 
-    public Page<Item> TotalItem(Pageable pageable){
+    public Page<Item> TotalItem(Pageable pageable, String memberId){
         Page<Item> TotalItemList = itemRepository.findAll(pageable);
-        return TotalItemList;
+        Iterator<Item> itemIterator = TotalItemList.iterator();
+
+        return getItems(memberId, TotalItemList, itemIterator);
     }
 
-    public Page<Item> searchItemList(findItemForm finditemForm, Pageable pageable){
+    public Page<Item> searchItemList(findItemForm finditemForm, Pageable pageable, String memberId){
         String searchKeyword = finditemForm.getSearchKeyword();
-        Page<Item> searchitems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
-        if (searchitems.isEmpty()){
+        Page<Item> searchItems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
+
+        if (searchItems.isEmpty()){
             throw new IllegalStateException("검색결과가 없습니다.");
         }
-        return searchitems;
+
+        Iterator<Item> searchItemIterator = searchItems.iterator();
+
+        return getItems(memberId, searchItems, searchItemIterator);
+    }
+
+    private Page<Item> getItems(String memberId, Page<Item> items, Iterator<Item> itemIterator) {
+        while(itemIterator.hasNext()) {
+            Item item = itemIterator.next();
+            if(item.getLikedList().contains(memberId)) {
+                item.setLiked(true);
+            } else {
+                item.setLiked(false);
+            }
+
+            log.info("현재 아이템 : " + item.getDesignName() + " 좋아요 표시 : " + item.isLiked());
+        }
+
+        return items;
     }
 
     public List<Item> findItemsByCreator(String creator) {
