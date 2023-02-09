@@ -102,8 +102,10 @@
             <!-- to 상명 / 좋아요, 조회수 -->
             <section class="design-eval">
               좋아요:
-              <div th:onclick="|location.href='@{/items/{id}/like (id=${item.getId()})}'|"
-                           th:text="${item.getLikes()}"></div>
+              <div
+                th:onclick="|location.href='@{/items/{id}/like (id=${item.getId()})}'|"
+                th:text="${item.getLikes()}"
+              ></div>
               조회수:
               <div th:text="${item.getViews()}"></div>
             </section>
@@ -126,7 +128,9 @@
               <div class="info-content-title">디자인 설명</div>
               <br />
               <br />
-              <div th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"></div>
+              <div
+                th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"
+              ></div>
             </section>
             <section class="info-content" id="info-cancel">
               <div class="info-content-title">취소 및 환불 규정</div>
@@ -251,20 +255,17 @@
 
         const object = new THREE.Object3D();
 
-        if (extension == "obj") {
-          const loader = new THREE.OBJLoader();
-          const mtlLoader = new THREE.MTLLoader();
-          // mtlLoader.setPath(objectload);
-          mtlLoader.load(
-            "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
-            function (materials) {
-              materials.preload();
+        const mtlLoader = new THREE.MTLLoader();
+        mtlLoader.load(
+          "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
+          function (materials) {
+            materials.preload();
+            if (extension == "obj") {
+              const loader = new THREE.OBJLoader();
               loader.setMaterials(materials);
-
               loader.load(
                 src3d,
                 function (objectload) {
-                  // console.log(objectload.children[0].geometry);
                   //size 조절
                   const { minX, maxX, minY, maxY, minZ, maxZ } =
                     getBoundingBox(objectload);
@@ -303,46 +304,45 @@
                   console.log("An error happened");
                 }
               );
+              animate();
             }
-          );
+            if (extension == "fbx") {
+              const loader = new THREE.FBXLoader();
+              loader.load(
+                src3d,
+                function (objectload) {
+                  //size 조절
+                  var box = new THREE.Box3().setFromObject(objectload);
+                  var maxX = box.max.x;
+                  var desiredSize = 2.0;
+                  var scale = desiredSize / maxX;
+                  object.scale.set(scale, scale, scale);
 
-          animate();
-        }
-        if (extension == "fbx") {
-          const loader = new THREE.FBXLoader();
-          loader.load(
-            src3d,
-            function (objectload) {
-              //size 조절
-              var box = new THREE.Box3().setFromObject(objectload);
-              var maxX = box.max.x;
-              var desiredSize = 2.0;
-              var scale = desiredSize / maxX;
-              object.scale.set(scale, scale, scale);
+                  //조명 추가
+                  shadowLight();
 
-              //조명 추가
-              shadowLight();
-
-              //랜더링
-              object.add(objectload);
-              scene.add(object);
-            },
-            function (xhr) {
-              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-            },
-            function (error) {
-              console.log(error);
-              console.log("An error happened");
+                  //랜더링
+                  object.add(objectload);
+                  scene.add(object);
+                },
+                function (xhr) {
+                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+                },
+                function (error) {
+                  console.log(error);
+                  console.log("An error happened");
+                }
+              );
+              animate();
             }
-          );
-          animate();
-        }
+          }
+        );
 
         //회전동작
         function animate() {
           requestAnimationFrame(animate);
-          object.rotation.z -= 0.01;
-          object.rotation.y -= 0.01;
+          object.rotation.x += 0.01;
+          object.rotation.y += 0.01;
           renderer.render(scene, camera);
           controls.update();
         }
@@ -404,49 +404,6 @@
           const pointLight = new THREE.PointLight(0xffffff, 0.8);
           camera.add(pointLight);
           scene.add(camera);
-        }
-
-        //색상
-        function colorLight(objectload) {
-          // const mtlLoader = new THREE.MTLLoader();
-          // // mtlLoader.setPath(objectload);
-          // mtlLoader.load(
-          //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
-          //   function (materials) {
-          //     materials.preload();
-          //     object.setMaterials(materials);
-          //   }
-          // );
-          // for (let i = 0; i < objectload.children.length; i++) {
-          //   var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-          //   objectload.children[i].material = material;
-          // }
-          // for (let i = 0; i < objectload.children.length; i++) {
-          //   if (objectload.children[i].geometry.attributes.color === undefined) {
-          //     var colors = [];
-          //     for (
-          //       let j = 0;
-          //       j < objectload.children[i].geometry.attributes.position.count;
-          //       j++
-          //     ) {
-          //       var u =
-          //         objectload.children[i].geometry.attributes.uv.array[j * 2];
-          //       var v =
-          //         objectload.children[i].geometry.attributes.uv.array[j * 2 + 1];
-          //       colors[j * 3] = u;
-          //       colors[j * 3 + 1] = v;
-          //       colors[j * 3 + 2] = 1;
-          //     }
-          //     objectload.children[i].geometry.setAttribute(
-          //       "color",
-          //       new THREE.BufferAttribute(new Float32Array(colors), 3)
-          //     );
-          //     var material = new THREE.MeshBasicMaterial({
-          //       vertexColors: THREE.VertexColors,
-          //     });
-          //     objectload.children[i].material = material;
-          //   }
-          // }
         }
       }
     </script>
