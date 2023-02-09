@@ -1,7 +1,6 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
@@ -126,9 +125,8 @@ public class ItemController {
         Item item = itemService.updateView(itemId);
 
         String memberId = (String)session.getAttribute("loginId");
-        Member member = memberService.getPresentMember(memberId);
 
-        int liked = itemService.findLiked(member, itemId);
+        boolean liked = itemService.findLiked(memberId, itemId);
         item.setLiked(liked);
 
         model.addAttribute("item", item);
@@ -141,9 +139,10 @@ public class ItemController {
     public String liked(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
         String memberId = (String)session.getAttribute("loginId");
 
-        Item item = memberService.likedListUpdate(itemId, memberId);
+        Item item = itemService.likedListUpdate(itemId, memberId);
 
-        item.setLiked(1);
+        boolean liked = itemService.findLiked(memberId, itemId);
+        item.setLiked(liked);
 
         model.addAttribute("item", item);
         model.addAttribute("newLineChar", '\n');

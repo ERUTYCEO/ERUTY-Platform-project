@@ -4,7 +4,9 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "item")
 @Getter
@@ -31,7 +33,8 @@ public class Item {
     private String modelPath;
     private String imagePath;
 
-    private int liked;
+    private boolean liked;
+    private List<String> likedList = new ArrayList<>();
 
 
 
@@ -61,7 +64,7 @@ public class Item {
         this.likes = liked;
     }
 
-    public void setLiked(int liked) {
+    public void setLiked(boolean liked) {
         this.liked = liked;
     }
 }

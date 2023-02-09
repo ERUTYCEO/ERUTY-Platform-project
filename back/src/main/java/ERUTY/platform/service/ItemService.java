@@ -5,6 +5,7 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ItemService {
@@ -80,13 +82,34 @@ public class ItemService {
         return itemList;
     }
 
-    public int findLiked(Member member, String itemId) {
-        List<String> likedList = member.getLikedList();
+    public Item likedListUpdate(String itemId, String memberId) {
+        Item item = itemRepository.findItemById(itemId);
 
-        if (likedList.contains(itemId)) {
-            return 1;
+        long likeCount = item.getLikes();
+
+        if(item.getLikedList().contains(memberId)) {
+            item.getLikedList().remove(memberId);
+            item.setLikes(likeCount - 1);
         } else {
-            return 0;
+            item.getLikedList().add(memberId);
+            item.setLikes(likeCount + 1);
+        }
+
+        log.info("좋아요한 Member : " + item.getLikedList());
+
+        itemRepository.save(item);
+
+        return item;
+    }
+
+    public boolean findLiked(String memberId, String itemId) {
+        Item item = itemRepository.findItemById(itemId);
+        List<String> likedList = item.getLikedList();
+
+        if (likedList.contains(memberId)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
