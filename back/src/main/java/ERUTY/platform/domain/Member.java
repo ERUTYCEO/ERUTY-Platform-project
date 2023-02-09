@@ -19,7 +19,6 @@ public class Member {
     private String password;
     private boolean marketingOk;
     private List<String> uploadList = new ArrayList<>();
-    private List<String> likedList = new ArrayList<>();
 
     public Member(String name, String email, String password, boolean marketingOk) {
         this.name = name;

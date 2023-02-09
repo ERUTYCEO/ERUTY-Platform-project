@@ -1,9 +1,8 @@
 package ERUTY.platform.service;
 
-import ERUTY.platform.domain.Item;
-import ERUTY.platform.form.changepwdForm;
-import ERUTY.platform.form.MemberLoginForm;
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.form.MemberLoginForm;
+import ERUTY.platform.form.changepwdForm;
 import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -111,27 +110,5 @@ public class MemberService {
 
     public Member getPresentMember(String memberId) {
         return memberRepository.findMemberById(memberId);
-    }
-
-    public Item likedListUpdate(String itemId, String memberId) {
-        Member member = memberRepository.findMemberById(memberId);
-        Item item = itemRepository.findItemById(itemId);
-
-        long likeCount = item.getLikes();
-
-        if(member.getLikedList().contains(itemId)) {
-            member.getLikedList().remove(itemId);
-            item.setLikes(likeCount - 1);
-        } else {
-            member.getLikedList().add(itemId);
-            item.setLikes(likeCount + 1);
-        }
-
-        log.info("좋아요한 아이템 : " + member.getLikedList());
-
-        memberRepository.save(member);
-        itemRepository.save(item);
-
-        return item;
     }
 }

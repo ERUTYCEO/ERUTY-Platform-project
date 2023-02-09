@@ -1,7 +1,6 @@
 package ERUTY.platform.controller;
 
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.service.ItemService;
@@ -82,14 +81,17 @@ public class ItemController {
     }
 
     @GetMapping("/items/search")
-    public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, findItemForm finditemForm){
+    public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, HttpSession session, findItemForm finditemForm){
         Page<Item> itemList = null;
         String searchKeyword = finditemForm.getSearchKeyword();
+
+        String memberId = (String)session.getAttribute("loginId");
+
         if (searchKeyword == null){
-            itemList = itemService.TotalItem(pageable); // 검색 X -> 아이템 전체 리스트들 띄우기
+            itemList = itemService.TotalItem(pageable, memberId); // 검색 X -> 아이템 전체 리스트들 띄우기
         }
         else{
-            itemList = itemService.searchItemList(finditemForm, pageable); //검색결과에 해당하는 아이템만
+            itemList = itemService.searchItemList(finditemForm, pageable, memberId); //검색결과에 해당하는 아이템만
         }
         int nowPage = itemList.getPageable().getPageNumber()+1;
         int startPage = Math.max(nowPage - 4, 1);
@@ -126,9 +128,8 @@ public class ItemController {
         Item item = itemService.updateView(itemId);
 
         String memberId = (String)session.getAttribute("loginId");
-        Member member = memberService.getPresentMember(memberId);
 
-        int liked = itemService.findLiked(member, itemId);
+        boolean liked = itemService.findLiked(memberId, itemId);
         item.setLiked(liked);
 
         model.addAttribute("item", item);
@@ -141,9 +142,10 @@ public class ItemController {
     public String liked(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
         String memberId = (String)session.getAttribute("loginId");
 
-        Item item = memberService.likedListUpdate(itemId, memberId);
+        Item item = itemService.likedListUpdate(itemId, memberId);
 
-        item.setLiked(1);
+        boolean liked = itemService.findLiked(memberId, itemId);
+        item.setLiked(liked);
 
         model.addAttribute("item", item);
         model.addAttribute("newLineChar", '\n');
