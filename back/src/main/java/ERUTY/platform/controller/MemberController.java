@@ -143,6 +143,8 @@ public class MemberController {
     public String findPassword(Model model) {
         model.addAttribute("findPwdForm", new findPwdForm());
 
+        log.info("진입");
+
         return "members/findbyemail";
     }
 
@@ -162,7 +164,6 @@ public class MemberController {
         model.addAttribute("data", new Messsage("로그인 페이지로 이동합니다", "/members/login"));
 
         return "message";
-        //return "redirect:/members/login";
     }
 
     @GetMapping("/members/authmember")
@@ -173,7 +174,7 @@ public class MemberController {
 
         return "members/mange";
     }
-    
+
     @GetMapping("/members/uploadlist")
     public String uploadList(Model model, HttpSession session) {
 
@@ -181,8 +182,8 @@ public class MemberController {
 
         List<Item> uploadlist = itemService.findUploadList(member);
         log.info("업로드 리스트 : " + uploadlist);
-
         model.addAttribute("uploadlist", uploadlist);
+        model.addAttribute("newLineChar", '\n');
 
         return "members/uploadlist";
     }

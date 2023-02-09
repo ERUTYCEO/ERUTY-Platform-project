@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/2000/svg">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,9 +44,10 @@
         </li> -->
             </ul>
             <div id="navbar-search">
-              <input type="text" id="nav-search" />
-              <button id="search-btn">
-                <svg
+              <form th:action="@{/items/search}" method = "GET">
+                  <input type="text" id="nav-search" name="searchKeyword"/>
+                  <button id="search-btn" type="submit">
+                  <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22"
                   height="22"
@@ -60,6 +61,7 @@
                   />
                 </svg>
               </button>
+              </form>
             </div>
 
             <div id="navbar-btn">
