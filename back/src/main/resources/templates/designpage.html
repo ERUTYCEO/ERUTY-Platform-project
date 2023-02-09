@@ -215,6 +215,7 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
@@ -251,47 +252,59 @@
 
         if (extension == "obj") {
           const loader = new THREE.OBJLoader();
-          loader.load(
-            src3d,
-            function (objectload) {
-              // console.log(objectload.children[0].geometry);
-              //size 조절
-              const { minX, maxX, minY, maxY, minZ, maxZ } =
-                getBoundingBox(objectload);
-              const width = maxX - minX;
-              const height = maxY - minY;
-              const depth = maxZ - minZ;
-              const size = Math.max(width, height, depth);
-              const center = new THREE.Vector3(
-                (minX + maxX) / 1.75,
-                (minY + maxY) / 1.75,
-                (minZ + maxZ) / 1.75
-              );
-              camera.position.set(
-                center.x + size / 1.75,
-                center.y + size / 1.75,
-                center.z + size / 1.75
-              );
-              camera.lookAt(center);
-              camera.near = size / 100;
-              camera.far = size * 100;
-              camera.updateProjectionMatrix();
+          const mtlLoader = new THREE.MTLLoader();
+          // mtlLoader.setPath(objectload);
+          mtlLoader.load(
+            "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
+            function (materials) {
+              materials.preload();
+              loader.setMaterials(materials);
 
-              //조명 추가
-              shadowLight();
+              loader.load(
+                src3d,
+                function (objectload) {
+                  // console.log(objectload.children[0].geometry);
+                  //size 조절
+                  const { minX, maxX, minY, maxY, minZ, maxZ } =
+                    getBoundingBox(objectload);
+                  const width = maxX - minX;
+                  const height = maxY - minY;
+                  const depth = maxZ - minZ;
+                  const size = Math.max(width, height, depth);
+                  const center = new THREE.Vector3(
+                    (minX + maxX) / 1.75,
+                    (minY + maxY) / 1.75,
+                    (minZ + maxZ) / 1.75
+                  );
+                  camera.position.set(
+                    center.x + size / 1.75,
+                    center.y + size / 1.75,
+                    center.z + size / 1.75
+                  );
+                  camera.lookAt(center);
+                  camera.near = size / 100;
+                  camera.far = size * 100;
+                  camera.updateProjectionMatrix();
 
-              //랜더링
-              object.add(objectload);
-              scene.add(object);
-            },
-            function (xhr) {
-              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-            },
-            function (error) {
-              console.log(error);
-              console.log("An error happened");
+                  //조명 추가
+                  shadowLight();
+                  // colorLight(objectload, src3d);
+
+                  //랜더링
+                  object.add(objectload);
+                  scene.add(object);
+                },
+                function (xhr) {
+                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+                },
+                function (error) {
+                  console.log(error);
+                  console.log("An error happened");
+                }
+              );
             }
           );
+
           animate();
         }
         if (extension == "fbx") {
@@ -384,19 +397,25 @@
 
         //조명 추가
         function shadowLight() {
-          var hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.61);
-          hemiLight.position.set(0, 50, 0);
-          scene.add(hemiLight);
+          const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+          scene.add(ambientLight);
 
-          var dirLight = new THREE.DirectionalLight(0xffffff, 0.54);
-          dirLight.position.set(-8, 12, 8);
-          dirLight.castShadow = true;
-          dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
-          scene.add(dirLight);
+          const pointLight = new THREE.PointLight(0xffffff, 0.8);
+          camera.add(pointLight);
+          scene.add(camera);
         }
 
         //색상
         function colorLight(objectload) {
+          // const mtlLoader = new THREE.MTLLoader();
+          // // mtlLoader.setPath(objectload);
+          // mtlLoader.load(
+          //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
+          //   function (materials) {
+          //     materials.preload();
+          //     object.setMaterials(materials);
+          //   }
+          // );
           // for (let i = 0; i < objectload.children.length; i++) {
           //   var material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
           //   objectload.children[i].material = material;
