@@ -14,7 +14,7 @@
     />
     <title>ERUTY</title>
   </head>
-  <body data-bs-spy="scroll" data-bs-target="#navId">
+  <body>
     <div class="page1">
       <div class="bg-img"></div>
       <div class="nav">
@@ -39,6 +39,7 @@
         </div>
       </div>
     </div>
+
     <div class="detail-page">
       <div class="design-info">
         <section class="design-img">
@@ -48,7 +49,6 @@
               style="display: none"
               th:value="${item.getModelPath()}"
             />
-            <!-- to 상명 / 3dfile경로 -->
           </canvas>
         </section>
         <div class="detail-img-title"><p>상세 이미지</p></div>
@@ -100,6 +100,7 @@
           <p class="selling-model-price">₩ [[${item.getPrice()}]]</p>
           <div class="selling-model-content">
             <p
+              style="max-height: 300px; overflow: scroll"
               th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"
             ></p>
             <!--      <p>-->
@@ -148,7 +149,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
-    <script type="text/javascript" src="./main.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
       integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
@@ -164,8 +164,6 @@
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
-    <script src="./designpage.js"></script>
-    <script src="./login.js"></script>
     <script>
       let src3d = canvasinput.value;
       var fileExtension = src3d.substr(src3d.lastIndexOf(".") + 1);
@@ -184,7 +182,7 @@
           canvas: myCanvas,
           alpha: true,
         });
-        renderer.setSize(600, 400);
+        renderer.setSize(700, 630);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.rotateSpeed = 1.0; // 마우스로 카메라를 회전시킬 속도입니다. 기본값(Float)은 1입니다.
