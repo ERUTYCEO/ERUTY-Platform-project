@@ -1,232 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/designpage.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/css/designpage.css" rel="stylesheet" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous"
+  />
+  <title>ERUTY</title>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navId">
+<div class="page1">
+  <div class="bg-img"></div>
+  <div class="nav">
+    <a href="/"
+    ><img
+            class="nav-logo"
+            width="25px"
+            src="/img/eruty_logo2.png"
+            alt="로고"
+    /></a>
+    <div class="search-bar">
+      <img src="/img/a.png" alt="" width="17px" height="17px" />
+      <input type="text" placeholder="   search" />
+      <button></button>
+    </div>
+    <div class="menu">
+      <a href="">ABOUT ERUTY</a>
+      <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+      <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+      <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
+      <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+    </div>
+  </div>
+</div>
+<div class="detail-page">
+  <div class="design-info">
+    <section class="design-img">
+      <canvas id="design3d" class="main-img">
+        <input
+                id="canvasinput"
+                style="display: none"
+                th:value="${item.getModelPath()}"
+        />
+        <!-- to 상명 / 3dfile경로 -->
+      </canvas>
+    </section>
+    <div class="detail-img-title"><p>상세 이미지</p></div>
 
-    <title>ERUTY</title>
-  </head>
-  <body data-bs-spy="scroll" data-bs-target="#navId">
-    <!-- NAV -->
-    <nav class="header-nav bg-white border-bottom">
-      <div class="nav-container">
-        <!-- <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <div id="navbarCollapse">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <a class="fs-4" href="./main.html"
-              ><img src="/img/logo.png" id="main-logo-img" alt="로고사진"
-            /></a>
+    <img class="design-detail-img" th:src="${item.getImagePath()}" alt="" />
+  </div>
 
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="#gallery1">-</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact1">-</a>
-            </li> -->
-          </ul>
-          <div id="navbar-search">
-            <input type="text" id="nav-search" />
-            <button id="search-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                fill="currentColor"
-                class="bi bi-search"
-                id="search-icon"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                />
-              </svg>
-            </button>
-          </div>
-          <div id="navbar-btn">
-            <a href="/members/login">
-              <button class="login-btn" type="button">LOGIN</button>
-            </a>
-            <a href="/members/new">
-              <button class="signup-btn ms-3" type="button">SIGN UP</button>
-            </a>
-            <!-- <button
-              class="upload-btn ms-3"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#about-modal"
-            >
-              UPLOAD
-            </button> -->
-          </div>
-        </div>
+<div class="selling-info">
+  <section class="design-eval">
+    <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+    </svg>
+      <span
+              th:onclick="|location.href='@{/items/{id}/like (id=${item.getId()})}'|"
+              th:text="${item.getLikes()}"
+      ></span></div>
+    <div><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+    </svg>
+      <span th:text="${item.getViews()}"></span></div>
+
+  </section>
+  <div class="selling-model-info">
+
+    <p class="selling-model-title" th:text="${item.getDesignName()}"></p>
+    <p class="selling-model-price">₩ [[${item.getPrice()}]]</p>
+    <div class="selling-model-content">
+      <p th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}">
+
+      </p>
+<!--      <p>-->
+<!--        It reproduces the face, hair, and facial expressions of adult-->
+<!--        women in 3D. Convert 2048 x 2048 HD quality to png and jpg format-->
+<!--        files. It is possible. It is formed of about 1600 polygons.-->
+<!--      </p>-->
+    </div>
+    <button class="selling-model-btn">구매하기</button>
+  </div>
+  <div class="seller-info">
+    <p>
+            <span class="seller-name" th:text="${item.getCreator()} "></span
+            ><span class="seller-category">디자이너/회사</span>
+    </p>
+    <div class="seller-rating">
+      <div>
+        <p>37회</p>
+        <p>총 거래 횟수</p>
       </div>
-    </nav>
-
-    <!-- <div id="example"></div>
-    <div id="example2">
-      <h2 id="highlights1">here</h2>
-    </div> -->
-    <div id="main">
-      <div id="main-container">
-        <div id="design">
-          <div id="design-info">
-            <section class="design-img">
-              <canvas id="design3d" class="main-img">
-                <input
-                  id="canvasinput"
-                  style="display: none"
-                  th:value="${item.getModelPath()}"
-                />
-                <!-- to 상명 / 3dfile경로 -->
-              </canvas>
-            </section>
-            <!-- to 상명 / 좋아요, 조회수 -->
-            <section class="design-eval">
-              좋아요:
-              <div
-                th:onclick="|location.href='@{/items/{id}/like (id=${item.getId()})}'|"
-                th:text="${item.getLikes()}"
-              ></div>
-              조회수:
-              <div th:text="${item.getViews()}"></div>
-            </section>
-            <nav class="info-nav">
-              <div class="info-nav-box">
-                <a class="nav-select" href="#info-info">
-                  <span>디자인 설명</span>
-                </a>
-                <a class="nav-unselect" href="#info-cancel">
-                  <span>취소 및 환불</span>
-                </a>
-                <a class="nav-unselect" href="#info-eval">
-                  <span>디자인 평가</span>
-                </a>
-              </div>
-            </nav>
-            <section class="info-content" id="info-info">
-              <!-- to 상명 / 디자인 설명 -->
-
-              <div class="info-content-title">디자인 설명</div>
-              <br />
-              <br />
-              <div
-                th:utext="${#strings.replace(item.getDescription(), newLineChar, '&lt;br /&gt;')}"
-              ></div>
-            </section>
-            <section class="info-content" id="info-cancel">
-              <div class="info-content-title">취소 및 환불 규정</div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                delectus cumque excepturi quod quis? Dolores, ea tempora ipsam
-                sapiente id culpa odit nemo laboriosam esse sed, officiis
-                facilis sint quia.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                delectus cumque excepturi quod quis? Dolores, ea tempora ipsam
-                sapiente id culpa odit nemo laboriosam esse sed, officiis
-                facilis sint quia.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                delectus cumque excepturi quod quis? Dolores, ea tempora ipsam
-                sapiente id culpa odit nemo laboriosam esse sed, officiis
-                facilis sint quia.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                delectus cumque excepturi quod quis? Dolores, ea tempora ipsam
-                sapiente id culpa odit nemo laboriosam esse sed, officiis
-                facilis sint quia.
-              </p>
-            </section>
-            <section class="info-content" id="info-eval">
-              <div class="info-content-title">디자인 평가</div>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                delectus cumque excepturi quod quis? Dolores, ea tempora ipsam
-                sapiente id culpa odit nemo laboriosam esse sed, officiis
-                facilis sint quia.
-              </p>
-            </section>
-          </div>
-
-          <div id="design-sidebar">
-            <section class="sidebar-title">
-              <!-- to 상명 / 디자인 이름 -->
-              <h1 th:text="${item.getDesignName()}"></h1>
-            </section>
-
-            <section class="sidebar-info-box">
-              <div class="sidebar-info">
-                <!-- to 상명 / 디자인 가격 -->
-
-                <div>[[${item.getPrice()}]] 원</div>
-
-                <!-- to 상명 / 저작 권한(3개) -->
-                <div class="sidebar-btn mt-3">
-                  <button>구매하기</button>
-                </div>
-              </div>
-            </section>
-            <section class="seller-box">
-              <div class="seller-info">
-                <!-- to 상명 / User id? -->
-                <div class="seller-name" th:text="${item.getCreator()} "></div>
-                <!-- <div class="seller-img">  프로필 이미지??
-                  <img src="/img/logo.png" alt="" />
-                </div> -->
-              </div>
-
-              <div class="seller-contact">
-                <div>연락 가능 시간 : 0시 ~ 0시</div>
-                <div>평균 응답 시간 : 30분 이내</div>
-              </div>
-              <div class="seller-btn"><button>문의하기</button></div>
-            </section>
-          </div>
-        </div>
+      <div>
+        <p>4.5</p>
+        <p>고객 만족도</p>
+      </div>
+      <div>
+        <p>개인 디자이너</p>
+        <p>회원 구분</p>
       </div>
     </div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-      integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
-
-    <script src="/js/designpage.js"></script>
-    <script>
+    <div class="seller-btn">
+      <button>PORTFOLIO 확인</button><button>디자인 의뢰하기</button>
+    </div>
+  </div>
+  <div class="company-info">
+    <p class="company-name">그래픽 디자인 컴퍼니 ERUTY</p>
+    <p class="company-contact">
+      <span>연락 가능 시간</span>00:00 ~ 00:00
+    </p>
+    <p class="company-contact"><span>평균 응답 시간</span>30분 이내</p>
+    <button class="company-contact-btn">문의하기</button>
+  </div>
+</div>
+</div>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"
+></script>
+<script type="text/javascript" src="./main.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+        integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
+<script src="https://kit.fontawesome.com/bd796f3c3a.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
+<script src="./designpage.js"></script>
+<script src="./login.js"></script>
+<script>
       let src3d = canvasinput.value;
       var fileExtension = src3d.substr(src3d.lastIndexOf(".") + 1);
       rendering(src3d, fileExtension);
@@ -407,5 +322,5 @@
         }
       }
     </script>
-  </body>
+</body>
 </html>

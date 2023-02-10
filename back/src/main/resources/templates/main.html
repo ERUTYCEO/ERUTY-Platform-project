@@ -18,498 +18,98 @@
 
     <title>ERUTY</title>
   </head>
-  <body data-bs-spy="scroll" data-bs-target="#navId">
-    <div id="main-container">
-      <!-- NAV -->
-      <nav class="header-nav fixed-top bg-white border-bottom">
-        <div class="nav-container">
-          <div id="navbarCollapse">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-              <a class="fs-4" href="#"
-                ><img
-                  src="../img/logoname.png"
-                  id="main-logo-img"
-                  alt="로고사진"
-              /></a>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#main-page"
-                  >MAIN</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#intro1">INFO</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#highlights1"
-                  >DESIGN</a
-                >
-              </li>
-            </ul>
-            <div id="navbar-search">
-              <input type="text" id="nav-search" />
-              <button id="search-btn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  fill="currentColor"
-                  class="bi bi-search"
-                  id="search-icon"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div id="navbar-btn">
-              <a href="/members/login">
-                <button
-                        th:if="!${session?.loginId}"
-                  class="login-btn"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#login-modal"
-                >
-                  LOGIN
-                </button></a
-              >
-              <a href="/members/logout">
-                <button
-                        th:if="${session?.loginId}"
-                        class="login-btn"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#login-modal"
-                >
-                  LOGOUT
-                </button></a
-              >
-
-              <a href="/members/new"
-                ><button
-                      th:if="!${session?.loginId}"
-                  class="signup-btn ms-3"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#signUp-modal"
-                >
-                  SIGN UP
-                </button></a
-              >
-              <a href="/members/changepwd"
-              ><button
-                      th:if="${session?.loginId}"
-                      class="signup-btn ms-3"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#signUp-modal"
-              >
-                CHANGE PWD
-              </button></a
-              >
-              <!-- <button
-              class="upload-btn ms-3"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#about-modal"
-            >
-              UPLOAD
-            </button> -->
-            </div>
-          </div>
-        </div>
-      </nav>
-      <!-- 비밀번호찾기 모달-->
-      <div
-        class="modal fade"
-        id="findPassword-modal"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <img
-                width="60"
-                height="60"
-                className="img-thumbnail"
-                src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
-                alt="aaafs"
-              />
-              <h1 class="modal-title fs-5 m-2" id="exampleModalLabel">
-                이루티 비밀번호 찾기
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form
-                name="findPasswordform"
-                onsubmit="return checkFindPassword()"
-              >
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="emailfind"
-                    placeholder="E-mail"
-                    aria-describedby="emailHelp"
-                  />
-                  <div id="emailHelp" class="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
-                </div>
-                <div
-                  class="mb-1"
-                  id="findPWCheckMessage"
-                  style="color: red; font-size: 13px; display: none"
-                >
-                  *이메일을 입력해주세요
-                </div>
-                <button type="submit" class="login-btn w-100">
-                  FindPassword
-                </button>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="signup"
-                data-bs-toggle="modal"
-                data-bs-target="#changePassword-modal"
-              >
-                ChangePassword
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 비밀번호 변경 모달-->
-      <div
-        class="modal fade"
-        id="changePassword-modal"
-        data-bs-backdrop="static"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <img
-                width="60"
-                height="60"
-                className="img-thumbnail"
-                src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
-                alt="aaafs"
-              />
-              <h1 class="modal-title fs-5 m-2" id="exampleModalLabel">
-                이루티 비밀번호 변경
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form
-                name="changePasswordform"
-                onsubmit="return checkChangePassword()"
-              >
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    name="emailfind"
-                    placeholder="E-mail"
-                    aria-describedby="emailHelp"
-                  />
-                  <div id="emailHelp" class="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
-                  <div>
-                    <label for="exampleInputPassword1" class="form-label"
-                      >Password</label
-                    >
-                    <input
-                      type="password"
-                      class="form-control"
-                      placeholder="Password"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div
-                    class="mb-1"
-                    id="changeMessage"
-                    style="color: red; font-size: 13px; display: none"
-                  >
-                    *이메일 및 비밀번호를 입력해주세요
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
-                    >New Password</label
-                  >
-                  <input
-                    type="password"
-                    class="form-control"
-                    placeholder="Password"
-                    id="exampleInputPassword2"
-                  />
-                  <input
-                    type="password"
-                    class="form-control mt-1"
-                    placeholder="check Password"
-                    id="exampleInputPassword3"
-                  />
-                </div>
-                <div
-                  class="mb-1"
-                  id="changePWDMessage"
-                  style="color: red; font-size: 13px; display: none"
-                >
-                  *비밀번호가 다릅니다
-                </div>
-                <div
-                  class="mb-1"
-                  id="changePWMessage"
-                  style="color: red; font-size: 13px; display: none"
-                >
-                  *비밀번호를 입력해주세요
-                </div>
-                <button type="submit" class="login-btn w-100">
-                  ChangePassword
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 모달 -->
-
-      <main>
-        <!-- 메인페이지 -->
-        <div
-          class="p-5 vh-100 d-flex flex-row justify-content-center align-items-center"
-          id="main-page"
-        >
-          <div class="p-5 main-page-content">
-            <h1 class="mb-3 main-title">안전하고 빠른 3D 디자인</h1>
-            <h1 class="main-title2">거래 플랫폼</h1>
-            <p class="main-info">
-              <span class="main-info-name">이루티</span> 에선 다양한 3D 그래픽
-              디자인들을 검색하고 확인해 보실 수 있습니다
-            </p>
-
-            <p class="main-info">
-              <span class="main-info-name">이루티</span> 에선 안전한 블록체인
-              저작권을 통해 3D 그래픽을 빠르게 거래할 수 있습니다
-            </p>
-            <a href="#intro1"><button id="main-btn">회사 설명</button></a>
-          </div>
-
-          <canvas class="w-50 h-50" id="main-3d"> </canvas>
-        </div>
-        <!-- 회사 설명 -->
-        <div
-          class="vh-100 d-flex flex-column justify-content-center align-items-center"
-          id="intro1"
-        >
-          <h1 id="info-title">ERUTY</h1>
-          <p class="text-secondary" id="info-content">회사 소개</p>
-          <a href="#highlights1" class="mt-2"
-            ><button type="button" class="btn btn-light" id="info-btn">
-              디자인 보러가기
-            </button></a
-          >
-        </div>
-        <!-- 디자인 갤러리 -->
-        <div
-          class="d-flex flex-column justify-content-center align-items-center pt-3"
-          id="highlights1"
-        >
-          <div
-            class="px-5 w-100 d-flex flex-column align-items-center text-center"
-          >
-            <h1 class="mt-5">디자인 갤러리</h1>
-            <hr class="w-75" />
-
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      src="../img/designexp.png"
-                      class="card-img-top"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      class="card-img-top"
-                      src="../img/designexp.png"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      class="card-img-top"
-                      src="../img/designexp.png"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      class="card-img-top"
-                      src="../img/designexp.png"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      class="card-img-top"
-                      src="../img/designexp.png"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      src="../img/designexp.png"
-                      class="card-img-top"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      src="../img/designexp.png"
-                      class="card-img-top"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <a href="./designpage.html">
-                    <img
-                      src="../img/designexp.png"
-                      class="card-img-top"
-                      alt="designexp"
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">title</h5>
-                      <p class="card-text">판매자</p>
-                      <p class="card-text">좋아요 조회수</p>
-                    </div></a
-                  >
-                </div>
-              </div>
-            </div>
-
-            <a href="./gallery.html"
-              ><button class="goto-gallery">다양한 디자인 보러가기</button>
-            </a>
-          </div>
-        </div>
-      </main>
-
-      <!-- <div id="example"></div>
-    <div id="example2">
-      <h2 id="highlights1">here</h2>
-    </div> -->
-      <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-        integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-      ></script>
-      <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-      <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-      <script src="../static/js/rendering.js"></script>
-      <script src="../static/js/login.js"></script>
+  <body data-bs-spy="scroll" data-bs-target="#navId" class="body" >
+  <div class="bg-img"></div>
+  <div class="nav">
+    <a href="/"
+    ><img
+            class="nav-logo"
+            width="25px"
+            src="/img/eruty_logo2.png"
+            alt="로고"
+    /></a>
+    <div class="search-bar">
+      <img src="/img/a.png" alt="" width="17px" height="17px" />
+      <input type="text" placeholder="   search" />
+      <button></button>
     </div>
+    <div class="menu">
+      <a href="">ABOUT ERUTY</a>
+      <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+      <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+      <a th:if="${session?.loginId}"  href="/items/upload">UPLOAD</a>
+      <a th:if="${session?.loginId}"  href="/members/logout">LOGOUT</a>
+
+    </div>
+  </div>
+  <div class="page1">
+    <div class="main">
+      <div class="rendering">
+        <div><canvas id="main-3d"></canvas></div>
+      </div>
+      <div class="right-info">
+        <div class="info">
+          <div class="name">
+            <img class="main-logo" src="/img/eruty_logo1.png" alt="" />
+          </div>
+
+          <div>
+            <p class="title">Speedy Design Transaction</p>
+            <p class="content">
+              안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+            </p>
+          </div>
+
+          <div>
+            <p class="title">Safe transaction</p>
+            <p class="content">
+              안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+            </p>
+          </div>
+
+          <div>
+            <p class="title">Diversity of design</p>
+            <p class="content">
+              안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div>
+        <p class="bottom-title">Secure and fast</p>
+        <p class="bottom-content">3D design trading platform</p>
+      </div>
+      <a href="/items/search"
+      ><img class="bottom-btn" src="/img/button.png" alt="" />
+        <p class="bottom-btn-title">DESIGN</p></a
+      >
+    </div>
+  </div>
+  <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript" src="./main.js"></script>
+  <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+          integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <script src="/js/MTLLoader.js"></script>
+  <script src="/js/rendering.js"></script>
+  <script src="/js/login.js"></script>
+  <script
+          src="https://kit.fontawesome.com/6fbcf91afd.js"
+          crossorigin="anonymous"
+  ></script>
+  </body>
   </body>
 </html>

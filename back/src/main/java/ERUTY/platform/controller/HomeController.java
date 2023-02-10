@@ -12,7 +12,7 @@ public class HomeController {
     public String home() {
         log.info("home controller");
 
-        return "home";
+        return "main";
     }
     @GetMapping("/gallery")
     public String gallery() {

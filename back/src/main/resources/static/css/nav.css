@@ -1,0 +1,50 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  min-width: 1000px;
+}
+
+.nav-logo {
+  margin-left: 40px;
+}
+
+.search-bar {
+  align-items: center;
+  width: 40%;
+  display: flex;
+  position: relative;
+}
+
+.search-bar input {
+  margin-left: 10px;
+  width: 100%;
+  border: 1px solid rgb(16, 110, 185);
+  border-radius: 15px;
+  height: 24px;
+}
+
+.search-bar button {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(16, 110, 185);
+  border: 1px solid rgb(16, 110, 185);
+  border-radius: 15px;
+  position: absolute;
+  top: 4px;
+  right: 5px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 1.7rem;
+  font-size: 0.8;
+}
+
+.menu-menu {
+  width: 30px;
+}
