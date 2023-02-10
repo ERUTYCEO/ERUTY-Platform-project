@@ -13,18 +13,5 @@ public class HomeController {
         log.info("home controller");
 
         return "main";
-    }
-    @GetMapping("/gallery")
-    public String gallery() {
-        log.info("gallery controller");
-
-        return "gallery";
-    }
-    @GetMapping("/designpage")
-    public String designpage() {
-        log.info("designpage controller");
-
-        return "designpage";
-    }
-    
+    }    
 }
