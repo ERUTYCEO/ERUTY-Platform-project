@@ -290,8 +290,7 @@
                     placeholder="디자인 이름을 입력하세요"
                     id="designName"
                   />
-                  <div class="fieldError" th:errors="*{designName}">
-                  </div>
+                  <div class="fieldError" th:errors="*{designName}"></div>
                 </li>
 
                 <li>
@@ -301,8 +300,7 @@
                     class="form-control"
                     placeholder="창작연월일을 입력하세요"
                   />
-                  <div class="fieldError" th:errors="*{createdDate}">
-                  </div>
+                  <div class="fieldError" th:errors="*{createdDate}"></div>
                 </li>
                 <li>
                   창작자<input
@@ -311,8 +309,7 @@
                     class="form-control"
                     placeholder="창작자 이름을 입력하세요"
                   />
-                  <div class="fieldError" th:errors="*{creator}">
-                  </div>
+                  <div class="fieldError" th:errors="*{creator}"></div>
                 </li>
                 <li>
                   가격<input
@@ -320,9 +317,8 @@
                     th:field="*{price}"
                     class="form-control"
                     placeholder="판매 가격을 입력하세요"
-                />
-                <div class="fieldError" th:errors="*{price}">
-                </div>
+                  />
+                  <div class="fieldError" th:errors="*{price}"></div>
                 </li>
               </ul>
             </div>
@@ -335,8 +331,7 @@
                     class="form-control"
                     placeholder="창작 내용을 입력하세요"
                   ></textarea>
-                  <div class="fieldError" th:errors="*{description}">
-                  </div>
+                  <div class="fieldError" th:errors="*{description}"></div>
                 </li>
               </ul>
             </div>
@@ -598,6 +593,7 @@
           if (i == filesLen - 1) {
             imagePath.value =
               "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+              "*" +
               imageTempPath;
             console.log(imagePath.value);
             alert("Successfully uploaded.");
