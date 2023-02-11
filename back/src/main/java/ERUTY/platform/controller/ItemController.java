@@ -84,19 +84,6 @@ public class ItemController {
 
         return "items/itemInfo";
     }
-
-
-    @GetMapping("/items/test")
-    public String test1(@ModelAttribute("creator") String creator, Model model) {
-        List<Item> items = itemService.findItemsByCreator("test0");
-        for (Item item : items) {
-            log.info(item.getDesignName());
-            log.info(String.valueOf(item.getCreatedDate()));
-            log.info(String.valueOf(item.isOrigin()));
-        }
-        return "home";
-    }
-
     @GetMapping("items/{itemId}/detail")
     public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
         Item item = itemService.updateView(itemId);
