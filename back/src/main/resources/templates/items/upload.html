@@ -18,7 +18,7 @@
       /* upload1 */
 
       .contents .upload-box {
-        width: 90%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -225,11 +225,7 @@
           <div id="contentsClass" class="contents">
             <div class="upload-box">
               <div id="drop-file" class="drag-file">
-                <img
-                  src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
-                  alt="이루티 로고"
-                  class="image"
-                />
+                <img src="/img/logo.png" alt="이루티 로고" class="image" />
                 <p class="message">
                   drag 3D file to Upload<span
                     style="color: rgb(36, 170, 225); font-size: 13px"
@@ -258,13 +254,14 @@
               <input
                 class="file"
                 type="file"
-                accept="image /*"
+                multiple
+                accept=".png, .jpg, .jpeg"
                 style="display: none"
                 id="uploadImg"
               />
               <div class="mainImgClass" id="mainImg">
                 <img
-                  src="https://d3pispv0zx4fd2.cloudfront.net/img/logo.png"
+                  src="/img/logo.png"
                   alt="이루티 로고"
                   width="40%"
                   height="40%"
@@ -273,7 +270,13 @@
               </div>
 
               <div id="titleImg" style="text-align: center; padding: 10px 0">
-                choose title image(click)
+                <span style="font-size: 13px">
+                  Please select detailed images at once time </span
+                ><br />
+                <span style="color: rgb(36, 170, 225); font-size: 10px">
+                  Multiple selections are possible but the first selected image
+                  is the representative image(click)</span
+                >
               </div>
               <p th:if="${#fields.hasErrors('imagePath')}">사진을 넣어주세요</p>
             </div>
@@ -395,7 +398,6 @@
       </div>
     </form>
 
-    <!-- hashing ../static/js/sha256.js-->
     <script src="/js/sha256.js"></script>
     <script>
       ///// 환경변수 설정 /////
@@ -564,23 +566,27 @@
       }
       function upload(e) {
         const files = e.target.files;
-        var file = files[0];
-        var fileName = "titleImg"; //file.name;
-        var upload2 = encodeURIComponent("item") + "/" + hashing + "/";
-        var saveKey = upload2 + fileName;
+        const filesLen = files.length;
+        var imageTempPath = "";
 
-        var upload = new AWS.S3.ManagedUpload({
-          params: {
-            Bucket: albumBucketName,
-            Key: saveKey,
-            Body: file,
-          },
-        });
-        var promise = upload.promise();
-        promise.then(
-          function (data) {
-            alert("Successfully uploaded.");
+        for (var i = 0; i < filesLen; i++) {
+          var file = files[i];
+          var fileName = file.name;
+          var upload2 = encodeURIComponent("item") + "/" + hashing + "/";
+          var saveKey = upload2 + fileName;
 
+          var imagePath = document.getElementById("imagePath");
+          imageTempPath += file.name + "*";
+          console.log(imageTempPath);
+
+          var upload = new AWS.S3.ManagedUpload({
+            params: {
+              Bucket: albumBucketName,
+              Key: saveKey,
+              Body: file,
+            },
+          });
+          if (i == 0) {
             var DOM_img = document.createElement("img");
             DOM_img.classList.add("domImg");
             DOM_img.src = URL.createObjectURL(files[0]);
@@ -588,18 +594,17 @@
             titleImg.remove();
             mainImg.classList.remove("mainImgClass");
             mainImg.appendChild(DOM_img);
-
-            var imagePath = document.getElementById("imagePath");
+          }
+          if (i == filesLen - 1) {
             imagePath.value =
               "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
-              hashing +
-              "/" +
-              fileName;
-          },
-          function (err) {
-            return alert("There was an error upload: ", err.message);
+              imageTempPath;
+            console.log(imagePath.value);
+            alert("Successfully uploaded.");
           }
-        );
+
+          var promise = upload.promise();
+        }
       }
 
       titleImg.addEventListener("click", handleClick, false);
