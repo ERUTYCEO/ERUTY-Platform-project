@@ -31,6 +31,8 @@ public class ItemService {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(itemForm.getCreatedDate());
 
+        String[] imagePathes = itemForm.getImagePath().split("/*");
+
         Item newItem = Item.builder()
                 .designName(itemForm.getDesignName())
                 .creator(itemForm.getCreator())
@@ -40,7 +42,7 @@ public class ItemService {
                 .isOrigin(itemForm.isOrigin())
                 .canModification(itemForm.isCanModification())
                 .canCommercialUse(itemForm.isCanCommercialUse())
-                .imagePath(itemForm.getImagePath())
+                .imagePathes(imagePathes)
                 .modelPath(itemForm.getModelPath())
                 .build();
 
