@@ -150,7 +150,7 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("newLineChar", '\n');
 
-        return "designpage";
+        return "redirect:/items/{itemId}/detail";
     }
 
     @GetMapping("items/{itemId}/buy")
@@ -160,6 +160,6 @@ public class ItemController {
 
         model.addAttribute("item", item);
         model.addAttribute("newLineChar", '\n');
-        return "designpage";
+        return "redirect:/items/{itemId}/detail";
     }
 }
