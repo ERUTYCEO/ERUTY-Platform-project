@@ -17,15 +17,15 @@ public class Item {
     @Id
     private String id;
     private String memberId;
-    private long likes; // 좋아요
-    private long views; // 조회수
+    private long likes;
+    private long views;
+    private long price;
+    private long numBuy;
 
-    private long price; // 가격
-
-    private String designName; // 디자인 명칭
-    private String creator; // 창작자
-    private Date createdDate; // 창작연월일
-    private String description; // 작품 설명
+    private String designName;
+    private String creator;
+    private Date createdDate;
+    private String description;
     private boolean isOrigin;
     private boolean canCommercialUse;
     private boolean canModification;
@@ -35,10 +35,6 @@ public class Item {
 
     private boolean liked;
     private List<String> likedList = new ArrayList<>();
-
-
-
-
 
     @Builder
     public Item(String designName, String creator, Date createdDate,
@@ -59,6 +55,7 @@ public class Item {
     public void viewPlusOne(){
         this.views++;
     }
+
 
     public void setLikes(long liked) {
         this.likes = liked;

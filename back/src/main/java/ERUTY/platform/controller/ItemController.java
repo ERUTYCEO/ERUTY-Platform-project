@@ -152,4 +152,14 @@ public class ItemController {
 
         return "designpage";
     }
+
+    @GetMapping("items/{itemId}/buy")
+    public String buy(@PathVariable("itemId") String itemId, HttpSession session, Model model){
+        String memberId = (String)session.getAttribute("loginId");
+        Item item = itemService.updateNumBuy(itemId);
+
+        model.addAttribute("item", item);
+        model.addAttribute("newLineChar", '\n');
+        return "designpage";
+    }
 }
