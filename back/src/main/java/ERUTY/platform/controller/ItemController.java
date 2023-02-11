@@ -81,7 +81,7 @@ public class ItemController {
     }
 
     @GetMapping("/items/search")
-    public String DesignList(Model model, @PageableDefault(page=0, size=10, direction = Sort.Direction.DESC)Pageable pageable, HttpSession session, findItemForm finditemForm){
+    public String DesignList(Model model, @PageableDefault(page=0, size=9, direction = Sort.Direction.DESC)Pageable pageable, HttpSession session, findItemForm finditemForm){
         Page<Item> itemList = null;
         String searchKeyword = finditemForm.getSearchKeyword();
 
