@@ -2,15 +2,21 @@ package ERUTY.platform.service;
 
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
+import com.mongodb.DuplicateKeyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,17 +27,33 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(Item item) {
-        validateDuplicateItem(item);
-        itemRepository.save(item);
+    public String registItem(ItemForm itemForm, HttpSession session) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse(itemForm.getCreatedDate());
+
+        String[] imagePathes = itemForm.getImagePath().split("\\*");
+
+        Item newItem = Item.builder()
+                .designName(itemForm.getDesignName())
+                .creator(itemForm.getCreator())
+                .createdDate(date)
+                .description(itemForm.getDescription())
+                .price(itemForm.getPrice())
+                .isOrigin(itemForm.isOrigin())
+                .canModification(itemForm.isCanModification())
+                .canCommercialUse(itemForm.isCanCommercialUse())
+                .imagePathes(imagePathes)
+                .modelPath(itemForm.getModelPath())
+                .build();
+
+        String memberId = (String)session.getAttribute("loginId");
+        newItem.setMemberId(memberId);
+        saveItem(newItem);
+
+        return newItem.getId();
     }
-
-    private void validateDuplicateItem(Item item) {
-        List<Item> items = itemRepository.findItemsByDesignName(item.getDesignName());
-
-        if(!items.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 이름의 디자인입니다.");
-        }
+    public void saveItem(Item item) {
+        itemRepository.save(item);
     }
 
     public Page<Item> TotalItem(Pageable pageable, String memberId){
@@ -69,10 +91,6 @@ public class ItemService {
         return items;
     }
 
-    public List<Item> findItemsByCreator(String creator) {
-        return itemRepository.findItemsByCreator(creator);
-    }
-
     public Item iteminfo(String designName){
         return itemRepository.findItemByDesignName(designName);
     }
@@ -80,6 +98,13 @@ public class ItemService {
     public Item updateView(String itemId) {
         Item item = findItemById(itemId);
         item.viewPlusOne();
+        itemRepository.save(item);
+        return item;
+    }
+    public Item updateNumBuy(String itemId){
+        Item item = findItemById(itemId);
+        long numBuy = item.getNumBuy();
+        item.setNumBuy(numBuy +1);
         itemRepository.save(item);
         return item;
     }
@@ -134,4 +159,5 @@ public class ItemService {
             return false;
         }
     }
+
 }

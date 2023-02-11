@@ -17,34 +17,30 @@ public class Item {
     @Id
     private String id;
     private String memberId;
-    private long likes; // 좋아요
-    private long views; // 조회수
+    private long likes;
+    private long views;
+    private long price;
+    private long numBuy;
 
-    private long price; // 가격
-
-    private String designName; // 디자인 명칭
-    private String creator; // 창작자
-    private Date createdDate; // 창작연월일
-    private String description; // 작품 설명
+    private String designName;
+    private String creator;
+    private Date createdDate;
+    private String description;
     private boolean isOrigin;
     private boolean canCommercialUse;
     private boolean canModification;
 
     private String modelPath;
-    private String imagePath;
+    private String[] imagePathes;
 
     private boolean liked;
     private List<String> likedList = new ArrayList<>();
-
-
-
-
 
     @Builder
     public Item(String designName, String creator, Date createdDate,
                 String description, long price, boolean isOrigin,
                 boolean canModification, boolean canCommercialUse,
-                String modelPath, String imagePath) {
+                String modelPath, String[] imagePathes) {
         this.designName = designName;
         this.creator = creator;
         this.createdDate = createdDate;
@@ -54,11 +50,12 @@ public class Item {
         this.canModification = canModification;
         this.canCommercialUse = canCommercialUse;
         this.modelPath = modelPath;
-        this.imagePath = imagePath;
+        this.imagePathes = imagePathes;
     }
     public void viewPlusOne(){
         this.views++;
     }
+
 
     public void setLikes(long liked) {
         this.likes = liked;

@@ -53,7 +53,7 @@
         </section>
         <div class="detail-img-title"><p>상세 이미지</p></div>
 
-        <img class="design-detail-img" th:src="${item.getImagePath()}" alt="" />
+        <img class="design-detail-img" th:src="${item.getImagePathes()[0]}" alt="" />
       </div>
 
       <div class="selling-info">
@@ -109,7 +109,10 @@
             <!--        files. It is possible. It is formed of about 1600 polygons.-->
             <!--      </p>-->
           </div>
-          <button class="selling-model-btn">구매하기</button>
+          <span
+                  th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
+                  th:text="${item.getNumBuy()}"
+          ></span>
         </div>
         <div class="seller-info">
           <p>
@@ -118,7 +121,7 @@
           </p>
           <div class="seller-rating">
             <div>
-              <p>37회</p>
+              <p>37회</p>기
               <p>총 거래 횟수</p>
             </div>
             <div>

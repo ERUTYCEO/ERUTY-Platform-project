@@ -234,6 +234,7 @@
                   >
                 </p>
               </div>
+              <p th:if="${#fields.hasErrors('modelPath')}">모델을 넣어주세요</p>
               <label class="file-label" for="chooseFile">choose 3D File</label>
               <input
                 class="file"
@@ -277,6 +278,7 @@
                   is the representative image(click)</span
                 >
               </div>
+              <p th:if="${#fields.hasErrors('imagePath')}">사진을 넣어주세요</p>
             </div>
             <div class="d_centent">
               <ul>
@@ -288,7 +290,10 @@
                     placeholder="디자인 이름을 입력하세요"
                     id="designName"
                   />
+                  <div class="fieldError" th:errors="*{designName}">
+                  </div>
                 </li>
+
                 <li>
                   창작 연월일<input
                     type="date"
@@ -296,6 +301,8 @@
                     class="form-control"
                     placeholder="창작연월일을 입력하세요"
                   />
+                  <div class="fieldError" th:errors="*{createdDate}">
+                  </div>
                 </li>
                 <li>
                   창작자<input
@@ -304,6 +311,8 @@
                     class="form-control"
                     placeholder="창작자 이름을 입력하세요"
                   />
+                  <div class="fieldError" th:errors="*{creator}">
+                  </div>
                 </li>
                 <li>
                   가격<input
@@ -311,19 +320,23 @@
                     th:field="*{price}"
                     class="form-control"
                     placeholder="판매 가격을 입력하세요"
-                  />
+                />
+                <div class="fieldError" th:errors="*{price}">
+                </div>
                 </li>
               </ul>
             </div>
             <div class="textarea">
               <ul>
                 <li>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내용설명<textarea
+                  &nbsp;&nbsp;&nbsp;내용설명<textarea
                     type="text"
                     th:field="*{description}"
                     class="form-control"
                     placeholder="창작 내용을 입력하세요"
                   ></textarea>
+                  <div class="fieldError" th:errors="*{description}">
+                  </div>
                 </li>
               </ul>
             </div>
