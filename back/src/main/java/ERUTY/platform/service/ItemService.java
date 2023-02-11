@@ -53,16 +53,7 @@ public class ItemService {
         return newItem.getId();
     }
     public void saveItem(Item item) {
-        validateDuplicateItem(item);
         itemRepository.save(item);
-    }
-
-    private void validateDuplicateItem(Item item) {
-        List<Item> items = itemRepository.findItemsByDesignName(item.getDesignName());
-
-        if(!items.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 이름의 디자인입니다.");
-        }
     }
 
     public Page<Item> TotalItem(Pageable pageable, String memberId){
@@ -98,10 +89,6 @@ public class ItemService {
         }
 
         return items;
-    }
-
-    public List<Item> findItemsByCreator(String creator) {
-        return itemRepository.findItemsByCreator(creator);
     }
 
     public Item iteminfo(String designName){

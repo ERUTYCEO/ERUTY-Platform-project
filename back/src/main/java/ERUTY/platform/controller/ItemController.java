@@ -14,19 +14,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.thymeleaf.linkbuilder.ILinkBuilder;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -84,19 +78,6 @@ public class ItemController {
 
         return "items/itemInfo";
     }
-
-
-    @GetMapping("/items/test")
-    public String test1(@ModelAttribute("creator") String creator, Model model) {
-        List<Item> items = itemService.findItemsByCreator("test0");
-        for (Item item : items) {
-            log.info(item.getDesignName());
-            log.info(String.valueOf(item.getCreatedDate()));
-            log.info(String.valueOf(item.isOrigin()));
-        }
-        return "home";
-    }
-
     @GetMapping("items/{itemId}/detail")
     public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
         Item item = itemService.updateView(itemId);
