@@ -31,7 +31,7 @@ public class Item {
     private boolean canModification;
 
     private String modelPath;
-    private String imagePath;
+    private String[] imagePathes;
 
     private boolean liked;
     private List<String> likedList = new ArrayList<>();
@@ -40,7 +40,7 @@ public class Item {
     public Item(String designName, String creator, Date createdDate,
                 String description, long price, boolean isOrigin,
                 boolean canModification, boolean canCommercialUse,
-                String modelPath, String imagePath) {
+                String modelPath, String[] imagePathes) {
         this.designName = designName;
         this.creator = creator;
         this.createdDate = createdDate;
@@ -50,7 +50,7 @@ public class Item {
         this.canModification = canModification;
         this.canCommercialUse = canCommercialUse;
         this.modelPath = modelPath;
-        this.imagePath = imagePath;
+        this.imagePathes = imagePathes;
     }
     public void viewPlusOne(){
         this.views++;

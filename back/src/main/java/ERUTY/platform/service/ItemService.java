@@ -2,15 +2,21 @@ package ERUTY.platform.service;
 
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
+import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
+import com.mongodb.DuplicateKeyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +27,31 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    public String registItem(ItemForm itemForm, HttpSession session) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = format.parse(itemForm.getCreatedDate());
+
+        String[] imagePathes = itemForm.getImagePath().split("\\*");
+
+        Item newItem = Item.builder()
+                .designName(itemForm.getDesignName())
+                .creator(itemForm.getCreator())
+                .createdDate(date)
+                .description(itemForm.getDescription())
+                .price(itemForm.getPrice())
+                .isOrigin(itemForm.isOrigin())
+                .canModification(itemForm.isCanModification())
+                .canCommercialUse(itemForm.isCanCommercialUse())
+                .imagePathes(imagePathes)
+                .modelPath(itemForm.getModelPath())
+                .build();
+
+        String memberId = (String)session.getAttribute("loginId");
+        newItem.setMemberId(memberId);
+        saveItem(newItem);
+
+        return newItem.getId();
+    }
     public void saveItem(Item item) {
         validateDuplicateItem(item);
         itemRepository.save(item);
