@@ -83,6 +83,13 @@ public class ItemService {
         itemRepository.save(item);
         return item;
     }
+    public Item updateNumBuy(String itemId){
+        Item item = findItemById(itemId);
+        long numBuy = item.getNumBuy();
+        item.setNumBuy(numBuy +1);
+        itemRepository.save(item);
+        return item;
+    }
 
     public Item findItemById(String itemId) {
         Item item = itemRepository.findItemById(itemId);
@@ -134,4 +141,5 @@ public class ItemService {
             return false;
         }
     }
+
 }
