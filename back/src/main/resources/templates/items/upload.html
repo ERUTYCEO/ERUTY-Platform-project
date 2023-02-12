@@ -566,13 +566,10 @@
 
         for (var i = 0; i < filesLen; i++) {
           var file = files[i];
-          var fileName = file.name;
+          var fileName = "file"; //file.name;
           var upload2 = encodeURIComponent("item") + "/" + hashing + "/";
-          var saveKey = upload2 + fileName;
-
-          var imagePath = document.getElementById("imagePath");
-          imageTempPath += file.name + "*";
-          console.log(imageTempPath);
+          var saveKey = upload2 + fileName + i;
+          console.log(saveKey);
 
           var upload = new AWS.S3.ManagedUpload({
             params: {
@@ -593,8 +590,10 @@
           if (i == filesLen - 1) {
             imagePath.value =
               "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+              hashing +
               "*" +
-              imageTempPath;
+              filesLen;
+
             console.log(imagePath.value);
             alert("Successfully uploaded.");
           }
