@@ -27,15 +27,24 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    public String[] createImagePathes(String imagePath){
+        String[] parentPathAndNum = imagePath.split("\\*");
+        String parentPath = parentPathAndNum[0];
+        int numImage = Integer.parseInt(parentPathAndNum[1]);
+
+        String[] imagePathes = new String[numImage];
+        parentPath = parentPath.concat("/file");
+        for(int i=0; i<numImage; i++){
+            imagePathes[i] = parentPath.concat(String.valueOf(i));
+        }
+        return imagePathes;
+    }
+
     public String registItem(ItemForm itemForm, HttpSession session) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(itemForm.getCreatedDate());
 
-        log.info(itemForm.getImagePath());
-        String[] imagePathes = itemForm.getImagePath().split("\\*");
-        for(String path : imagePathes){
-            log.info(path);
-        }
+        String[] imagePathes = createImagePathes(itemForm.getImagePath());
 
         Item newItem = Item.builder()
                 .designName(itemForm.getDesignName())
