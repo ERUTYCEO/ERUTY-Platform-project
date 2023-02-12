@@ -55,12 +55,11 @@
 
         <table class="table table-striped">
           <tbody>
-          <tr th:each="image : ${item.getImagePathes()}">
-            <img class="design-detail-img" th:src="${image}" alt="" />
+            <tr th:each="image : ${item.getImagePathes()}">
+              <img class="design-detail-img" th:src="${image}" alt="" />
+            </tr>
           </tbody>
-          </tr>
         </table>
-
       </div>
 
       <div class="selling-info">
@@ -117,8 +116,8 @@
             <!--      </p>-->
           </div>
           <span
-                  th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
-                  th:text="${item.getNumBuy()}"
+            th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
+            th:text="${item.getNumBuy()}"
           ></span>
         </div>
         <div class="seller-info">
@@ -128,7 +127,7 @@
           </p>
           <div class="seller-rating">
             <div>
-              <p>37회</p>기
+              <p>37회</p>
               <p>총 거래 횟수</p>
             </div>
             <div>
@@ -203,87 +202,87 @@
 
         const object = new THREE.Object3D();
 
-        const mtlLoader = new THREE.MTLLoader();
-        mtlLoader.load(
-          "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
-          function (materials) {
-            materials.preload();
-            if (extension == "obj") {
-              const loader = new THREE.OBJLoader();
-              loader.setMaterials(materials);
-              loader.load(
-                src3d,
-                function (objectload) {
-                  //size 조절
-                  const { minX, maxX, minY, maxY, minZ, maxZ } =
-                    getBoundingBox(objectload);
-                  const width = maxX - minX;
-                  const height = maxY - minY;
-                  const depth = maxZ - minZ;
-                  const size = Math.max(width, height, depth);
-                  const center = new THREE.Vector3(
-                    (minX + maxX) / 1.75,
-                    (minY + maxY) / 1.75,
-                    (minZ + maxZ) / 1.75
-                  );
-                  camera.position.set(
-                    center.x + size / 1.75,
-                    center.y + size / 1.75,
-                    center.z + size / 1.75
-                  );
-                  camera.lookAt(center);
-                  camera.near = size / 100;
-                  camera.far = size * 100;
-                  camera.updateProjectionMatrix();
-
-                  //조명 추가
-                  shadowLight();
-
-                  //랜더링
-                  object.add(objectload);
-                  scene.add(object);
-                },
-                function (xhr) {
-                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-                },
-                function (error) {
-                  console.log(error);
-                  console.log("An error happened");
-                }
+        // const mtlLoader = new THREE.MTLLoader();
+        // mtlLoader.load(
+        // "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/d4b99eca9636f38677dd07df01a3e3d628254bf511d1647ebcebc8c0d02c48cf/ee.mtl",
+        // function (materials) {
+        // materials.preload();
+        if (extension == "obj") {
+          const loader = new THREE.OBJLoader();
+          // loader.setMaterials(materials);
+          loader.load(
+            src3d,
+            function (objectload) {
+              //size 조절
+              const { minX, maxX, minY, maxY, minZ, maxZ } =
+                getBoundingBox(objectload);
+              const width = maxX - minX;
+              const height = maxY - minY;
+              const depth = maxZ - minZ;
+              const size = Math.max(width, height, depth);
+              const center = new THREE.Vector3(
+                (minX + maxX) / 1.75,
+                (minY + maxY) / 1.75,
+                (minZ + maxZ) / 1.75
               );
-              animate();
-            }
-            if (extension == "fbx") {
-              const loader = new THREE.FBXLoader();
-              loader.load(
-                src3d,
-                function (objectload) {
-                  //size 조절
-                  var box = new THREE.Box3().setFromObject(objectload);
-                  var maxX = box.max.x;
-                  var desiredSize = 2.0;
-                  var scale = desiredSize / maxX;
-                  object.scale.set(scale, scale, scale);
-
-                  //조명 추가
-                  shadowLight();
-
-                  //랜더링
-                  object.add(objectload);
-                  scene.add(object);
-                },
-                function (xhr) {
-                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-                },
-                function (error) {
-                  console.log(error);
-                  console.log("An error happened");
-                }
+              camera.position.set(
+                center.x + size / 1.75,
+                center.y + size / 1.75,
+                center.z + size / 1.75
               );
-              animate();
+              camera.lookAt(center);
+              camera.near = size / 100;
+              camera.far = size * 100;
+              camera.updateProjectionMatrix();
+
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
             }
-          }
-        );
+          );
+          animate();
+        }
+        if (extension == "fbx") {
+          const loader = new THREE.FBXLoader();
+          loader.load(
+            src3d,
+            function (objectload) {
+              //size 조절
+              var box = new THREE.Box3().setFromObject(objectload);
+              var maxX = box.max.x;
+              var desiredSize = 2.0;
+              var scale = desiredSize / maxX;
+              object.scale.set(scale, scale, scale);
+
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
+            }
+          );
+          animate();
+        }
+        //   }
+        // );
 
         //회전동작
         function animate() {
