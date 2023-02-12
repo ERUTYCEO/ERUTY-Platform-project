@@ -14,7 +14,8 @@
     />
     <title>ERUTY</title>
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- <div style="height: auto; min-height: 100%; padding-bottom: 50px"> -->
     <div class="page1">
       <div class="nav">
         <a href="/"
@@ -26,12 +27,12 @@
         /></a>
         <div class="search-bar">
           <img src="/img/a.png" alt="" width="17px" height="17px" />
-          <form th:action="@{/items/search}" method = "GET">
+          <form th:action="@{/items/search}" method="GET">
             <input type="text" name="searchKeyword" placeholder="   search" />
-            <button id="search-btn" type="submit">
-            </button>
+            <button id="search-btn" type="submit"></button>
           </form>
         </div>
+
         <div class="menu">
           <a href="">ABOUT ERUTY</a>
           <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
@@ -89,13 +90,30 @@
             </div>
           </a>
         </li>
-
-        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-          <a th:if="${page != nowPage}" th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
-          <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-        </th:block>
       </ul>
     </div>
-    <script src="/js/gallery.js"></script>
+    <!-- </div> -->
+    <!-- <footer
+      style="
+        height: 50px;
+        position: relative;
+        transform: translateY(-100%);
+        background-color: red;
+      "
+    > -->
+    <footer class="mt-auto" style="background-color: red">
+      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+        <a
+          th:if="${page != nowPage}"
+          th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}"
+          th:text="${page}"
+        ></a>
+        <strong
+          th:if="${page == nowPage}"
+          th:text="${page}"
+          style="color: red"
+        ></strong>
+      </th:block>
+    </footer>
   </body>
 </html>
