@@ -82,9 +82,9 @@ public class ItemService {
         String searchKeyword = finditemForm.getSearchKeyword();
         Page<Item> searchItems = itemRepository.findItemsByDesignNameContaining(searchKeyword, pageable);
 
-        if (searchItems.isEmpty()){
+        /*if (searchItems.isEmpty()){
             throw new IllegalStateException("검색결과가 없습니다.");
-        }
+        }*/
 
         Iterator<Item> searchItemIterator = searchItems.iterator();
 

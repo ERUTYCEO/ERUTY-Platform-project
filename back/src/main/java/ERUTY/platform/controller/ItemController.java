@@ -1,5 +1,6 @@
 package ERUTY.platform.controller;
 
+import ERUTY.platform.common.Messsage;
 import ERUTY.platform.domain.Item;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
@@ -62,6 +63,10 @@ public class ItemController {
             itemList = itemService.TotalItem(pageable, memberId); // 검색 X -> 아이템 전체 리스트들 띄우기
         } else {
             itemList = itemService.searchItemList(finditemForm, pageable, memberId); //검색결과에 해당하는 아이템만
+            if(itemList.isEmpty()){
+                model.addAttribute("data",new Messsage("검색결과가 없습니다.", "/items/search"));
+                return "message";
+            }
         }
         int nowPage = itemList.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
