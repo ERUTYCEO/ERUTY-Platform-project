@@ -53,7 +53,14 @@
         </section>
         <div class="detail-img-title"><p>상세 이미지</p></div>
 
-        <img class="design-detail-img" th:src="${item.getImagePathes()[0]}" alt="" />
+        <table class="table table-striped">
+          <tbody>
+          <tr th:each="image : ${item.getImagePathes()}">
+            <img class="design-detail-img" th:src="${image}" alt="" />
+          </tbody>
+          </tr>
+        </table>
+
       </div>
 
       <div class="selling-info">
