@@ -5,13 +5,15 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
-import com.mongodb.DuplicateKeyException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,12 +110,48 @@ public class ItemService {
         return itemRepository.findItemByDesignName(designName);
     }
 
-    public Item updateView(String itemId) {
+    public Item updateView(String itemId, HttpServletRequest request, HttpServletResponse response) {
+        Cookie oldCookie = null;
+        Cookie[] cookies = request.getCookies();
+
+        if(cookies != null) {
+            for(Cookie cookie : cookies) {
+                if(cookie.getName().equals("postView")) {
+                    oldCookie = cookie;
+                }
+            }
+        }
+
+        if(oldCookie != null) {
+            if(!oldCookie.getValue().contains(itemId)) {
+                viewCountUp(itemId);
+
+                oldCookie.setValue(oldCookie.getValue() + itemId);
+                oldCookie.setPath("/");
+                oldCookie.setMaxAge(60 * 60 * 24);
+
+                response.addCookie(oldCookie);
+            }
+        } else {
+            viewCountUp(itemId);
+
+            Cookie newCookie = new Cookie("postView", itemId);
+            newCookie.setPath("/");
+            newCookie.setMaxAge(60 * 60 * 24);
+
+            response.addCookie(newCookie);
+        }
+
+        Item item = findItemById(itemId);
+        return item;
+    }
+
+    private void viewCountUp(String itemId) {
         Item item = findItemById(itemId);
         item.viewPlusOne();
         itemRepository.save(item);
-        return item;
     }
+
     public Item updateNumBuy(String itemId){
         Item item = findItemById(itemId);
         long numBuy = item.getNumBuy();

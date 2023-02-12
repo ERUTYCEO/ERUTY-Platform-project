@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -79,8 +81,8 @@ public class ItemController {
         return "items/itemInfo";
     }
     @GetMapping("items/{itemId}/detail")
-    public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
-        Item item = itemService.updateView(itemId);
+    public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Item item = itemService.updateView(itemId, request, response);
 
         String memberId = (String) session.getAttribute("loginId");
 
@@ -109,8 +111,7 @@ public class ItemController {
     }
 
     @GetMapping("items/{itemId}/buy")
-    public String buy(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
-        String memberId = (String) session.getAttribute("loginId");
+    public String buy(@PathVariable("itemId") String itemId, Model model) {
         Item item = itemService.updateNumBuy(itemId);
 
         model.addAttribute("item", item);
