@@ -44,10 +44,9 @@
     <div class="gallery">
       <ul class="gallery-list">
         <li th:each="item: ${itemList}">
-          <a th:href="@{/items/{id}/detail (id=${item.getId()})}"
-            ><!--
+          <a th:href="@{/items/{id}/detail (id=${item.getId()})}">
             <img th:src="${item.getImagePathes()[0]}" alt="" />
-            -->
+
             <h4 th:text="${item.getDesignName()} "></h4>
             <div>
               ₩ <span class="price" th:text="${item.getPrice()}"></span>
