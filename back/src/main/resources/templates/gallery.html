@@ -15,7 +15,6 @@
     <title>ERUTY</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
-    <!-- <div style="height: auto; min-height: 100%; padding-bottom: 50px"> -->
     <div class="page1">
       <div class="nav">
         <a href="/"
@@ -92,16 +91,8 @@
         </li>
       </ul>
     </div>
-    <!-- </div> -->
-    <!-- <footer
-      style="
-        height: 50px;
-        position: relative;
-        transform: translateY(-100%);
-        background-color: red;
-      "
-    > -->
-    <footer class="mt-auto" style="background-color: red">
+
+    <footer class="mt-auto" style="text-align: center; width: 100%">
       <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
         <a
           th:if="${page != nowPage}"
