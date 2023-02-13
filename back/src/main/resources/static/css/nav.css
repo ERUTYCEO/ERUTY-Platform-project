@@ -27,6 +27,9 @@
   height: 24px;
 }
 
+.search-bar form {
+  width: 100%;
+}
 .search-bar button {
   width: 15px;
   height: 15px;
@@ -35,7 +38,7 @@
   border-radius: 15px;
   position: absolute;
   top: 4px;
-  right: 5px;
+  right: -5px;
 }
 
 .menu a {

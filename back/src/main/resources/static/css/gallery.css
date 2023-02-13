@@ -35,12 +35,12 @@
 }
 
 .gallery-list {
-  display: flex;
   flex-wrap: wrap;
   padding: 0;
   margin-top: 30px;
 }
 .gallery-list li {
+  display: inline-block;
   padding: 0 40px;
   width: 380px;
   height: 500px;
