@@ -78,6 +78,17 @@
   width: 35%;
 }
 
+.purchase-btn {
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  background-color: rgb(16, 110, 185);
+  cursor: pointer;
+}
+
 .design-eval {
   font-size: 1.2rem;
   display: flex;
@@ -127,6 +138,10 @@
   margin-top: 30px;
 }
 
+.design-like-btn {
+  cursor: pointer;
+}
+
 .seller-name {
   font-size: 1.1rem;
   font-weight: 700;
@@ -157,6 +172,7 @@
 }
 
 .seller-btn {
+  white-space: nowrap;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
