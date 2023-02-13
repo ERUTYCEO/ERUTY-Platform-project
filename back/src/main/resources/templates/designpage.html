@@ -136,9 +136,10 @@
           <span
             class="purchase-btn"
             th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
-            >구매하기</span
-          >
-          <p th:text="${item.getNumBuy()}"></p>
+            id="buyClick"
+            >구매하기 :
+            <p style="display: inline" th:text="${item.getNumBuy()}"></p
+          ></span>
         </div>
         <div class="seller-info">
           <p>
@@ -372,6 +373,11 @@
           scene.add(camera);
         }
       }
+    </script>
+    <script>
+      buyClick.addEventListener("click", () => {
+        alert("현재 구매가 불가능한 상품입니다 감사합니다.");
+      });
     </script>
   </body>
 </html>
