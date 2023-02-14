@@ -9,7 +9,7 @@
 <div class="layout">
   <table>
     <thead>
-    <tr th:text="${loginMember.getName()}">
+    판매자 : <tr th:text="${loginMember.getName()}">
       <td>
       </td>
     </tr>
@@ -18,7 +18,11 @@
     <tbody>
     <tr th:each="myList: ${myList}">
       <td>
-        <a th:text="${myList.getDesignName()}" th:href="@{/items/{id}/detail (id=${myList.getId()})}"></a>
+        이메일 : <a th:text="${loginMember.getEmail()}"></a> /
+        디자인명 : <a th:text="${myList.getDesignName()}" th:href="@{/items/{id}/detail (id=${myList.getId()})}"></a> /
+        가격 : <a th:text="${myList.getPrice()}"></a> /
+        조회수 : <a th:text="${myList.getViews()}"></a> /
+        좋아요 : <a th:text="${myList.getLikes()}"></a>
       </td>
     </tr>
     </tbody>
