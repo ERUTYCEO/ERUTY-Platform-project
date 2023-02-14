@@ -211,4 +211,10 @@ public class ItemService {
         }
     }
 
+    public Page<Item> MyItemList(Pageable pageable, String memberId){
+        Page<Item> mylist = itemRepository.findItemsByMemberId(memberId, pageable);
+        Iterator<Item> itemIterator = mylist.iterator();
+
+        return getItems(memberId, mylist, itemIterator);
+    }
 }

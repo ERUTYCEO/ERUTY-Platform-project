@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -186,5 +188,20 @@ public class MemberController {
         model.addAttribute("newLineChar", '\n');
 
         return "members/uploadlist";
+    }
+
+    @GetMapping("/members/mypage")
+    public String mypages(Model model, HttpSession session,Pageable pageable){
+
+        String memberId = (String) session.getAttribute("loginId");
+        Member loginMember = memberService.getPresentMember(memberId);
+
+        Page<Item> myList = itemService.MyItemList(pageable, memberId);
+
+        model.addAttribute("loginMember",loginMember);
+        model.addAttribute("myList",myList);
+        model.addAttribute("newLineChar",'\n');
+
+        return "members/mypagetest";
     }
 }

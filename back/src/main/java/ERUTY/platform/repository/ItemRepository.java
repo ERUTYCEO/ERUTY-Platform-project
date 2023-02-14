@@ -14,4 +14,5 @@ public interface ItemRepository extends MongoRepository<Item, String> {
     List<Item> findItemsByCreator(String creator);
     Item findItemByDesignName(String designName);
     Item findItemById(String id);
+    Page<Item> findItemsByMemberId(String memberId, Pageable pageable);
 }
