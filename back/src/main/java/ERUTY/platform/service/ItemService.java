@@ -41,12 +41,24 @@ public class ItemService {
         }
         return imagePathes;
     }
-
+    public void setDesignPath(String path, Item item){
+        String[] pathes = path.split("\\*");
+        String parentPath = pathes[0];
+        for(int i=1; i< pathes.length; i++){
+            if(pathes[i].contains(".mtl")){
+                item.setMtlPath(parentPath.concat(pathes[i]));
+            }else{
+                item.setModelPath(parentPath.concat(pathes[i]));
+            }
+        }
+    }
     public String registItem(ItemForm itemForm, HttpSession session) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(itemForm.getCreatedDate());
 
         String[] imagePathes = createImagePathes(itemForm.getImagePath());
+
+        log.info("모델 경로 : " + itemForm.getModelPath());
 
         Item newItem = Item.builder()
                 .designName(itemForm.getDesignName())
@@ -58,8 +70,11 @@ public class ItemService {
                 .canModification(itemForm.isCanModification())
                 .canCommercialUse(itemForm.isCanCommercialUse())
                 .imagePathes(imagePathes)
-                .modelPath(itemForm.getModelPath())
                 .build();
+
+        setDesignPath(itemForm.getModelPath(), newItem);
+        log.info("mtl : " + newItem.getMtlPath());
+        log.info("model : " + newItem.getModelPath());
 
         String memberId = (String)session.getAttribute("loginId");
         newItem.setMemberId(memberId);
