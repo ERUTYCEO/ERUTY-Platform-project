@@ -31,6 +31,7 @@ public class Item {
     private boolean canModification;
 
     private String modelPath;
+    private String mtlPath;
     private String[] imagePathes;
 
     private boolean liked;
@@ -40,7 +41,8 @@ public class Item {
     public Item(String designName, String creator, Date createdDate,
                 String description, long price, boolean isOrigin,
                 boolean canModification, boolean canCommercialUse,
-                String modelPath, String[] imagePathes) {
+                String modelPath, String mtlPath,
+                String[] imagePathes) {
         this.designName = designName;
         this.creator = creator;
         this.createdDate = createdDate;
@@ -50,6 +52,7 @@ public class Item {
         this.canModification = canModification;
         this.canCommercialUse = canCommercialUse;
         this.modelPath = modelPath;
+        this.mtlPath = mtlPath;
         this.imagePathes = imagePathes;
     }
     public void viewPlusOne(){
