@@ -449,9 +449,11 @@
           var srcMtl = "";
           var files = document.getElementById(chooseFile).files;
           const filesLen = files.length;
+          var tempFiles = "";
           for (var i = 0; i < filesLen; i++) {
             var file = files[i];
             var fileName = file.name;
+            tempFiles += fileName + "*";
             var fileExtension = file.name.substr(
               file.name.lastIndexOf(".") + 1
             );
@@ -500,12 +502,12 @@
               leftContents.appendChild(DOM_3d);
             }
             if (i == filesLen - 1) {
-              // var model = document.getElementById("modelPath");
-              // model.value =
-              //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
-              //   hashing +
-              //   "/" +
-              //   fileName;
+              var model = document.getElementById("modelPath");
+              model.value =
+                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                hashing +
+                "/*" +
+                tempFiles;
               promise.then(
                 function (data) {
                   alert("Successfully uploaded.");
@@ -545,9 +547,13 @@
           var src3D = "";
           var srcMtl = "";
           const filesLen = files.length;
+          var tempFiles = "";
+
           for (var i = 0; i < filesLen; i++) {
             var file = files[i];
             var fileName = file.name;
+            tempFiles += fileName + "*";
+
             var fileExtension = file.name.substr(
               file.name.lastIndexOf(".") + 1
             );
@@ -595,12 +601,12 @@
               leftContents.appendChild(DOM_3d);
             }
             if (i == filesLen - 1) {
-              // var model = document.getElementById("modelPath");
-              // model.value =
-              //   "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
-              //   hashing +
-              //   "/" +
-              //   fileName;
+              var model = document.getElementById("modelPath");
+              model.value =
+                "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
+                hashing +
+                "/*" +
+                tempFiles;
               promise.then(
                 function (data) {
                   alert("Successfully uploaded.");
