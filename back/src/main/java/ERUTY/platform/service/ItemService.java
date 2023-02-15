@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -71,7 +72,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public Page<Item> TotalItem(Pageable pageable, String memberId){
+    public Page<Item> TotalItem(Pageable pageable, String memberId) {
         Page<Item> TotalItemList = itemRepository.findAll(pageable);
         Iterator<Item> itemIterator = TotalItemList.iterator();
 
@@ -104,10 +105,6 @@ public class ItemService {
         }
 
         return items;
-    }
-
-    public Item iteminfo(String designName){
-        return itemRepository.findItemByDesignName(designName);
     }
 
     public Item updateView(String itemId, HttpServletRequest request, HttpServletResponse response) {
@@ -211,4 +208,40 @@ public class ItemService {
         }
     }
 
+    public List<Item> allItem(String orderCriteria) {
+        List<Item> itemList = itemRepository.findAll(Sort.by(Sort.Direction.DESC, orderCriteria));
+
+        return itemList;
+    }
+
+    public List<Item> searchList(String keyword, String orderCriteria) {
+        List<Item> itemList = new ArrayList<>();
+
+        if(orderCriteria == "views") {
+            itemList = itemRepository.findItemsByDesignNameOrderByViewsDesc(keyword);
+        } else if(orderCriteria == "likes") {
+            itemList = itemRepository.findItemsByDesignNameOrderByLikesDesc(keyword);
+        } else {
+            itemList = itemRepository.findItemsByDesignNameOrderByIdDesc(keyword);
+        }
+
+        return itemList;
+    }
+
+    public List<Item> findLikedList(String memberId, List<Item> itemList) {
+        Iterator<Item> itemIterator = itemList.iterator();
+
+        while(itemIterator.hasNext()) {
+            Item item = itemIterator.next();
+            if(item.getLikedList().contains(memberId)) {
+                item.setLiked(true);
+            } else {
+                item.setLiked(false);
+            }
+
+            log.info("현재 아이템 : " + item.getDesignName() + " 좋아요 표시 : " + item.isLiked());
+        }
+
+        return itemList;
+    }
 }
