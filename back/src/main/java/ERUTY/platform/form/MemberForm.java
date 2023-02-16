@@ -15,5 +15,7 @@ public class MemberForm {
     private String password;
     @NotEmpty(message = "비밀번호를 다시 확인해주세요.")
     private String confirmpassword;
+    @NotEmpty
+    private String phoneNumber;
     private boolean marketingOk;
 }
