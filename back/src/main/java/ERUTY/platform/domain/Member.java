@@ -21,7 +21,7 @@ public class Member {
     private String phoneNumber;
     private List<String> uploadList = new ArrayList<>();
 
-    public Member(String name, String email, String password, String phoneNumber, boolean marketingOk,) {
+    public Member(String name, String email, String password, String phoneNumber, boolean marketingOk) {
         this.name = name;
         this.email = email;
         this.password = password;
