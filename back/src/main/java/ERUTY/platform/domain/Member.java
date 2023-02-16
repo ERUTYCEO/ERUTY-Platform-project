@@ -18,12 +18,14 @@ public class Member {
     private String email;
     private String password;
     private boolean marketingOk;
+    private String phoneNumber;
     private List<String> uploadList = new ArrayList<>();
 
-    public Member(String name, String email, String password, boolean marketingOk) {
+    public Member(String name, String email, String password, String phoneNumber, boolean marketingOk,) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
         this.marketingOk = marketingOk;
     }
 }
