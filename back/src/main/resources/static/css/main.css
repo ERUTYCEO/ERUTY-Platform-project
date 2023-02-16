@@ -81,7 +81,13 @@
   justify-content: space-between;
   padding: 0 4rem;
 }
-
+.confirm {
+  color: white;
+  background: rgb(36, 170, 225);
+  border: 1px solid rgb(36, 170, 225);
+  border-radius: 6px;
+  padding: 6px 20px;
+}
 .bottom a {
   position: relative;
   display: flex;
