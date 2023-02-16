@@ -11,7 +11,12 @@ public class HomeController {
     @GetMapping("/")
     public String home() {
         log.info("home controller");
-
         return "main";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        log.info("mypage controller");
+        return "mypage";
     }
 }
