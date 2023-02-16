@@ -59,18 +59,17 @@
             <p>연락처</p>
             <p style="display: inline; font-size: 10px">기프티콘 발송용</p>
             <input
-              type="tel"
-              id="exampleInputTel1"
-              aria-describedby="telHelp"
+              type="text"
+              id="exampleTel1"
               th:field="*{phoneNumber}"
-              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+              oninput="hypenTel(this)"
               maxlength="13"
               class="form-control"
             />
           </div>
 
           <div
-            id="signUpEmailMessage"
+            id="telMessage"
             style="color: red; font-size: 13px; display: none"
           >
             *연락처를 입력해주세요
@@ -224,7 +223,14 @@
           $("#signUpTermMessage").hide();
           check = check + 1;
         }
-        if (check == 5) {
+
+        if (signUpform.exampleTel1.value.length != 13) {
+          $("#telMessage").show();
+        } else {
+          $("#telMessage").hide();
+          check = check + 1;
+        }
+        if (check == 6) {
           console.log("통과");
           document.getElementById("signUpform").submit();
         }
@@ -262,6 +268,13 @@
           $("#allcheck").prop("checked", true);
         }
       });
+
+      //하이픈생성
+      const hypenTel = (target) => {
+        target.value = target.value
+          .replace(/[^0-9]/g, "")
+          .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+      };
     </script>
   </body>
 </html>
