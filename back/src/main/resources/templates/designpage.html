@@ -142,31 +142,18 @@
             class="purchase-btn"
             th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
             id="buyClick"
-            >구매하기 :
-            <p style="display: inline" th:text="${item.getNumBuy()}"></p
-          ></span>
+            >구매하기
+          </span>
         </div>
         <div class="seller-info">
           <p>
             <span class="seller-name" th:text="${item.getCreator()} "></span
             ><span class="seller-category">디자이너/회사</span>
           </p>
-          <div class="seller-rating">
-            <div>
-              <p>37회</p>
-              <p>총 거래 횟수</p>
-            </div>
-            <div>
-              <p>4.5</p>
-              <p>고객 만족도</p>
-            </div>
-            <div>
-              <p>개인 디자이너</p>
-              <p>회원 구분</p>
-            </div>
-          </div>
-          <div class="seller-btn">
-            <button>PORTFOLIO 확인</button><button>디자인 의뢰하기</button>
+
+          <div class="seller-btn mt-3">
+            <button>PORTFOLIO 확인</button
+            ><button id="portfolio">디자인 의뢰하기</button>
           </div>
         </div>
         <!-- <div class="company-info">
@@ -457,6 +444,9 @@
     <script>
       buyClick.addEventListener("click", () => {
         alert("현재 구매가 불가능한 상품입니다 감사합니다.");
+      });
+      portfolio.addEventListener("click", () => {
+        alert("서비스 준비중입니다 감사합니다.");
       });
     </script>
   </body>
