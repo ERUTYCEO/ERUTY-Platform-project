@@ -55,6 +55,26 @@
           >
             *이메일을 입력해주세요
           </div>
+          <div class="signup-input">
+            <p>연락처</p>
+            <p style="display: inline; font-size: 10px">기프티콘 발송용</p>
+            <input
+              type="tel"
+              id="exampleInputTel1"
+              aria-describedby="telHelp"
+              th:field="*{phoneNumber}"
+              pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+              maxlength="13"
+              class="form-control"
+            />
+          </div>
+
+          <div
+            id="signUpEmailMessage"
+            style="color: red; font-size: 13px; display: none"
+          >
+            *연락처를 입력해주세요
+          </div>
         </div>
         <div class="mb-3 signup-input">
           <p>비밀번호</p>
