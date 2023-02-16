@@ -47,7 +47,12 @@ public class MemberController {
                 return "message";
             }
 
-            Member member = new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.isMarketingOk());
+            Member member = new Member(memberForm.getName(),
+                    memberForm.getEmail(),
+                    memberForm.getPassword(),
+                    memberForm.getPhoneNumber(),
+                    memberForm.isMarketingOk());
+
             memberService.saveMember(member);
 
         } catch (IllegalStateException exception) {
