@@ -235,7 +235,9 @@ public class ItemService {
 
     public Page<Item> searchList(int page, int size, String keyword, String orderCriteria) {
         PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
-        Page<Item> itemList = itemRepository.findAll(pageRequest);
+        Page<Item> itemList = itemRepository.findItemsByDesignNameContaining(keyword, pageRequest);
+
+        log.info("keywordlist : " + itemList);
 
         return itemList;
     }
@@ -250,8 +252,6 @@ public class ItemService {
             } else {
                 item.setLiked(false);
             }
-
-            log.info("현재 아이템 : " + item.getDesignName() + " 좋아요 표시 : " + item.isLiked());
         }
 
         return itemList;
