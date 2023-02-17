@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -38,7 +38,7 @@
           <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
           <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
           <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-          <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
           <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
       </div>
@@ -101,13 +101,13 @@
               margin: 20px 0px 0px 10px;
             "
           >
-            My 3d Models (<span>"모델갯수"</span>)
+            My 3d Models (<span th:text="${totalDesigns}">"모델갯수"</span>)
           </p>
         </div>
         <div class="gallery">
           <ul class="gallery-list">
             <!-- 상명님 해당 유저가 업로드 한 아이템 (gallery.html에서 가져옴)-->
-            <li th:each="item: ${itemList}">
+            <li th:each="item: ${myList}">
               <a th:href="@{/items/{id}/detail (id=${item.getId()})}">
                 <img th:src="${item.getImagePathes()[0]}" alt="" />
 
@@ -169,9 +169,9 @@
           <p>ABOUT</p>
 
           <div style="border-top: 1px solid lightgray; padding: 20px 0">
-            <span>"이름"</span>
+            <span th:text="${loginMember.getName()}">"이름"</span>
             <br />
-            <span>"이메일"</span>
+            <span th:text="${loginMember.getEmail()}">"이메일"</span>
           </div>
         </div>
 
@@ -203,7 +203,7 @@
                   d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"
                 />
               </svg>
-              <span>"조회수"</span>
+              <span th:text="${totalViews}">"조회수"</span>
               <span>View</span>
             </div>
             <!-- like -->
@@ -220,8 +220,9 @@
                   d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
                 />
               </svg>
-              <span>"좋아요수"</span>
+              <span th:text="${totalLikes}">"좋아요수"</span>
               <span>Like</span>
+              </tr>
             </div>
           </div>
         </div>
