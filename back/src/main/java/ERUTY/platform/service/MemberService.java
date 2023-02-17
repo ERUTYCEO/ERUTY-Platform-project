@@ -1,5 +1,6 @@
 package ERUTY.platform.service;
 
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.MemberLoginForm;
 import ERUTY.platform.form.changepwdForm;
@@ -111,4 +112,36 @@ public class MemberService {
     public Member getPresentMember(String memberId) {
         return memberRepository.findMemberById(memberId);
     }
+
+    /*public long calcMyLikes(String memberId) {
+        //List<Item> myItems = itemRepository.findItemsByLoginId(memberId);
+        Member member = memberRepository.findMemberById(memberId);
+        List<String> uploadlist = member.getUploadList();
+        long totalLikes = 0;
+        for(int i = 0; i < uploadlist.size(); i++) {
+            long likes = itemRepository.findItemById(uploadlist.get(i)).getLikes();
+            totalLikes += likes;
+        }
+        return totalLikes;
+    }
+
+    public long calcMyViews(String memberId) {
+        Member member = memberRepository.findMemberById(memberId);
+        List<String> myItems = member.getUploadList();
+        //List<String> uploadlist = member.getUploadList();
+        long totalViews = 0;
+        for(int i = 0; i < myItems.size(); i++) {
+            long views = itemRepository.findItemById(myItems.get(i)).getViews();
+            totalViews += views;
+        }
+        return totalViews;
+    }*/
+
+    public int calcMyDesigns(String memberId) {
+        Member member = memberRepository.findMemberById(memberId);
+        List<Item> myList = itemRepository.findItemsByMemberId(memberId);
+        int listSize = myList.size();
+        return listSize;
+    }
+
 }
