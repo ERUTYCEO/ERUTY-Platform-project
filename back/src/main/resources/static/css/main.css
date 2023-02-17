@@ -7,10 +7,12 @@
 }
 
 .body {
-  background-color: rgb(239, 239, 239);
+  background-color: rgb(227, 226, 228);
   min-width: 1000px;
   height: 100vh;
   min-height: 900px;
+  z-index: 1;
+  position: relative;
 }
 
 .page1 {
@@ -24,6 +26,19 @@
   height: 900px;
   position: absolute;
   z-index: -1;
+}
+
+.bg-ani {
+  background-color: rgb(202, 205, 209);
+  background-image: url(/img/bganimation.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1000px;
+  min-height: 900px;
+  position: fixed;
+  z-index: 1;
 }
 
 .main {
@@ -133,4 +148,32 @@
 canvas {
   width: 400px !important;
   height: 600px !important;
+}
+.path-about {
+  min-width: 1000px;
+  height: 100vh;
+  min-height: 900px;
+}
+
+#about-eruty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 1000px;
+  height: 100vh;
+  min-height: 900px;
+  background-color: rgb(227, 226, 228);
+  z-index: 1;
+  position: relative;
+}
+
+#about-eruty img {
+  width: 550px;
+  height: 200px;
+  margin-bottom: 100px;
+}
+
+#about-eruty p {
+  font-size: 1.2rem;
 }
