@@ -44,9 +44,12 @@
     </div>
 </div>
 <div class="gallery-order-list">
+    <a class="gallery-order" th:href="@{/items/all}"
+    >전체</a
+    >
     <a
             class="gallery-order order-selected"
-            th:href="@{/items/all (orderBy=id)}"
+            th:href="@{/items/search (keyword=${keyword}, orderBy=id)}"
     >최신순</a
     >
     <a class="gallery-order" th:href="@{/items/search (keyword=${keyword}, orderBy=views)}"
