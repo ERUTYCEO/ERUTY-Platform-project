@@ -5,6 +5,7 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
+import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final MemberRepository memberRepository;
 
     public String[] createImagePathes(String imagePath){
         String[] parentPathAndNum = imagePath.split("\\*");
@@ -224,6 +226,13 @@ public class ItemService {
         } else {
             return false;
         }
+    }
+
+    public List<Item> MyItemList(String memberId){
+        List<Item> mylist = itemRepository.findItemsByMemberId(memberId);
+        //Iterator<Item> itemIterator = mylist.iterator();
+        return mylist;
+        //return getItems(memberId, mylist, itemIterator);
     }
 
 }
