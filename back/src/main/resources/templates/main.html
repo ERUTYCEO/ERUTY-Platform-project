@@ -16,81 +16,93 @@
 
     <title>ERUTY</title>
   </head>
-  <body class="body">
-    <!-- data-bs-spy="scroll" data-bs-target="#navId" -->
-    <div class="bg-img"></div>
-    <div class="nav">
-      <a href="/"
-        ><img
-          class="nav-logo"
-          width="25px"
-          src="/img/eruty_logo2.png"
-          alt="로고"
-      /></a>
-      <div class="search-bar">
-        <img src="/img/a.png" alt="" width="17px" height="17px" />
-        <form th:action="@{/items/search}" method="GET">
-          <input type="text" name="searchKeyword" placeholder="   search" />
-          <button id="search-btn" type="submit"></button>
-        </form>
+  <body>
+    <div class="bg-ani"></div>
+    <div class="body">
+      <!-- data-bs-spy="scroll" data-bs-target="#navId" -->
+      <div class="bg-img"></div>
+      <div class="nav">
+        <a href="/"
+          ><img
+            class="nav-logo"
+            width="25px"
+            src="/img/eruty_logo2.png"
+            alt="로고"
+        /></a>
+        <div class="search-bar">
+          <img src="/img/a.png" alt="" width="17px" height="17px" />
+          <form th:action="@{/items/search}" method="GET">
+            <input type="text" name="searchKeyword" placeholder="   search" />
+            <button id="search-btn" type="submit"></button>
+          </form>
+        </div>
+        <div class="menu">
+          <a href="#about-eruty">ABOUT ERUTY</a>
+          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
+          <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+        </div>
       </div>
-      <div class="menu">
-        <a href="">ABOUT ERUTY</a>
-        <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-        <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-        <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-        <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
-        <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
-      </div>
-    </div>
-    <div class="page1">
-      <div class="main">
-        <div class="rendering" style="margin-top: 5%">
+      <div class="page1">
+        <div class="main">
+          <div class="rendering" style="margin-top: 5%">
+            <div>
+              <canvas id="main-3d"></canvas>
+            </div>
+          </div>
+          <div class="right-info">
+            <div class="info">
+              <div class="name">
+                <img class="main-logo" src="/img/eruty_logo1.png" alt="" />
+              </div>
+
+              <div>
+                <p class="title">Speedy Design Transaction</p>
+                <p class="content">
+                  안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+                </p>
+              </div>
+
+              <div>
+                <p class="title">Safe transaction</p>
+                <p class="content">
+                  안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+                </p>
+              </div>
+
+              <div>
+                <p class="title">Diversity of design</p>
+                <p class="content">
+                  안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom">
           <div>
-            <canvas id="main-3d"></canvas>
+            <p class="bottom-title">Secure and fast</p>
+            <p class="bottom-content">3D design trading platform</p>
           </div>
-        </div>
-        <div class="right-info">
-          <div class="info">
-            <div class="name">
-              <img class="main-logo" src="/img/eruty_logo1.png" alt="" />
-            </div>
-
-            <div>
-              <p class="title">Speedy Design Transaction</p>
-              <p class="content">
-                안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
-              </p>
-            </div>
-
-            <div>
-              <p class="title">Safe transaction</p>
-              <p class="content">
-                안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
-              </p>
-            </div>
-
-            <div>
-              <p class="title">Diversity of design</p>
-              <p class="content">
-                안전한 블록체인 저작권을 통해 3D 그래픽을 거래할 수 있습니다.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bottom">
-        <div>
-          <p class="bottom-title">Secure and fast</p>
-          <p class="bottom-content">3D design trading platform</p>
-        </div>
-        <a data-bs-toggle="modal" data-bs-target="#feedbackModal"
+          <a data-bs-toggle="modal" data-bs-target="#feedbackModal"
           ><img class="bottom-btn" src="/img/button.png" alt="" />
           <p class="bottom-btn-title">DESIGN</p></a
         >
+        </div>
       </div>
+      
     </div>
+    <div class="path-about"></div>
+      <div id="about-eruty">
+        <img src="/img/logoname.png" alt="" />
+        <p>(주) 이루티는 3D 그래픽 디자인 소스 오픈 거래 서비스를</p>
+        <p>제공하는 플랫폼입니다. 누구나 자신이 제작한 3D 그래픽</p>
+        <p>디자인을 판매할 수 있고, 누구나 원하는 디자인을</p>
+        <p>구매하여 3D 콘텐츠와 디자인 업무에 활용할 수 있습니다.</p>
+      </div>
     <div
       class="modal fade"
       id="feedbackModal"
@@ -153,6 +165,7 @@
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
 
     <script src="/js/mainRendering.js"></script>
+    <script src="/js/main.js"></script>
     <script
       src="https://kit.fontawesome.com/6fbcf91afd.js"
       crossorigin="anonymous"

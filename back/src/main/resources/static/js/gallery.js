@@ -1,11 +1,11 @@
-const sorting_list = document.querySelectorAll(".gallery-sorting li");
+const sorting_list = document.querySelectorAll(".gallery-order");
 
 function changeSelect(e) {
   sorting_list.forEach((element) => {
     if (element == e) {
-      element.className = "sorting-selected";
+      element.classList.add("order-selected");
     } else {
-      element.classList.remove("sorting-selected");
+      element.classList.remove("order-selected");
     }
   });
 }
