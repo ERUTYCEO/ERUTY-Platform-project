@@ -100,7 +100,7 @@
             My 3d Models (<span th:text="${totalDesigns}"></span>)
           </p>
         </div>
-        <div class="gallery">
+        <div style="text-align: center">
           <ul class="gallery-list">
             <li th:each="item: ${myList}">
               <a th:href="@{/items/{id}/detail (id=${item.getId()})}">
