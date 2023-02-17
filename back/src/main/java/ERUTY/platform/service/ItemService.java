@@ -8,6 +8,7 @@ import ERUTY.platform.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -208,27 +209,21 @@ public class ItemService {
         }
     }
 
-    public List<Item> allItem(String orderCriteria) {
-        List<Item> itemList = itemRepository.findAll(Sort.by(Sort.Direction.DESC, orderCriteria));
+    public Page<Item> allItem(int page, int size, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findAll(pageRequest);
 
         return itemList;
     }
 
-    public List<Item> searchList(String keyword, String orderCriteria) {
-        List<Item> itemList = new ArrayList<>();
-
-        if(orderCriteria == "views") {
-            itemList = itemRepository.findItemsByDesignNameOrderByViewsDesc(keyword);
-        } else if(orderCriteria == "likes") {
-            itemList = itemRepository.findItemsByDesignNameOrderByLikesDesc(keyword);
-        } else {
-            itemList = itemRepository.findItemsByDesignNameOrderByIdDesc(keyword);
-        }
+    public Page<Item> searchList(int page, int size, String keyword, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findAll(pageRequest);
 
         return itemList;
     }
 
-    public List<Item> findLikedList(String memberId, List<Item> itemList) {
+    public Page<Item> findLikedList(String memberId, Page<Item> itemList) {
         Iterator<Item> itemIterator = itemList.iterator();
 
         while(itemIterator.hasNext()) {

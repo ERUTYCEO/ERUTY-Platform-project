@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -84,16 +83,18 @@ public class ItemController {
 
     @GetMapping("items/all")
     public String allPost(@RequestParam(required = false, defaultValue = "id", value = "orderBy") String orderCriteria,
+                          @RequestParam(defaultValue = "0", value = "page") int page,
                           HttpSession session, Model model, findItemForm finditemForm) {
         String memberId = (String)session.getAttribute("loginId");
         String keyword = finditemForm.getSearchKeyword();
 
-        List<Item> itemList;
+        Page<Item> itemList;
+        int size = 12;
 
         if (keyword == null) {
-            itemList = itemService.allItem(orderCriteria);
+            itemList = itemService.allItem(page, size, orderCriteria);
         } else {
-            itemList = itemService.searchList(keyword, orderCriteria);
+            itemList = itemService.searchList(page, size, keyword, orderCriteria);
             if (itemList.isEmpty()) {
                 model.addAttribute("data", new Messsage("검색결과가 없습니다.", "/items/all"));
                 return "message";
@@ -103,6 +104,15 @@ public class ItemController {
         itemList = itemService.findLikedList(memberId, itemList);
 
         model.addAttribute("itemList", itemList);
+
+        int nowPage = itemList.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, itemList.getTotalPages());
+
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
 
         return "gallery";
     }
