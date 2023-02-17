@@ -41,6 +41,19 @@
         </div>
       </div>
     </div>
+    <div class="gallery-order-list">
+      <a
+        class="gallery-order order-selected"
+        th:href="@{/items/all (orderBy=id)}"
+        >최신순</a
+      >
+      <a class="gallery-order" th:href="@{/items/all (orderBy=views)}"
+        >조회수순</a
+      >
+      <a class="gallery-order" th:href="@{/items/all (orderBy=likes)}"
+        >좋아요순</a
+      >
+    </div>
     <div class="gallery">
       <ul class="gallery-list">
         <li th:each="item: ${itemList}">
@@ -105,5 +118,6 @@
         ></strong>
       </th:block>
     </footer>
+    <script src="/js/gallery.js"></script>
   </body>
 </html>
