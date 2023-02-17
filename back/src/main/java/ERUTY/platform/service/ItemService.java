@@ -8,7 +8,9 @@ import ERUTY.platform.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -86,7 +88,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public Page<Item> TotalItem(Pageable pageable, String memberId){
+    public Page<Item> TotalItem(Pageable pageable, String memberId) {
         Page<Item> TotalItemList = itemRepository.findAll(pageable);
         Iterator<Item> itemIterator = TotalItemList.iterator();
 
@@ -119,10 +121,6 @@ public class ItemService {
         }
 
         return items;
-    }
-
-    public Item iteminfo(String designName){
-        return itemRepository.findItemByDesignName(designName);
     }
 
     public Item updateView(String itemId, HttpServletRequest request, HttpServletResponse response) {
@@ -226,4 +224,34 @@ public class ItemService {
         }
     }
 
+    public Page<Item> allItem(int page, int size, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findAll(pageRequest);
+
+        return itemList;
+    }
+
+    public Page<Item> searchList(int page, int size, String keyword, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findAll(pageRequest);
+
+        return itemList;
+    }
+
+    public Page<Item> findLikedList(String memberId, Page<Item> itemList) {
+        Iterator<Item> itemIterator = itemList.iterator();
+
+        while(itemIterator.hasNext()) {
+            Item item = itemIterator.next();
+            if(item.getLikedList().contains(memberId)) {
+                item.setLiked(true);
+            } else {
+                item.setLiked(false);
+            }
+
+            log.info("현재 아이템 : " + item.getDesignName() + " 좋아요 표시 : " + item.isLiked());
+        }
+
+        return itemList;
+    }
 }

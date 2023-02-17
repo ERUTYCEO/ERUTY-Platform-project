@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +54,8 @@ public class ItemController {
     }
 
     @GetMapping("/items/search")
-    public String DesignList(Model model, @PageableDefault(page = 0, size = 9, direction = Sort.Direction.DESC) Pageable pageable, HttpSession session, findItemForm finditemForm) {
+    public String DesignList(@PageableDefault(page = 0, size = 9, direction = Sort.Direction.DESC) Pageable pageable,
+                             HttpSession session, Model model, findItemForm finditemForm) {
         Page<Item> itemList = null;
         String searchKeyword = finditemForm.getSearchKeyword();
 
@@ -63,8 +65,8 @@ public class ItemController {
             itemList = itemService.TotalItem(pageable, memberId); // 검색 X -> 아이템 전체 리스트들 띄우기
         } else {
             itemList = itemService.searchItemList(finditemForm, pageable, memberId); //검색결과에 해당하는 아이템만
-            if(itemList.isEmpty()){
-                model.addAttribute("data",new Messsage("검색결과가 없습니다.", "/items/search"));
+            if (itemList.isEmpty()) {
+                model.addAttribute("data", new Messsage("검색결과가 없습니다.", "/items/search"));
                 return "message";
             }
         }
@@ -79,12 +81,42 @@ public class ItemController {
         return "gallery";
     }
 
-    @GetMapping("/items/view")
-    public String itemview(Model model, String designName) {
-        model.addAttribute("info", itemService.iteminfo(designName));
+    @GetMapping("items/all")
+    public String allPost(@RequestParam(required = false, defaultValue = "id", value = "orderBy") String orderCriteria,
+                          @RequestParam(defaultValue = "0", value = "page") int page,
+                          HttpSession session, Model model, findItemForm finditemForm) {
+        String memberId = (String)session.getAttribute("loginId");
+        String keyword = finditemForm.getSearchKeyword();
 
-        return "items/itemInfo";
+        Page<Item> itemList;
+        int size = 12;
+
+        if (keyword == null) {
+            itemList = itemService.allItem(page, size, orderCriteria);
+        } else {
+            itemList = itemService.searchList(page, size, keyword, orderCriteria);
+            if (itemList.isEmpty()) {
+                model.addAttribute("data", new Messsage("검색결과가 없습니다.", "/items/all"));
+                return "message";
+            }
+        }
+
+        itemList = itemService.findLikedList(memberId, itemList);
+
+        model.addAttribute("itemList", itemList);
+
+        int nowPage = itemList.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, itemList.getTotalPages());
+
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+
+        return "gallery";
     }
+
     @GetMapping("items/{itemId}/detail")
     public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
         Item item = itemService.updateView(itemId, request, response);

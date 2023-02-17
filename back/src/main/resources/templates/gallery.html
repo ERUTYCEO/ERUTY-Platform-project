@@ -15,6 +15,11 @@
     <title>ERUTY</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
+  <div class = "col-auto">
+    <a class="btn btn-primary" th:href="@{/items/all (orderBy=views)}">조회수 순</a>
+    <a class="btn btn-primary" th:href="@{/items/all (orderBy=likes)}">좋아요 순</a>
+    <a class="btn btn-primary" th:href="@{/items/all (orderBy=id)}">최신 순</a>
+  </div>
     <div class="page1">
       <div class="nav">
         <a href="/"
@@ -26,7 +31,7 @@
         /></a>
         <div class="search-bar">
           <img src="/img/a.png" alt="" width="17px" height="17px" />
-          <form th:action="@{/items/search}" method="GET">
+          <form th:action="@{/items/all}" method="GET">
             <input type="text" name="searchKeyword" placeholder="   search" />
             <button id="search-btn" type="submit"></button>
           </form>
@@ -106,20 +111,20 @@
       </ul>
     </div>
 
-    <footer class="mt-auto" style="text-align: center; width: 100%">
-      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-        <a
-          th:if="${page != nowPage}"
-          th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}"
-          th:text="${page}"
-        ></a>
-        <strong
-          th:if="${page == nowPage}"
-          th:text="${page}"
-          style="color: red"
-        ></strong>
-      </th:block>
-    </footer>
+  <footer class="mt-auto" style="text-align: center; width: 100%">
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+      <a
+              th:if="${page != nowPage}"
+              th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}"
+              th:text="${page}"
+      ></a>
+      <strong
+              th:if="${page == nowPage}"
+              th:text="${page}"
+              style="color: red"
+      ></strong>
+    </th:block>
+  </footer>
     <script src="/js/gallery.js"></script>
   </body>
 </html>
