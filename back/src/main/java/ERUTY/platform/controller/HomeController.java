@@ -13,10 +13,4 @@ public class HomeController {
         log.info("home controller");
         return "main";
     }
-
-    @GetMapping("/mypage")
-    public String mypage() {
-        log.info("mypage controller");
-        return "mypage";
-    }
 }
