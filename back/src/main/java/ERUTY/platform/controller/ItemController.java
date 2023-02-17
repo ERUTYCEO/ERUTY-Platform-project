@@ -9,15 +9,13 @@ import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,39 +50,75 @@ public class ItemController {
         return "redirect:/";
     }
 
-    @GetMapping("/items/search")
-    public String DesignList(Model model, @PageableDefault(page = 0, size = 9, direction = Sort.Direction.DESC) Pageable pageable, HttpSession session, findItemForm finditemForm) {
-        Page<Item> itemList = null;
-        String searchKeyword = finditemForm.getSearchKeyword();
+    @GetMapping("items/all")
+    public String allPost(@RequestParam(required = false, defaultValue = "id", value = "orderBy") String orderCriteria,
+                          @RequestParam(required = false, defaultValue = "0", value = "page") int page,
+                          HttpSession session, Model model, findItemForm finditemForm) {
 
-        String memberId = (String) session.getAttribute("loginId");
+        String memberId = (String)session.getAttribute("loginId");
 
-        if (searchKeyword == null) {
-            itemList = itemService.TotalItem(pageable, memberId); // 검색 X -> 아이템 전체 리스트들 띄우기
-        } else {
-            itemList = itemService.searchItemList(finditemForm, pageable, memberId); //검색결과에 해당하는 아이템만
-            if(itemList.isEmpty()){
-                model.addAttribute("data",new Messsage("검색결과가 없습니다.", "/items/search"));
-                return "message";
-            }
-        }
+        Page<Item> itemList;
+        int size = 12;
+
+        itemList = itemService.allItem(page, size, orderCriteria);
+
+        itemList = itemService.findLikedList(memberId, itemList);
+
+        model.addAttribute("itemList", itemList);
+
         int nowPage = itemList.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, itemList.getTotalPages());
-        model.addAttribute("itemList", itemList);
+
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
+
         return "gallery";
     }
 
-    @GetMapping("/items/view")
-    public String itemview(Model model, String designName) {
-        model.addAttribute("info", itemService.iteminfo(designName));
+    @GetMapping("items/search")
+    public String searchPost(@RequestParam("keyword") String keyword,
+                             @RequestParam(required = false, defaultValue = "id", value = "orderBy") String orderCriteria,
+                             @RequestParam(required = false, defaultValue = "0", value = "page") int page,
+                             HttpSession session, Model model, findItemForm finditemForm) {
 
-        return "items/itemInfo";
+        String memberId = (String)session.getAttribute("loginId");
+
+        Page<Item> itemList;
+        int size = 12;
+
+        log.info("keyword : " + keyword);
+
+        if (keyword == "null") {
+            return "redirect:/items/all";
+        } else {
+            itemList = itemService.searchList(page, size, keyword, orderCriteria);
+            if (itemList.isEmpty()) {
+                model.addAttribute("data", new Messsage("검색결과가 없습니다.", "/items/all"));
+                return "message";
+            }
+        }
+
+        itemList = itemService.findLikedList(memberId, itemList);
+
+        model.addAttribute("itemList", itemList);
+
+        int nowPage = itemList.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, itemList.getTotalPages());
+
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+        model.addAttribute("keyword", keyword);
+
+
+        return "searchGallery";
     }
+
     @GetMapping("items/{itemId}/detail")
     public String itemDetail(@PathVariable("itemId") String itemId, HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
         Item item = itemService.updateView(itemId, request, response);

@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -191,5 +193,33 @@ public class MemberController {
         model.addAttribute("newLineChar", '\n');
 
         return "members/uploadlist";
+    }
+
+    @GetMapping("/members/mypage")
+    public String mypages(Model model, HttpSession session){
+
+        String memberId = (String) session.getAttribute("loginId");
+        Member loginMember = memberService.getPresentMember(memberId);
+
+        List<Item> myList = itemService.MyItemList(memberId);
+        //long totalLikes = itemService.findItemById(myList.get());
+        //long totalLikes = itemService.calcMyLikes(memberId);
+        //long totalViews = itemService.calcMyViews(memberId);
+        long totalDesigns = memberService.calcMyDesigns(memberId);
+        long totalLikes = 0;
+        long totalViews = 0;
+        for (int i = 0; i < totalDesigns; i++) {
+            totalLikes += itemService.findItemById(myList.get(i).getId()).getLikes();
+            totalViews += itemService.findItemById(myList.get(i).getId()).getViews();
+        }
+
+        model.addAttribute("loginMember",loginMember);
+        model.addAttribute("myList",myList);
+        model.addAttribute("totalLikes", totalLikes);
+        model.addAttribute("totalViews", totalViews);
+        model.addAttribute("totalDesigns",totalDesigns);
+        model.addAttribute("newLineChar",'\n');
+
+        return "mypage";
     }
 }

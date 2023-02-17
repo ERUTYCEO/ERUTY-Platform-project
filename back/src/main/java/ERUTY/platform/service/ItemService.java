@@ -5,10 +5,13 @@ import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
 import ERUTY.platform.repository.ItemRepository;
+import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -28,6 +31,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final MemberRepository memberRepository;
 
     public String[] createImagePathes(String imagePath){
         String[] parentPathAndNum = imagePath.split("\\*");
@@ -86,7 +90,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public Page<Item> TotalItem(Pageable pageable, String memberId){
+    public Page<Item> TotalItem(Pageable pageable, String memberId) {
         Page<Item> TotalItemList = itemRepository.findAll(pageable);
         Iterator<Item> itemIterator = TotalItemList.iterator();
 
@@ -119,10 +123,6 @@ public class ItemService {
         }
 
         return items;
-    }
-
-    public Item iteminfo(String designName){
-        return itemRepository.findItemByDesignName(designName);
     }
 
     public Item updateView(String itemId, HttpServletRequest request, HttpServletResponse response) {
@@ -226,4 +226,41 @@ public class ItemService {
         }
     }
 
+    public Page<Item> allItem(int page, int size, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findAll(pageRequest);
+
+        return itemList;
+    }
+
+    public Page<Item> searchList(int page, int size, String keyword, String orderCriteria) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(orderCriteria).descending());
+        Page<Item> itemList = itemRepository.findItemsByDesignNameContaining(keyword, pageRequest);
+
+        log.info("keywordlist : " + itemList);
+
+        return itemList;
+    }
+
+    public Page<Item> findLikedList(String memberId, Page<Item> itemList) {
+        Iterator<Item> itemIterator = itemList.iterator();
+
+        while(itemIterator.hasNext()) {
+            Item item = itemIterator.next();
+            if(item.getLikedList().contains(memberId)) {
+                item.setLiked(true);
+            } else {
+                item.setLiked(false);
+            }
+        }
+
+        return itemList;
+    }
+
+    public List<Item> MyItemList(String memberId){
+        List<Item> mylist = itemRepository.findItemsByMemberId(memberId);
+        //Iterator<Item> itemIterator = mylist.iterator();
+        return mylist;
+        //return getItems(memberId, mylist, itemIterator);
+    }
 }

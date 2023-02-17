@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    public List loginEssential = Arrays.asList("/members/logout", "/members/changepwd", "/members/authmember", "/items/**");
+    public List loginEssential = Arrays.asList("/members/logout", "/members/changepwd", "/members/authmember", "/items/**", "/members/mypage");
     public List loginInessential = Arrays.asList("/", "/members/new", "/members/login", "/members/findpwd");
 
     @Override
