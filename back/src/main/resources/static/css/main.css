@@ -164,6 +164,8 @@ canvas {
   height: 100vh;
   min-height: 900px;
   background-color: rgb(227, 226, 228);
+  z-index: 1;
+  position: relative;
 }
 
 #about-eruty img {
