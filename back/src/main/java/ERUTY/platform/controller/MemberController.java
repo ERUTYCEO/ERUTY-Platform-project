@@ -199,26 +199,23 @@ public class MemberController {
     @GetMapping("/members/mypage")
     public String mypages(Model model, HttpSession session){
 
-        String memberId = (String) session.getAttribute("loginId");
-        Member loginMember = memberService.getPresentMember(memberId);
+        String loginId = (String) session.getAttribute("loginId");
+        Member loginMember = memberService.getPresentMember(loginId);
 
-        List<Item> myList = itemService.MyItemList(memberId);
-        //long totalLikes = itemService.findItemById(myList.get());
-        //long totalLikes = itemService.calcMyLikes(memberId);
-        //long totalViews = itemService.calcMyViews(memberId);
-        long totalDesigns = memberService.calcMyDesigns(memberId);
+        List<Item> myList = itemService.MyItemList(loginId);
         long totalLikes = 0;
         long totalViews = 0;
-        for (int i = 0; i < totalDesigns; i++) {
+        for (int i = 0; i < myList.size(); i++) {
             totalLikes += itemService.findItemById(myList.get(i).getId()).getLikes();
             totalViews += itemService.findItemById(myList.get(i).getId()).getViews();
         }
 
+        model.addAttribute("isEqual", true);
         model.addAttribute("loginMember",loginMember);
         model.addAttribute("myList",myList);
         model.addAttribute("totalLikes", totalLikes);
         model.addAttribute("totalViews", totalViews);
-        model.addAttribute("totalDesigns",totalDesigns);
+        model.addAttribute("totalDesigns", myList.size());
         model.addAttribute("newLineChar",'\n');
 
         return "mypage";
