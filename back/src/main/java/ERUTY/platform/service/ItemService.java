@@ -263,4 +263,13 @@ public class ItemService {
         return mylist;
         //return getItems(memberId, mylist, itemIterator);
     }
+
+    public void deleteItem(String memberId, String itemId){
+        Member member = memberRepository.findMemberById(memberId);
+        List<String> itemList = member.getUploadList();
+
+        itemRepository.deleteItemById(itemId);
+        itemList.remove(itemId);
+        memberRepository.save(member);
+    }
 }
