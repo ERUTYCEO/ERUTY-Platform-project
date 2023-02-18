@@ -166,13 +166,15 @@ public class ItemController {
     public String deleteItem(@PathVariable("itemId") String itemId, HttpSession session, Model model){
         String loginId = (String) session.getAttribute("loginId");
 
-        if(itemService.deleteItem(loginId, itemId)){
-            log.info("삭제 성공");
-            return "redirect:/members/mypage";
-        }
-        log.info("삭제 실패");
         Item item = itemService.findItemById(itemId);
-        String memberId = item.getMemberId();
-        return "redirect:/members/" + memberId + "/mypage";
+        String itemMemberId = item.getMemberId();
+
+        if(loginId.equals(itemMemberId)){
+            log.info("동일 인물");
+            itemService.deleteItem(loginId, itemId);
+            return "redirect:/members/" + loginId + "/mypage";
+        }
+        log.info("비동일 인물");
+        return "redirect:/members/" + itemMemberId + "/mypage";
     }
 }

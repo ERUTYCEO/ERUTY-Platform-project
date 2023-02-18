@@ -223,8 +223,9 @@ public class MemberController {
 
         return "mypage";
     }
+
     @GetMapping("/members/{memberId}/mypage")
-    public String pages(@PathVariable("memberId") String memberId, Model model, HttpSession session){
+    public String portfolio(@PathVariable("memberId") String memberId, Model model){
 
         Member member = memberService.getPresentMember(memberId);
 
