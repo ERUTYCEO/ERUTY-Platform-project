@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -218,6 +219,29 @@ public class MemberController {
         model.addAttribute("totalLikes", totalLikes);
         model.addAttribute("totalViews", totalViews);
         model.addAttribute("totalDesigns",totalDesigns);
+        model.addAttribute("newLineChar",'\n');
+
+        return "mypage";
+    }
+
+    @GetMapping("/members/{memberId}/mypage")
+    public String portfolio(@PathVariable("memberId") String memberId, Model model){
+
+        Member member = memberService.getPresentMember(memberId);
+
+        List<Item> itemList = itemService.MyItemList(memberId);
+        long totalLikes = 0;
+        long totalViews = 0;
+        for (Item item : itemList) {
+            totalLikes += item.getLikes();
+            totalViews += item.getViews();
+        }
+
+        model.addAttribute("loginMember", member);
+        model.addAttribute("myList", itemList);
+        model.addAttribute("totalLikes", totalLikes);
+        model.addAttribute("totalViews", totalViews);
+        model.addAttribute("totalDesigns",itemList.size());
         model.addAttribute("newLineChar",'\n');
 
         return "mypage";
