@@ -4,7 +4,7 @@
 }
 
 body {
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(227, 226, 228);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,10 +19,9 @@ body {
 }
 
 .login-logo {
-  margin-top: 20px;
-  font-size: 4rem;
-  color: rgb(36, 170, 225);
-  font-weight: 900;
+  margin: 20px 0;
+  width: 250px;
+  height: 150px;
 }
 
 .login-container {
@@ -49,8 +48,8 @@ body {
 
 .login-btn {
   margin-top: 30px;
-  background-color: rgb(36, 170, 225);
-  border: 1px solid rgb(36, 170, 225);
+  background-color: rgb(94, 145, 163);
+  border: 1px solid rgb(94, 145, 163);
   border-radius: 5px;
   height: 50px;
   width: 100%;
