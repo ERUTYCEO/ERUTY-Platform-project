@@ -499,7 +499,21 @@
               var DOM_3d = document.createElement("canvas");
               DOM_3d.class = "obj";
               DOM_3d.id = "server-3d";
+              var DOM_reset_div = document.createElement("div");
+              DOM_reset_div.id = "resetDiv";
+              DOM_reset_div.setAttribute("style", "text-align: center");
+              var DOM_reset = document.createElement("LABEL");
+              DOM_reset.id = "resetButton";
+              DOM_reset.setAttribute("onclick", "resetBB();");
+              DOM_reset.setAttribute(
+                "style",
+                "margin-top: 30px;background-color: rgb(36, 170, 225);color: #fff;text-align: center;padding: 10px 0;width: 40%;border-radius: 6px;cursor: pointer;"
+              );
+              DOM_reset.innerText = "reset";
+
               leftContents.appendChild(DOM_3d);
+              leftContents.appendChild(DOM_reset_div);
+              resetDiv.appendChild(DOM_reset);
             }
             if (i == filesLen - 1) {
               var model = document.getElementById("modelPath");
@@ -933,6 +947,13 @@
           dirLight.castShadow = true;
           dirLight.shadow.mapSize = new THREE.Vector2(1024, 1024);
           scene.add(dirLight);
+        }
+      }
+
+      function resetBB() {
+        if (!confirm("다른 3D모델을 선택하시려면 확인을 눌러주세요.")) {
+        } else {
+          location.reload();
         }
       }
     </script>
