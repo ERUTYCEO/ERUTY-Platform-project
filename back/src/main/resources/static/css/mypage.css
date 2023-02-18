@@ -32,8 +32,7 @@
 }
 
 .gallery-list {
-  width: 100vw;
-  min-width: 1000px;
+  width: 100%;
   flex-wrap: wrap;
   padding: 0;
   margin-top: 30px;
@@ -42,7 +41,7 @@
   display: inline-block;
   padding: 0 40px;
   width: 293px;
-  height: 500px;
+  height: 450px;
   margin: 0 10px 20px 10px;
   border-bottom: 1px solid #ddd;
 }
@@ -113,4 +112,11 @@
 .banner {
   min-width: 1350px;
   height: 280px;
+}
+
+.delete-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
 }
