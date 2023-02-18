@@ -662,18 +662,19 @@
         console.log("click image");
         uploadImg.click();
       }
+      var totalImage = 0;
+      var tempImage = 0;
       function upload(e) {
         const files = e.target.files;
         const filesLen = files.length;
+        totalImage += filesLen;
         var imageTempPath = "";
 
-        for (var i = 0; i < filesLen; i++) {
-          var file = files[i];
+        for (i = tempImage; i < totalImage; i++) {
+          var file = files[i - tempImage];
           var fileName = "file"; //file.name;
           var upload2 = encodeURIComponent("item") + "/" + hashing + "/";
           var saveKey = upload2 + fileName + i;
-          console.log(saveKey);
-
           var upload = new AWS.S3.ManagedUpload({
             params: {
               Bucket: albumBucketName,
@@ -688,29 +689,27 @@
             logoImg.remove();
             titleImg.remove();
             errorImagePath.remove();
-            // var DOM_add = document.createElement("LABEL");
-            // DOM_add.setAttribute("onclick", " uploadImg.click();");
+            var DOM_add = document.createElement("LABEL");
+            DOM_add.setAttribute("onclick", " uploadImg.click();");
 
-            // DOM_add.setAttribute(
-            //   "style",
-            //   "margin-top: 30px;background-color: rgb(36, 170, 225);color: #fff;text-align: center; width: 40%;border-radius: 6px;cursor: pointer;"
-            // );
-            // DOM_add.innerText = "add";
+            DOM_add.setAttribute(
+              "style",
+              "margin-top: 30px;background-color: rgb(36, 170, 225);color: #fff;text-align: center; width: 40%;border-radius: 6px;cursor: pointer;"
+            );
+            DOM_add.innerText = "add";
             mainImg.classList.remove("mainImgClass");
             mainImg.appendChild(DOM_img);
-            // mainImg.appendChild(DOM_add);
+            mainImg.appendChild(DOM_add);
           }
-          if (i == filesLen - 1) {
+          if (i == totalImage - 1) {
             imagePath.value =
               "https://eruty-s3.s3.ap-northeast-2.amazonaws.com/item/" +
               hashing +
               "*" +
-              filesLen;
-
-            console.log(imagePath.value);
+              totalImage;
+            tempImage = totalImage;
             alert("Successfully uploaded.");
           }
-
           var promise = upload.promise();
         }
       }
