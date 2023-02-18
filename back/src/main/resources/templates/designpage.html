@@ -154,8 +154,12 @@
           </p>
 
           <div class="seller-btn mt-3">
-            <button>PORTFOLIO 확인</button
-            ><button id="portfolio">디자인 의뢰하기</button>
+            <button
+               type="button"
+               th:onclick="|location.href='@{/members/{memberId}/mypage (memberId=${item.getMemberId()})}'|"
+            >PORTFOLIO 확인
+            </button>
+            <button id="portfolio">디자인 의뢰하기</button>
           </div>
         </div>
         <!-- <div class="company-info">
