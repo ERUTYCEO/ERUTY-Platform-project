@@ -263,4 +263,20 @@ public class ItemService {
         return mylist;
         //return getItems(memberId, mylist, itemIterator);
     }
+
+    public boolean deleteItem(String memberId, String itemId){
+        Member member = memberRepository.findMemberById(memberId);
+        List<String> itemList = member.getUploadList();
+
+        log.info(member.getName());
+        if(itemList.contains(itemId)){
+            log.info("포함");
+            itemRepository.deleteItemById(itemId);
+            itemList.remove(itemId);
+            memberRepository.save(member);
+            return true;
+        }
+        log.info("비포함");
+        return false;
+    }
 }

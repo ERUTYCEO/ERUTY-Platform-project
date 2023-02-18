@@ -2,8 +2,10 @@ package ERUTY.platform.controller;
 
 import ERUTY.platform.common.Messsage;
 import ERUTY.platform.domain.Item;
+import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
+import ERUTY.platform.repository.MemberRepository;
 import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -157,5 +160,19 @@ public class ItemController {
         model.addAttribute("item", item);
         model.addAttribute("newLineChar", '\n');
         return "redirect:/items/{itemId}/detail";
+    }
+
+    @GetMapping("item/{itemId}/delete")
+    public String deleteItem(@PathVariable("itemId") String itemId, HttpSession session, Model model){
+        String loginId = (String) session.getAttribute("loginId");
+
+        if(itemService.deleteItem(loginId, itemId)){
+            log.info("삭제 성공");
+            return "redirect:/members/mypage";
+        }
+        log.info("삭제 실패");
+        Item item = itemService.findItemById(itemId);
+        String memberId = item.getMemberId();
+        return "redirect:/members/" + memberId + "/mypage";
     }
 }
