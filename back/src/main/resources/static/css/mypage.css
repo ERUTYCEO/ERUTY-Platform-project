@@ -1,0 +1,116 @@
+@import "reset.css";
+@import "nav.css";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
+* {
+  font-family: "NanumSquare", sans-serif !important;
+}
+
+.body {
+  background-color: rgb(239, 239, 239);
+  min-width: 1000px;
+  height: 100vh;
+  min-height: 800px;
+}
+
+.page1 {
+  height: 175px;
+}
+
+.gallery {
+  margin: 0 100px;
+}
+
+.row-1 {
+  height: 150px;
+  margin: 20px 0;
+  justify-content: space-around;
+}
+
+.row-1 img {
+  width: 200px;
+}
+
+.gallery-list {
+  width: 100vw;
+  min-width: 1000px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-top: 30px;
+}
+.gallery-list li {
+  display: inline-block;
+  padding: 0 40px;
+  width: 293px;
+  height: 500px;
+  margin: 0 10px 20px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.gallery-list li:hover {
+  transition: box-shadow 0.35s;
+  box-shadow: 1px 1px 12px 1px rgb(203, 202, 202);
+}
+
+.gallery-list li a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  color: inherit;
+}
+
+.gallery-list li a img {
+  width: 220px;
+  height: 220px;
+  margin: 20px 0 20px 0;
+}
+
+.gallery-list li a h4 {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.gallery-list .price {
+  margin-top: 20px;
+  font-size: 18px;
+  color: red;
+  font-weight: 700;
+}
+
+.gallery-list .view {
+  margin-top: 20px;
+}
+
+.design-eval {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gallery-order-list {
+  min-width: 1000px;
+  background-color: rgb(244, 244, 244);
+  margin: 0 130px;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.gallery-order {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 8px;
+  border-right: 1px solid lightgray;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+/* .order-selected {
+  color: rgb(16, 110, 185);
+  cursor: pointer;
+  font-weight: 600;
+} */
+
+.banner {
+  min-width: 1350px;
+  height: 280px;
+}
