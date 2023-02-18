@@ -38,7 +38,6 @@
           <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
           <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
           <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
-
           <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
       </div>

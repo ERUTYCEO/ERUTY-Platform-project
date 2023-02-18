@@ -37,16 +37,19 @@
             <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
             <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
             <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-            <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
+            <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
 
             <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
     </div>
 </div>
 <div class="gallery-order-list">
+    <a class="gallery-order" th:href="@{/items/all}"
+    >전체</a
+    >
     <a
             class="gallery-order order-selected"
-            th:href="@{/items/all (orderBy=id)}"
+            th:href="@{/items/search (keyword=${keyword}, orderBy=id)}"
     >최신순</a
     >
     <a class="gallery-order" th:href="@{/items/search (keyword=${keyword}, orderBy=views)}"

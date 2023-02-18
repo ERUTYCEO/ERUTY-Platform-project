@@ -32,7 +32,7 @@
         <div class="search-bar">
           <img src="/img/a.png" alt="" width="17px" height="17px" />
           <form th:action="@{/items/search}" method="GET">
-            <input type="text" name="searchKeyword" placeholder="   search" />
+            <input type="text" name="keyword" placeholder="   search" />
             <button id="search-btn" type="submit"></button>
           </form>
         </div>
@@ -41,7 +41,7 @@
           <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
           <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
           <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-          <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
           <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
       </div>
@@ -49,7 +49,10 @@
         <div class="main">
           <div class="rendering" style="margin-top: 5%">
             <div>
-              <canvas id="main-3d"></canvas>
+              <img
+                src="/img/3d.png"
+                style="width: 800px; height: 800px; margin-left: 25%"
+              />
             </div>
           </div>
           <div class="right-info">
@@ -126,7 +129,6 @@
     </div>
 
     <div class="bg-ani"></div>
-
     <div id="about-eruty">
       <img src="/img/logoname.png" alt="" />
       <p>(주) 이루티는 3D 그래픽 디자인 소스 오픈 거래 서비스를</p>
@@ -197,6 +199,7 @@
         진흥원 법등 관련 볍령에 의하여 엄격하게 처벌 받습니다.
       </p>
       <p class="footer-right">Copyright 2023 Eruty Inc. All rights reserved.</p>
+
     </div>
 
     <script

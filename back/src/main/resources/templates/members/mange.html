@@ -71,6 +71,7 @@
         <tr>
           <th>이름</th>
           <th>이메일</th>
+          <th>휴대폰 번호</th>
           <th>마케팅 동의 여부</th>
         </tr>
         </thead>
@@ -78,6 +79,7 @@
         <tr th:each="member : ${memberList}">
           <td th:text="${member.name}"></td>
           <td th:text="${member.email}"></td>
+          <td th:text="${member.phoneNumber}"</td>
           <td th:text="${member.marketingOk}"></td>
         </tr>
         </tbody>
