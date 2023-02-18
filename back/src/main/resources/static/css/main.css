@@ -6,17 +6,29 @@
   font-family: "NanumSquare", sans-serif !important;
 }
 
-.body {
+body {
   background-color: rgb(227, 226, 228);
+}
+
+.body {
   min-width: 1000px;
   height: 100vh;
   min-height: 900px;
-  z-index: 1;
   position: relative;
 }
 
 .page1 {
   height: 900px;
+}
+
+.bg-color {
+  background-color: rgb(227, 226, 228);
+  width: 100vw;
+  min-width: 1000px;
+  height: 2000px;
+  min-height: 900px;
+  position: absolute;
+  z-index: -1;
 }
 .bg-img {
   background-image: url(/img/background.png);
@@ -29,16 +41,25 @@
 }
 
 .bg-ani {
-  background-color: rgb(202, 205, 209);
   background-image: url(/img/bganimation.png);
   background-repeat: no-repeat;
-  background-size: contain;
+  /* background-size: contain; */
   width: 100vw;
-  height: 100vh;
   min-width: 1000px;
-  min-height: 900px;
-  position: fixed;
-  z-index: 1;
+  background-position: center;
+  background-attachment: fixed;
+  height: 500px;
+}
+
+.bg-ani2 {
+  background-image: url(/img/bgani2.png);
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  width: 100vw;
+  min-width: 1000px;
+  background-position: center;
+  background-attachment: fixed;
+  height: 800px;
 }
 
 .main {
@@ -65,7 +86,7 @@
 }
 
 .info {
-  height: 60%;
+  height: 70%;
   border-left: 1px solid rgb(76, 147, 165);
   padding: 0 4rem;
   display: flex;
@@ -81,12 +102,22 @@
 
 .title {
   font-weight: 600;
-  padding-bottom: 1rem;
+  margin: 0;
 }
 
 .content {
+  margin: 0;
   font-size: 0.8rem;
   color: rgb(90, 89, 89);
+  white-space: nowrap;
+}
+
+.content-1 {
+  margin-top: 1rem;
+}
+
+.content-weight {
+  font-weight: 800;
 }
 
 .bottom {
@@ -122,9 +153,11 @@
 .bottom-btn {
   width: 350px;
   height: 80px;
+  cursor: pointer;
 }
 
 .bottom-btn-title {
+  cursor: pointer;
   color: white;
   position: absolute;
   font-weight: 400;
@@ -150,9 +183,9 @@ canvas {
   height: 600px !important;
 }
 .path-about {
+  background: rgb(218, 221, 226);
   min-width: 1000px;
-  height: 100vh;
-  min-height: 900px;
+  height: 500px;
 }
 
 #about-eruty {
@@ -161,10 +194,8 @@ canvas {
   justify-content: center;
   align-items: center;
   min-width: 1000px;
-  height: 100vh;
-  min-height: 900px;
-  background-color: rgb(227, 226, 228);
-  z-index: 1;
+  height: 500px;
+  background-color: rgb(245, 252, 255);
   position: relative;
 }
 
@@ -176,4 +207,37 @@ canvas {
 
 #about-eruty p {
   font-size: 1.2rem;
+}
+
+.footer {
+  padding: 2rem 1rem;
+  background: rgb(227, 226, 228);
+  border-top: 1px solid rgb(158, 158, 158);
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  width: 100vw;
+  min-width: 1000px;
+  position: relative;
+}
+
+.footer p {
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+
+.footer-lighter {
+  color: gray;
+}
+
+.footer-first {
+  margin-bottom: 0.4rem !important;
+}
+
+.footer-right {
+  color: gray;
+  margin-top: 0.4rem;
 }
