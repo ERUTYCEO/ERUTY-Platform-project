@@ -225,7 +225,7 @@ public class MemberController {
     }
 
     @GetMapping("/members/{memberId}/mypage")
-    public String portfolio(@PathVariable("memberId") String memberId, Model model){
+    public String portfolio(@PathVariable("memberId") String memberId, Model model, HttpSession session){
 
         Member member = memberService.getPresentMember(memberId);
 
@@ -236,7 +236,9 @@ public class MemberController {
             totalLikes += item.getLikes();
             totalViews += item.getViews();
         }
-
+        String loginId = (String) session.getAttribute("loginId");
+        boolean isEqual = loginId.equals(memberId);
+        model.addAttribute("isEqual", isEqual);
         model.addAttribute("loginMember", member);
         model.addAttribute("myList", itemList);
         model.addAttribute("totalLikes", totalLikes);
