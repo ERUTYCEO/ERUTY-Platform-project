@@ -148,14 +148,15 @@
                 </div>
                 <div style="text-align: right"></div>
               </a>
-              <button
-                type="button"
-                class="btn btn-secondary btn-sm mt-3 delete-btn"
-                onclick="deleteFunc()"
-                th:onclick="|location.href='@{/item/{itemId}/delete (itemId=${item.getId()})}'|"
-              >
-                Delete
-              </button>
+              <div th:if="${isEqual}">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm mt-3 delete-btn"
+                  th:onclick="deleteFunc([[${item.getId()}]])"
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           </ul>
         </div>
@@ -241,11 +242,10 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      function deleteFunc() {
+      function deleteFunc(del) {
         if (!confirm("삭제를 원하시면 확인을 눌러주세요.")) {
-          alert("취소");
         } else {
-          alert("확인");
+          location.href = "/item/" + del + "/delete";
         }
       }
     </script>
