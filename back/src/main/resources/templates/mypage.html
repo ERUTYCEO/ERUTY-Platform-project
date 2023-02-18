@@ -102,17 +102,19 @@
         </div>
         <div style="text-align: center">
           <ul class="gallery-list">
-            <!-- 상명님 해당 유저가 업로드 한 아이템 (gallery.html에서 가져옴)-->
             <li th:each="item: ${myList}">
               <a th:href="@{/items/{id}/detail (id=${item.getId()})}">
                 <img th:src="${item.getImagePathes()[0]}" alt="" />
 
-                <h4 th:text="${item.getDesignName()} "></h4>
-                <div>
+                <h4
+                  style="text-align: left"
+                  th:text="${item.getDesignName()} "
+                ></h4>
+                <div style="text-align: left">
                   ₩ <span class="price" th:text="${item.getPrice()}"></span>
                 </div>
-                <div class="design-eval">
-                  <div>
+                <div>
+                  <div style="width: 50%; float: left; text-align: left">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -127,7 +129,7 @@
                     </svg>
                     <span class="view" th:text="${item.getLikes()}"></span>
                   </div>
-                  <div>
+                  <div style="width: 50%; float: left; text-align: right">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -143,9 +145,16 @@
                         d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"
                       />
                     </svg>
-                    <span class="view" th:text="${item.getViews()}"
-                      >조회수</span
+                    <span class="view" th:text="${item.getViews()}"></span>
+                  </div>
+                  <div style="text-align: right">
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm mt-3"
+                      onclick="deleteFunc()"
                     >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </a>
@@ -233,5 +242,14 @@
       src="https://kit.fontawesome.com/bd796f3c3a.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function deleteFunc() {
+        if (!confirm("삭제를 원하시면 확인을 눌러주세요.")) {
+          alert("취소");
+        } else {
+          alert("확인");
+        }
+      }
+    </script>
   </body>
 </html>
