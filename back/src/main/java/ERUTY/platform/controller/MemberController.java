@@ -89,7 +89,7 @@ public class MemberController {
                 session.setAttribute("admin", loginMember.getId());
             }
              */
-            if(loginMember.getEmail().equals("2@2")) {
+            if(loginMember.getEmail().equals("kimue7057@pusan.ac.kr")) {
                 session.setAttribute("admin", loginMember.getId());
             }
 
