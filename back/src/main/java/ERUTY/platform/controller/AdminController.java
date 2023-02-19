@@ -1,5 +1,6 @@
 package ERUTY.platform.controller;
 
+import ERUTY.platform.domain.Item;
 import ERUTY.platform.domain.Member;
 import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
@@ -22,18 +23,27 @@ public class AdminController {
     @GetMapping("/admin/authmember")
     public String managedList(Model model) {
         List<Member> marketingList = memberService.getMarketingMember();
-        log.info("admin");
+
         model.addAttribute("memberList", marketingList);
 
-        return "members/mange";
+        return "admin/mange";
     }
 
-    @GetMapping("/admin/pnm")
+    @GetMapping("/admin/phone")
     public String pnumberList(Model model) {
         List<Member> pnumberList = memberService.getTotalPNumber();
 
         model.addAttribute("memberList", pnumberList);
 
         return "admin/pnumber";
+    }
+
+    @GetMapping("/admin/boughtitem")
+    public String boughtList(Model model) {
+        List<Item> boughtItemList = itemService.getBoughtItemList();
+
+        model.addAttribute("itemList", boughtItemList);
+
+        return "admin/boughtlist";
     }
 }

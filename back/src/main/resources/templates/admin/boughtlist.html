@@ -69,9 +69,11 @@
     </div>
 </div>
 
+
 <div class="container-fluid">
     <!-- 사이드바 -->
     <nav class="mt-5 col-sm-3 sidenav">
+        <h6>&nbsp;</h6>
         <a th:href="@{/admin/authmember}">Marketing Member</a>
         <a th:href="@{/admin/phone}">Members' Phone Number</a>
         <a th:href="@{/admin/boughtitem}">Bought Item List</a>
@@ -82,20 +84,16 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th></th>
+            <th>Id</th>
             <th>이름</th>
-            <th>이메일</th>
-            <th>휴대폰 번호</th>
-            <th>마케팅 동의 여부</th>
+            <th>구매횟수</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="member : ${memberList}">
-            <td><input type="checkbox" name="_selected_" th:value="${member.getId()}"></td>
-            <td th:text="${member.name}"></td>
-            <td th:text="${member.email}"></td>
-            <td th:text="${member.phoneNumber}"></td>
-            <td th:text="${member.marketingOk}"></td>
+        <tr th:each="item : ${itemList}">
+            <td th:text="${item.getId()}"></td>
+            <td th:text="${item.getDesignName()}"></td>
+            <td th:text="${item.getNumBuy()}"></td>
         </tr>
         </tbody>
     </table>

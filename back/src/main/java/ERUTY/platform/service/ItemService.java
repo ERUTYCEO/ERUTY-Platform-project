@@ -272,4 +272,10 @@ public class ItemService {
         itemList.remove(itemId);
         memberRepository.save(member);
     }
+
+    public List<Item> getBoughtItemList() {
+        List<Item> itemList = itemRepository.findAll(Sort.by(Sort.Direction.DESC, "numBuy"));
+
+        return itemList;
+    }
 }
