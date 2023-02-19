@@ -152,7 +152,7 @@ public class ItemService {
 
             Cookie newCookie = new Cookie("postView", itemId);
             newCookie.setPath("/");
-            newCookie.setMaxAge(60 * 60 * 24);
+            newCookie.setMaxAge(60 * 60 * 1);
 
             response.addCookie(newCookie);
         }
