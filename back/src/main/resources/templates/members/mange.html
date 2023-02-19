@@ -58,8 +58,8 @@
       <nav class="mt-5 col-sm-3 sidenav">
         <h6>&nbsp;</h6>
         <h4 style="color: rgb(36, 170, 225)">E-mail</h4>
-        <h4>Contents</h4>
-        <h4>Sales status</h4>
+        <h4 th:href="/admin/authmember">Marketing Member</h4>
+        <h4 th:href="/admin/pnm">Phone Number</h4>
         <h4>Setting</h4>
         <h4>Q&A</h4>
       </nav>
@@ -79,7 +79,7 @@
         <tr th:each="member : ${memberList}">
           <td th:text="${member.name}"></td>
           <td th:text="${member.email}"></td>
-          <td th:text="${member.phoneNumber}"</td>
+          <td th:text="${member.phoneNumber}"></td>
           <td th:text="${member.marketingOk}"></td>
         </tr>
         </tbody>

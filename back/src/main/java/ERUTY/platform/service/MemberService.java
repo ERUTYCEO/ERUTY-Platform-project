@@ -8,9 +8,9 @@ import ERUTY.platform.repository.ItemRepository;
 import ERUTY.platform.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -143,5 +143,11 @@ public class MemberService {
         List<Item> myList = itemRepository.findItemsByMemberId(memberId);
         int listSize = myList.size();
         return listSize;
+    }
+
+    public List<Member> getTotalPNumber() {
+        List<Member> memberList = memberRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
+        return memberList;
     }
 }

@@ -15,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -85,6 +83,14 @@ public class MemberController {
                 model.addAttribute("data", new Messsage("모든 항목을 채워주십시오.", "/members/login"));
 
                 return "message";
+            }
+            /*
+            if(loginMember.getEmail().equals("kimue7057@pusan.ac.kr")) {
+                session.setAttribute("admin", loginMember.getId());
+            }
+             */
+            if(loginMember.getEmail().equals("2@2")) {
+                session.setAttribute("admin", loginMember.getId());
             }
 
             session.setAttribute("loginId", loginMember.getId());
@@ -172,15 +178,6 @@ public class MemberController {
         model.addAttribute("data", new Messsage("로그인 페이지로 이동합니다", "/members/login"));
 
         return "message";
-    }
-
-    @GetMapping("/members/authmember")
-    public String managedList(Model model) {
-        List<Member> marketingList = memberService.getMarketingMember();
-
-        model.addAttribute("memberList", marketingList);
-
-        return "members/mange";
     }
 
     @GetMapping("/members/uploadlist")

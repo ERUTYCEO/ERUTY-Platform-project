@@ -143,7 +143,7 @@ public class ItemService {
 
                 oldCookie.setValue(oldCookie.getValue() + itemId);
                 oldCookie.setPath("/");
-                oldCookie.setMaxAge(60 * 60 * 24);
+                oldCookie.setMaxAge(60 * 60 * 1);
 
                 response.addCookie(oldCookie);
             }
