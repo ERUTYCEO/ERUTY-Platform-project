@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -177,4 +179,9 @@ public class ItemController {
         log.info("비동일 인물");
         return "redirect:/members/" + itemMemberId + "/mypage";
     }
+
+    
 }
+
+
+
