@@ -2,26 +2,26 @@ spring:
   data:
     mongodb:
       port: 27017
-      #host: localhost
-      #database: ERUTY_Member
-      host: 54.180.89.196
-      database: admin
-      username: eruty
-      password: eruty
+      host: localhost
+      database: ERUTY_Member
+      #host: 54.180.89.196
+      #database: admin
+      #username: eruty
+      #password: eruty
 
   thymeleaf:
     prefix: classpath:/templates/
 
   mail:
-    host: smtp.naver.com
-    port: 465
-    username: eruty201@naver.com
-    password: uesung8559??
+    host: smtp.gmail.com
+    port: 587
+    username: yusung@eruty.co.kr
+    password: mwrukccdextdkxqh
     properties:
       mail:
         smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
 
 logging:
