@@ -2,10 +2,8 @@ package ERUTY.platform.controller;
 
 import ERUTY.platform.common.Messsage;
 import ERUTY.platform.domain.Item;
-import ERUTY.platform.domain.Member;
 import ERUTY.platform.form.ItemForm;
 import ERUTY.platform.form.findItemForm;
-import ERUTY.platform.repository.MemberRepository;
 import ERUTY.platform.service.ItemService;
 import ERUTY.platform.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -140,8 +135,8 @@ public class ItemController {
         return "designpage";
     }
 
-    @GetMapping("items/{itemId}/like")
-    public String liked(@PathVariable("itemId") String itemId, HttpSession session, Model model) {
+    @GetMapping("getLikeById")
+    public Boolean liked(@RequestParam String itemId, HttpSession session) {
         String memberId = (String) session.getAttribute("loginId");
 
         Item item = itemService.likedListUpdate(itemId, memberId);
@@ -149,10 +144,9 @@ public class ItemController {
         boolean liked = itemService.findLiked(memberId, itemId);
         item.setLiked(liked);
 
-        model.addAttribute("item", item);
-        model.addAttribute("newLineChar", '\n');
+        log.info("liked : " + liked);
 
-        return "redirect:/items/{itemId}/detail";
+        return liked;
     }
 
     @GetMapping("items/{itemId}/buy")
