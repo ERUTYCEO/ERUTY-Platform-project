@@ -33,7 +33,7 @@
         </div>
 
         <div class="menu">
-          <a href="">ABOUT ERUTY</a>
+          <a href="/#about-eruty">ABOUT ERUTY</a>
           <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
           <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
           <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
