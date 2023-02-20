@@ -113,7 +113,7 @@
     <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
         <a
                 th:if="${page != nowPage}"
-                th:href="@{/items/search(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}"
+                th:href="@{/items/search(page = ${page - 1}, keyword = ${param.keyword})}"
                 th:text="${page}"
         ></a>
         <strong
