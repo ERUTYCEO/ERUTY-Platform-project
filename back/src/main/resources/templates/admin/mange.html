@@ -4,10 +4,12 @@
   <title>ERUTY</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/mange.css" />
   <link
           rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
@@ -37,10 +39,6 @@
   </style>
 </head>
 <body>
-<style>
-  @import "/static/css/reset.css";
-  @import "/static/css/nav.css";
-</style>
 <div class="page1">
   <div class="nav">
     <a href="/"
@@ -59,7 +57,7 @@
     </div>
 
     <div class="menu">
-      <a href="">ABOUT ERUTY</a>
+      <a href="/#about-eruty">ABOUT ERUTY</a>
       <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
       <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
       <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
