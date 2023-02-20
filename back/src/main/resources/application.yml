@@ -15,7 +15,7 @@ spring:
   mail:
     host: smtp.naver.com
     port: 465
-    username: eruty7057@naver.com
+    username: eruty201@naver.com
     password: uesung8559??
     properties:
       mail:
