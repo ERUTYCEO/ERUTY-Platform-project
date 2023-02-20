@@ -2,8 +2,8 @@ spring:
   data:
     mongodb:
       port: 27017
-      # host: localhost
-      # database: ERUTY_Member
+      #host: localhost
+      #database: ERUTY_Member
       host: 54.180.89.196
       database: admin
       username: eruty

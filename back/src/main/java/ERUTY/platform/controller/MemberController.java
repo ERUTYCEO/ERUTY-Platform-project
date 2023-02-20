@@ -195,7 +195,6 @@ public class MemberController {
 
     @GetMapping("/members/mypage")
     public String mypages(Model model, HttpSession session){
-
         String loginId = (String) session.getAttribute("loginId");
         Member loginMember = memberService.getPresentMember(loginId);
 
@@ -220,7 +219,6 @@ public class MemberController {
 
     @GetMapping("/members/{memberId}/mypage")
     public String portfolio(@PathVariable("memberId") String memberId, Model model, HttpSession session){
-
         Member member = memberService.getPresentMember(memberId);
 
         List<Item> itemList = itemService.MyItemList(memberId);
