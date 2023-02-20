@@ -1,110 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>ERUTY</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+      /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
 
-        /* 사이드바 */
-        .sidenav {
-            background-color: #f1f1f1;
-            position: fixed;
-            width: 200px;
-            height: 100%;
-            margin-left: -20px;
-            margin-top: 50px;
-        }
-        /* 본문 */
-        .page {
-            margin-top: 50px;
-            margin-left: 250px;
-        }
+      /* 사이드바 */
+      .sidenav {
+        background-color: #f1f1f1;
+        position: fixed;
+        width: 200px;
+        height: 100%;
+        margin-left: -20px;
+        margin-top: 50px;
+      }
+      /* 본문 */
+      .page {
+        margin-top: 50px;
+        margin-left: 250px;
+      }
 
-        /* footer */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
+      /* footer */
+      footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+      }
     </style>
-</head>
-<body>
-<style>
-    @import "/static/css/reset.css";
-    @import "/static/css/nav.css";
-</style>
-<div class="page1">
-    <div class="nav">
+  </head>
+  <body>
+    <style>
+      @import "/static/css/reset.css";
+      @import "/static/css/nav.css";
+    </style>
+    <div class="page1">
+      <div class="nav">
         <a href="/"
-        ><img
-                class="nav-logo"
-                width="25px"
-                src="/img/eruty_logo2.png"
-                alt="로고"
+          ><img
+            class="nav-logo"
+            width="25px"
+            src="/img/eruty_logo2.png"
+            alt="로고"
         /></a>
         <div class="search-bar">
-            <img src="/img/a.png" alt="" width="17px" height="17px" />
-            <form th:action="@{/items/search}" method="GET">
-                <input type="text" name="keyword" placeholder="   search" />
-                <button id="search-btn" type="submit"></button>
-            </form>
+          <img src="/img/a.png" alt="" width="17px" height="17px" />
+          <form th:action="@{/items/search}" method="GET">
+            <input type="text" name="keyword" placeholder="   search" />
+            <button id="search-btn" type="submit"></button>
+          </form>
         </div>
 
         <div class="menu">
-            <a href="">ABOUT ERUTY</a>
-            <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-            <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-            <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-            <a th:if="${session?.loginId}" href="/mypage">MYPAGE</a>
-            <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+          <a href="">ABOUT ERUTY</a>
+          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
+      </div>
     </div>
-</div>
 
-<div class="container-fluid">
-    <!-- 사이드바 -->
-    <nav class="mt-5 col-sm-3 sidenav">
+    <div class="container-fluid">
+      <!-- 사이드바 -->
+      <nav class="mt-5 col-sm-3 sidenav">
         <a th:href="@{/admin/authmember}">Marketing Member</a>
         <a th:href="@{/admin/phone}">Members' Phone Number</a>
         <a th:href="@{/admin/boughtitem}">Bought Item List</a>
-    </nav>
-</div>
-<!-- 본문 -->
-<div style="padding: 5%; margin-left: 10%">
-    <table class="table table-striped">
+      </nav>
+    </div>
+    <!-- 본문 -->
+    <div style="padding: 5%; margin-left: 10%">
+      <table class="table table-striped">
         <thead>
-        <tr>
+          <tr>
             <th></th>
             <th>이름</th>
             <th>이메일</th>
             <th>휴대폰 번호</th>
             <th>마케팅 동의 여부</th>
-        </tr>
+          </tr>
         </thead>
         <tbody>
-        <tr th:each="member : ${memberList}">
-            <td><input type="checkbox" name="_selected_" th:value="${member.getId()}"></td>
+          <tr th:each="member : ${memberList}">
+            <td>
+              <input
+                type="checkbox"
+                name="_selected_"
+                th:value="${member.getId()}"
+              />
+            </td>
             <td th:text="${member.name}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.phoneNumber}"></td>
             <td th:text="${member.marketingOk}"></td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
 
-    <!-- 본문 끝 -->
-    <!-- footer -->
-    <footer id="foot" class="container-fluid navbar-fixed-bottom"></footer>
-</div>
-<!-- footer 끝 -->
-
-</body>
+      <!-- 본문 끝 -->
+      <!-- footer -->
+      <footer id="foot" class="container-fluid navbar-fixed-bottom"></footer>
+    </div>
+    <!-- footer 끝 -->
+  </body>
 </html>
