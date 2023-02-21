@@ -171,12 +171,71 @@
             padding: 30px;
           "
         >
-          <p>ABOUT</p>
+          <div style="display: flex; justify-content: space-between">
+            <p>ABOUT</p>
+            <a href="/members/changepwd">
+              <button class="btn btn-secondary btn-sm">비밀번호변경</button>
+            </a>
+          </div>
 
           <div style="border-top: 1px solid lightgray; padding: 20px 0">
-            <span th:text="${loginMember.getName()}"></span>
-            <br />
-            <span th:text="${loginMember.getEmail()}"></span>
+            <img
+              src="/img/profile.png"
+              style="
+                margin-left: 10px;
+                width: 100px;
+                height: 100px;
+                border-radius: 70%;
+                overflow: hidden;
+              "
+            />
+
+            <div style="margin-top: 5%; margin-left: 20px">
+              <span th:text="${loginMember.getName()}"></span>
+              <br />
+              <span th:text="${loginMember.getEmail()}"></span>
+            </div>
+          </div>
+
+          <div
+            style="
+              border: 1px solid lightgray;
+              border-radius: 30px;
+              margin-top: 20px;
+              padding: 20px;
+            "
+          >
+            <p style="font-size: 15px">Work Experience (예시)</p>
+
+            <div
+              style="border-top: 1px solid lightgray; padding: 10px 0px 0px 0px"
+            >
+              <p style="font-size: 13px">
+                2020.05 ~ 2023.02 주식회사 이루티 근무
+              </p>
+              <p style="font-size: 13px">2018.02 ~ 2019.12 프리랜서 활동</p>
+            </div>
+          </div>
+          <div
+            style="
+              border: 1px solid lightgray;
+              border-radius: 30px;
+              margin-top: 10px;
+              padding: 20px;
+            "
+          >
+            <p style="font-size: 15px">Awards (예시)</p>
+
+            <div
+              style="border-top: 1px solid lightgray; padding: 10px 0px 0px 0px"
+            >
+              <p style="font-size: 13px">
+                2022.12 주식회사 이루티 3D 그래픽 대상
+              </p>
+              <p style="font-size: 13px">
+                2020.09 주식회사 이루티 디자인 공모 최우수상
+              </p>
+            </div>
           </div>
         </div>
 
@@ -190,7 +249,7 @@
         >
           <p>STATS</p>
 
-          <div style="border-top: 1px solid lightgray; padding: 20px 0">
+          <div style="border-top: 1px solid lightgray; padding: 20px 0 0 0">
             <!-- view -->
             <div class="mb-2">
               <svg
@@ -227,6 +286,28 @@
               </svg>
               <span style="margin-left: 10px" th:text="${totalLikes}"></span>
               <span>Like</span>
+            </div>
+
+            <div
+              style="
+                border: 1px solid lightgray;
+                border-radius: 30px;
+                margin-top: 40px;
+                padding: 20px;
+              "
+            >
+              <p style="font-size: 15px">Skill (예시)</p>
+
+              <div
+                style="
+                  border-top: 1px solid lightgray;
+                  padding: 10px 0px 0px 0px;
+                "
+              >
+                <div style="text-align: center">
+                  <img src="/img/tool.png" style="width: 80%; height: 50px" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
