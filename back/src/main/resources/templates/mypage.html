@@ -173,9 +173,11 @@
         >
           <div style="display: flex; justify-content: space-between">
             <p>ABOUT</p>
-            <a href="/members/changepwd">
-              <button class="btn btn-secondary btn-sm">비밀번호변경</button>
-            </a>
+            <div th:if="${isEqual}">
+              <a href="/members/changepwd">
+                <button class="btn btn-secondary btn-sm">비밀번호변경</button>
+              </a>
+            </div>
           </div>
 
           <div style="border-top: 1px solid lightgray; padding: 20px 0">
