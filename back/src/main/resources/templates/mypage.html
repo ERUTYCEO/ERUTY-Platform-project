@@ -173,71 +173,11 @@
         >
           <div style="display: flex; justify-content: space-between">
             <p>ABOUT</p>
-            <a data-bs-toggle="modal" data-bs-target="#changePW">
+            <a href="/members/changepwd">
               <button class="btn btn-secondary btn-sm">비밀번호변경</button>
             </a>
           </div>
 
-          <div
-            class="modal fade"
-            id="changePW"
-            data-bs-backdrop="static"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5 m-2" id="exampleModalLabel">
-                    비밀번호 변경
-                  </h1>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <form
-                  role="form"
-                  action="/members/changepwd"
-                  th:object="${changepwdForm}"
-                  method="post"
-                >
-                  <div class="modal-body">
-                    <div class="container">
-                      <div class="form-group">
-                        <label th:for="city">E-mail</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="이메일을 입력하세요"
-                        />
-                      </div>
-
-                      <div class="form-group mt-3">
-                        <label th:for="street">Password</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="비밀번호를 입력하세요"
-                        />
-                        <input
-                          type="text"
-                          class="form-control mt-2"
-                          placeholder="비밀번호를 다시 확인하세요"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div>
-            </div>
-          </div>
           <div style="border-top: 1px solid lightgray; padding: 20px 0">
             <img
               src="/img/profile.png"
@@ -364,8 +304,8 @@
                   padding: 10px 0px 0px 0px;
                 "
               >
-                <div>
-                  <img src="/img/tool.png" style="width: 260px; height: 50px" />
+                <div style="text-align: center">
+                  <img src="/img/tool.png" style="width: 80%; height: 50px" />
                 </div>
               </div>
             </div>
