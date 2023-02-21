@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmailService {
 
+    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final JavaMailSender mailSender;
-    private static final String FROM_ADDRESS = "eruty7057@naver.com";
+    private static final String FROM_ADDRESS = "yusung@eruty.co.kr";
 
     public EmailForm createMailAndChangePwd(findPwdForm pwdForm) {
         Member member = memberRepository.findMemberByEmail(pwdForm.getEmail());
@@ -45,6 +46,7 @@ public class EmailService {
 
     private void updatePwd(String newPwd, Member member) {
         member.setPassword(newPwd);
+        memberService.setEncodePwd(member);
         memberRepository.save(member);
     }
 

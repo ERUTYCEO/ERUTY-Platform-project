@@ -2,6 +2,7 @@ spring:
   data:
     mongodb:
       port: 27017
+
       # host: localhost
       # database: ERUTY_Member
       host: 3.36.221.206
@@ -13,15 +14,15 @@ spring:
     prefix: classpath:/templates/
 
   mail:
-    host: smtp.naver.com
-    port: 465
-    username: eruty201@naver.com
-    password: uesung8559??
+    host: smtp.gmail.com
+    port: 587
+    username: yusung@eruty.co.kr
+    password: mwrukccdextdkxqh
     properties:
       mail:
         smtp:
           auth: true
-          ssl:
+          starttls:
             enable: true
 
 logging:
