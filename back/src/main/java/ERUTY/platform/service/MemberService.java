@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -52,12 +53,13 @@ public class MemberService {
         member.setPassword(encodePw);
     }
 
-    public void CheckAndUpdate(changepwdForm changepwdform){
+    public void CheckAndUpdate(HttpSession session, changepwdForm changepwdform){
+
         String email = changepwdform.getEmail();
         Member member = memberRepository.findMemberByEmail(email);
 
-        if(member == null){
-            throw new IllegalStateException("존재하지 않는 이메일입니다");
+        if(member == null || !confirmEmail(session, email)){
+            throw new IllegalStateException("본인의 이메일과 일치하지 않습니다.");
         }
         String newpwd = changepwdform.getPassword();
         String newconfirm = changepwdform.getConfirmPassword();
@@ -149,5 +151,14 @@ public class MemberService {
         List<Member> memberList = memberRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 
         return memberList;
+    }
+
+    public boolean confirmEmail(HttpSession session, String email){
+        Member member = memberRepository.findMemberById((String)session.getAttribute("loginId"));
+
+        if(member.getEmail().equals(email)){
+            return true;
+        }
+        return false;
     }
 }

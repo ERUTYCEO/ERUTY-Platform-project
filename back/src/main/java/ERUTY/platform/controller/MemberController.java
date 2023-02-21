@@ -133,7 +133,7 @@ public class MemberController {
     @PostMapping("/members/changepwd")
     public String changePassword(@Valid changepwdForm changepwdform, BindingResult result, HttpSession session, Model model) {
         try {
-            memberService.CheckAndUpdate(changepwdform);
+            memberService.CheckAndUpdate(session, changepwdform);
 
             if (result.hasErrors()) {
                 model.addAttribute("data", new Messsage("모든 항목을 채워주십시오.", "/members/changepwd"));
@@ -146,6 +146,7 @@ public class MemberController {
 
             return "message";
         }
+
         model.addAttribute("data", new Messsage("비밀번호 변경을 완료하였습니다. 다시 로그인 해주십시오", "/members/login"));
 
         session.invalidate();
