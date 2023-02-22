@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>ERUTY</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/css/mange.css" />
-  <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-  />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+  <head>
+    <title>ERUTY</title>
+    <link rel="shortcut icon" href="/img/a.png" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/mange.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+      /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
       /* 사이드바 */
       .sidenav {
         background-color: #f1f1f1;
@@ -28,19 +30,19 @@
         margin-left: 250px;
       }
 
-    /* footer */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-  </style>
-</head>
-<body>
-<div class="page1">
-  <div class="nav">
-    <a href="/"
-    ><img
+      /* footer */
+      footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page1">
+      <div class="nav">
+        <a href="/"
+          ><img
             class="nav-logo"
             width="25px"
             src="/img/eruty_logo2.png"
@@ -53,16 +55,16 @@
             <button id="search-btn" type="submit"></button>
           </form>
         </div>
-    <div class="menu">
-      <a href="/#about-eruty">ABOUT ERUTY</a>
-      <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-      <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-      <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-      <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
-      <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+        <div class="menu">
+          <a href="/#about-eruty">ABOUT ERUTY</a>
+          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
     <div class="container-fluid">
       <!-- 사이드바 -->
       <nav class="mt-5 col-sm-3 sidenav">
