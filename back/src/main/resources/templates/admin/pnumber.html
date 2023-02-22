@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>ERUTY</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/mange.css" />
@@ -36,10 +38,10 @@
         padding: 15px;
       }
     </style>
-</head>
-<body>
-<div class="page1">
-    <div class="nav">
+  </head>
+  <body>
+    <div class="page1">
+      <div class="nav">
         <a href="/"
           ><img
             class="nav-logo"
@@ -56,18 +58,18 @@
         </div>
 
         <div class="menu">
-            <a href="/#about-eruty">ABOUT ERUTY</a>
-            <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-            <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-            <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-            <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
-            <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+          <a href="/#about-eruty">ABOUT ERUTY</a>
+          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
+          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
+          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
+          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
         </div>
       </div>
     </div>
-<div class="container-fluid">
-    <!-- 사이드바 -->
-    <nav class="mt-5 col-sm-3 sidenav">
+    <div class="container-fluid">
+      <!-- 사이드바 -->
+      <nav class="mt-5 col-sm-3 sidenav">
         <h6>&nbsp;</h6>
         <a th:href="@{/admin/authmember}">Marketing Member</a>
         <a th:href="@{/admin/phone}">Members' Phone Number</a>
