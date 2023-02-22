@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="/img/favicon.ico" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1298.0/aws-sdk.min.js"></script>
 
     <meta charset="UTF-8" />
@@ -571,6 +572,12 @@
             var fileExtension = file.name.substr(
               file.name.lastIndexOf(".") + 1
             );
+            if ($.inArray(fileExtension, ["mtl", "obj", "fbx"]) <= 0) {
+              alert(
+                '등록이 불가능한 파일 입니다.\n "obj", "fbx","mtl" 파일만 선택해주세요.'
+              );
+              break;
+            }
             var upload1 = encodeURIComponent("item") + "/" + hashing + "/";
             var saveKey = upload1 + fileName;
 
@@ -990,6 +997,7 @@
     <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/MTLLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <!-- bootstrap -->
     <script
