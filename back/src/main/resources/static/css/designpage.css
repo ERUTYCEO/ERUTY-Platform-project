@@ -38,6 +38,7 @@
 
 .design-img {
   display: flex;
+  position: relative;
 }
 
 .main-design {
