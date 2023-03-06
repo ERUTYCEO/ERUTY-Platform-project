@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="shortcut icon" href="/img/a.png" />
+    <link rel="shortcut icon" href="/img/eruty_logo2.png" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,7 +48,7 @@
 
     <div class="detail-page">
       <div class="design-info">
-        <section class="design-img">
+        <div class="design-img">
           <canvas id="design3d" class="main-img">
             <input
               id="canvasinput"
@@ -61,7 +61,17 @@
               th:value="${item.getMtlPath()}"
             />
           </canvas>
-        </section>
+          <div
+            style="
+              position: absolute;
+              width: 100%;
+              text-align: right;
+              bottom: 13%;
+            "
+          >
+            3d 모델을 마우스로 움직여 보세요!
+          </div>
+        </div>
         <div class="detail-img-title"><p>상세 이미지</p></div>
 
         <table class="table table-striped">
@@ -140,7 +150,16 @@
             <!--        women in 3D. Convert 2048 x 2048 HD quality to png and jpg format-->
             <!--        files. It is possible. It is formed of about 1600 polygons.-->
             <!--      </p>-->
+            <div style="margin-top: 20px">
+              <span th:if="${item.isOrigin}">출처를 표시해주세요</span>
+              <br />
+              <span th:if="${item.canModification}"
+                >상업적 이용이 제한됩니다</span
+              ><br />
+              <span th:if="${item.canCommercialUse}">변경이 제한됩니다</span>
+            </div>
           </div>
+
           <span
             class="purchase-btn"
             th:onclick="|location.href='@{/items/{id}/buy (id=${item.getId()})}'|"
@@ -207,9 +226,9 @@
         const myCanvas = document.getElementById("design3d");
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(
-          75,
+          100,
           myCanvas.width / myCanvas.height,
-          0.1,
+          1,
           1000
         );
         const renderer = new THREE.WebGLRenderer({
@@ -217,6 +236,7 @@
           alpha: true,
         });
         renderer.setSize(700, 630);
+        renderer.setPixelRatio(window.devicePixelRatio);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.rotateSpeed = 1.0; // 마우스로 카메라를 회전시킬 속도입니다. 기본값(Float)은 1입니다.
@@ -226,166 +246,95 @@
         controls.maxDistance = 100; // 마우스 휠로 카메라 거리 조작시 최대 값. 기본값(Float)은 무제한 입니다.
 
         const object = new THREE.Object3D();
-        if (srcMtl != "") {
-          const mtlLoader = new THREE.MTLLoader();
-          mtlLoader.load(srcMtl, function (materials) {
-            materials.preload();
-            if (extension == "obj") {
-              const loader = new THREE.OBJLoader();
-              loader.setMaterials(materials);
-              loader.load(
-                src3d,
-                function (objectload) {
-                  //size 조절
-                  const { minX, maxX, minY, maxY, minZ, maxZ } =
-                    getBoundingBox(objectload);
-                  const width = maxX - minX;
-                  const height = maxY - minY;
-                  const depth = maxZ - minZ;
-                  const size = Math.max(width, height, depth);
-                  const center = new THREE.Vector3(
-                    (minX + maxX) / 1.75,
-                    (minY + maxY) / 1.75,
-                    (minZ + maxZ) / 1.75
-                  );
-                  camera.position.set(
-                    center.x + size / 1.75,
-                    center.y + size / 1.75,
-                    center.z + size / 1.75
-                  );
-                  camera.lookAt(center);
-                  camera.near = size / 100;
-                  camera.far = size * 100;
-                  camera.updateProjectionMatrix();
-
-                  //조명 추가
-                  shadowLight();
-
-                  //랜더링
-                  object.add(objectload);
-                  scene.add(object);
-                },
-                function (xhr) {
-                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-                },
-                function (error) {
-                  console.log(error);
-                  console.log("An error happened");
-                }
+        // if (srcMtl != "") {
+        //   const mtlLoader = new THREE.MTLLoader();
+        // mtlLoader.load(srcMtl, function (materials) {
+        //   materials.preload();
+        if (extension == "obj") {
+          const loader = new THREE.OBJLoader();
+          // loader.setMaterials(materials);
+          loader.load(
+            src3d,
+            function (objectload) {
+              //size 조절
+              const { minX, maxX, minY, maxY, minZ, maxZ } =
+                getBoundingBox(objectload);
+              const width = maxX - minX;
+              const height = maxY - minY;
+              const depth = maxZ - minZ;
+              const size = Math.max(width, height, depth);
+              const center = new THREE.Vector3(
+                (minX + maxX) / 1.75,
+                (minY + maxY) / 1.75,
+                (minZ + maxZ) / 1.75
               );
-              animate();
-            }
-            if (extension == "fbx") {
-              const loader = new THREE.FBXLoader();
-              loader.load(
-                src3d,
-                function (objectload) {
-                  //size 조절
-                  var box = new THREE.Box3().setFromObject(objectload);
-                  var maxX = box.max.x;
-                  var desiredSize = 2.0;
-                  var scale = desiredSize / maxX;
-                  object.scale.set(scale, scale, scale);
 
-                  //조명 추가
-                  shadowLight();
-
-                  //랜더링
-                  object.add(objectload);
-                  scene.add(object);
-                },
-                function (xhr) {
-                  console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-                },
-                function (error) {
-                  console.log(error);
-                  console.log("An error happened");
-                }
+              camera.position.set(
+                center.x + size / 1.75,
+                center.y + size / 1.75,
+                center.z + size / 1.75
               );
-              animate();
+              camera.position.y = 10;
+              camera.position.x = -40;
+              camera.position.z = 10;
+
+              camera.lookAt(center);
+              camera.near = size / 100;
+              camera.far = size * 100;
+              camera.updateProjectionMatrix();
+
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
             }
-          });
-        } else {
-          if (extension == "obj") {
-            const loader = new THREE.OBJLoader();
-            loader.load(
-              src3d,
-              function (objectload) {
-                //size 조절
-                const { minX, maxX, minY, maxY, minZ, maxZ } =
-                  getBoundingBox(objectload);
-                const width = maxX - minX;
-                const height = maxY - minY;
-                const depth = maxZ - minZ;
-                const size = Math.max(width, height, depth);
-                const center = new THREE.Vector3(
-                  (minX + maxX) / 1.75,
-                  (minY + maxY) / 1.75,
-                  (minZ + maxZ) / 1.75
-                );
-                camera.position.set(
-                  center.x + size / 1.75,
-                  center.y + size / 1.75,
-                  center.z + size / 1.75
-                );
-                camera.lookAt(center);
-                camera.near = size / 100;
-                camera.far = size * 100;
-                camera.updateProjectionMatrix();
-
-                //조명 추가
-                shadowLight();
-
-                //랜더링
-                object.add(objectload);
-                scene.add(object);
-              },
-              function (xhr) {
-                console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-              },
-              function (error) {
-                console.log(error);
-                console.log("An error happened");
-              }
-            );
-            animate();
-          }
-          if (extension == "fbx") {
-            const loader = new THREE.FBXLoader();
-            loader.load(
-              src3d,
-              function (objectload) {
-                //size 조절
-                var box = new THREE.Box3().setFromObject(objectload);
-                var maxX = box.max.x;
-                var desiredSize = 2.0;
-                var scale = desiredSize / maxX;
-                object.scale.set(scale, scale, scale);
-
-                //조명 추가
-                shadowLight();
-
-                //랜더링
-                object.add(objectload);
-                scene.add(object);
-              },
-              function (xhr) {
-                console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-              },
-              function (error) {
-                console.log(error);
-                console.log("An error happened");
-              }
-            );
-            animate();
-          }
+          );
+          animate();
         }
+        if (extension == "fbx") {
+          const loader = new THREE.FBXLoader();
+          loader.load(
+            src3d,
+            function (objectload) {
+              //size 조절
+              var box = new THREE.Box3().setFromObject(objectload);
+              var maxX = box.max.x;
+              var desiredSize = 2.0;
+              var scale = desiredSize / maxX;
+              object.scale.set(scale, scale, scale);
 
+              //조명 추가
+              shadowLight();
+
+              //랜더링
+              object.add(objectload);
+              scene.add(object);
+            },
+            function (xhr) {
+              console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+            },
+            function (error) {
+              console.log(error);
+              console.log("An error happened");
+            }
+          );
+          animate();
+        }
+        // });
         //회전동작
         function animate() {
           requestAnimationFrame(animate);
-          object.rotation.x += 0.01;
-          object.rotation.y += 0.01;
+          // object.rotation.x += 0.01;
+          // object.rotation.y += 0.01;
           renderer.render(scene, camera);
           controls.update();
         }
@@ -441,10 +390,10 @@
 
         //조명 추가
         function shadowLight() {
-          const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+          const ambientLight = new THREE.AmbientLight(0xcccccc, 0.7);
           scene.add(ambientLight);
 
-          const pointLight = new THREE.PointLight(0xffffff, 0.8);
+          const pointLight = new THREE.PointLight(0xffffff, 0.5);
           camera.add(pointLight);
           scene.add(camera);
         }
