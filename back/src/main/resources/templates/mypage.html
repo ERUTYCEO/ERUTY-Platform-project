@@ -31,18 +31,18 @@
         <div class="search-bar">
           <img src="/img/a.png" alt="" width="17px" height="17px" />
           <form th:action="@{/items/search}" method="GET">
-            <input type="text" name="keyword" placeholder="   search" />
+            <input type="text" name="keyword" placeholder="   검색" />
             <button id="search-btn" type="submit"></button>
           </form>
         </div>
         <div class="menu">
-          <a href="/#about-eruty">ABOUT ERUTY</a>
-          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
+          <a href="/#about-eruty">기업 소개</a>
+          <a th:if="!${session?.loginId}" href="/members/new">회원가입</a>
+          <a th:if="!${session?.loginId}" href="/members/login">로그인</a>
+          <a th:if="${session?.loginId}" href="/items/upload">업로드</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">마이페이지</a>
           <a th:if="${session?.admin}" href="/admin/authmember">MANAGE</a>
-          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+          <a th:if="${session?.loginId}" href="/members/logout">로그아웃</a>
         </div>
       </div>
     </div>
@@ -71,8 +71,7 @@
         </span>
         <br />
         <span style="color: white">
-          Hello, we are the ERUTY which make the 3D graphic design source as
-          professional!
+          안녕하세요! 3D 그래픽 디자인 오픈 소스 거래 플랫폼을 개발 중인 주식회사 이루티 입니다!!
         </span>
       </div>
     </div>
@@ -228,7 +227,7 @@
               padding: 20px;
             "
           >
-            <p style="font-size: 15px">수상 (예시)</p>
+            <p style="font-size: 15px">수상 실적 (예시)</p>
 
             <div
               style="border-top: 1px solid lightgray; padding: 10px 0px 0px 0px"

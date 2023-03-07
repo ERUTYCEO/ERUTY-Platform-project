@@ -98,22 +98,25 @@ body {
   color: rgb(5, 67, 140);
   font-size: 2.5rem;
   font-weight: 500;
+  margin-bottom: 20px;
 }
 
 .title {
   font-weight: 600;
+  font-size:20px;
   margin: 0;
 }
 
 .content {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 16px;
   color: rgb(90, 89, 89);
   white-space: nowrap;
 }
 
 .content-1 {
   margin-top: 1rem;
+  margin-bottom: 20px;
 }
 
 .content-weight {
@@ -161,7 +164,7 @@ body {
   color: white;
   position: absolute;
   font-weight: 400;
-  font-size: 35px;
+  font-size: 30px;
   margin-right: 20px;
   margin-bottom: 5px;
 }

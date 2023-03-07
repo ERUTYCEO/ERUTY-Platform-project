@@ -33,17 +33,17 @@
         <div class="search-bar">
           <img src="/img/a.png" alt="" width="17px" height="17px" />
           <form th:action="@{/items/search}" method="GET">
-            <input type="text" name="keyword" placeholder="   search" />
+            <input type="text" name="keyword" placeholder="   검색" />
             <button id="search-btn" type="submit"></button>
           </form>
         </div>
         <div class="menu">
-          <a href="#about-eruty">ABOUT ERUTY</a>
-          <a th:if="!${session?.loginId}" href="/members/new">SIGN UP</a>
-          <a th:if="!${session?.loginId}" href="/members/login">LOGIN</a>
-          <a th:if="${session?.loginId}" href="/items/upload">UPLOAD</a>
-          <a th:if="${session?.loginId}" href="/members/mypage">MYPAGE</a>
-          <a th:if="${session?.loginId}" href="/members/logout">LOGOUT</a>
+          <a href="#about-eruty">기업 소개</a>
+          <a th:if="!${session?.loginId}" href="/members/new">회원가입</a>
+          <a th:if="!${session?.loginId}" href="/members/login">로그인</a>
+          <a th:if="${session?.loginId}" href="/items/upload">업로드</a>
+          <a th:if="${session?.loginId}" href="/members/mypage">마이페이지</a>
+          <a th:if="${session?.loginId}" href="/members/logout">로그아웃</a>
         </div>
       </div>
       <div class="page1">
@@ -63,8 +63,8 @@
               </div>
 
               <div>
-                <p class="title">3D Graphic Design</p>
-                <p class="title">Open Market ERUTY</p>
+                <p class="title">3D 그래픽 디자인 소스</p>
+                <p class="title">오픈 마켓 ERUTY</p>
                 <div class="content-1">
                   <p class="content">
                     자신이 제작한 3D 그래픽 디자인을 거래할 수 있는
@@ -76,7 +76,7 @@
               </div>
 
               <div>
-                <p class="title">Safe transaction</p>
+                <p class="title">안전한 거래환경</p>
                 <div class="content-1">
                   <p class="content">
                     <span class="content-weight"
@@ -95,7 +95,7 @@
               </div>
 
               <div>
-                <p class="title">Service for Deisigner</p>
+                <p class="title">디자이너들을 위한 다양한 서비스</p>
                 <div class="content-1">
                   <p class="content">
                     자신이 판매한 디자인의 실적과 디자인 툴의 숙련도를
@@ -123,7 +123,7 @@
           </div>
           <a data-bs-toggle="modal" data-bs-target="#feedbackModal">
             <img class="bottom-btn" src="/img/button.png" alt="" />
-            <p class="bottom-btn-title">DESIGN</p>
+            <p class="bottom-btn-title">디자인 보러가기</p>
           </a>
         </div>
       </div>
