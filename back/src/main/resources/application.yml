@@ -3,12 +3,12 @@ spring:
     mongodb:
       port: 27017
 
-      host: localhost
-      database: ERUTY_Member
-      #host: 3.36.221.206
-      #database: admin
-      #username: eruty
-      #password: eruty
+      #host: localhost
+      #database: ERUTY_Member
+      host: 3.36.221.206
+      database: admin
+      username: eruty
+      password: eruty
 
   thymeleaf:
     prefix: classpath:/templates/

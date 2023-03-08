@@ -54,7 +54,6 @@ public class MemberController {
                     memberForm.getPassword(),
                     memberForm.getPhoneNumber(),
                     memberForm.isMarketingOk());
-            member.setRegisterDate(LocalDate.now());
             memberService.saveMember(member);
 
         } catch (IllegalStateException exception) {
