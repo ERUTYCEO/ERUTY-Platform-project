@@ -103,7 +103,7 @@ body {
 
 .title {
   font-weight: 600;
-  font-size:20px;
+  font-size: 20px;
   margin: 0;
 }
 
@@ -154,9 +154,17 @@ body {
 }
 
 .bottom-btn {
-  width: 350px;
-  height: 80px;
+  display: flex;
+}
+
+.bottom-btn a {
   cursor: pointer;
+}
+
+.bottom-btn a img {
+  width: 200px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 .bottom-btn-title {
