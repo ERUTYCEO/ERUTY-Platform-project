@@ -87,8 +87,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="member : ${memberList}">
-            <td th:text="${}"></td>
+          <tr th:each="member, memberStat : ${memberList}">
+            <td th:text="${memberStat.count}"></td>
             <td th:text="${member.name}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.phoneNumber}"></td>
