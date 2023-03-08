@@ -153,10 +153,11 @@
             <div style="margin-top: 20px">
               <span th:if="${item.isOrigin}">출처를 표시해주세요</span>
               <br />
-              <span th:if="${item.canModification}"
-                >상업적 이용이 제한됩니다</span
+              <span th:if="${item.canModification}">변경이 제한됩니다</span
               ><br />
-              <span th:if="${item.canCommercialUse}">변경이 제한됩니다</span>
+              <span th:if="${item.canCommercialUse}"
+                >상업적 이용이 제한됩니다</span
+              >
             </div>
           </div>
 
