@@ -257,7 +257,7 @@
                 name="3dFile"
                 multiple
                 type="file"
-                accept=".obj, .fbx, .mtl"
+                accept=".obj, .fbx"
               />
             </div>
           </div>
@@ -754,7 +754,7 @@
         //     materials.preload();
         if (extension == "obj") {
           const loader = new THREE.OBJLoader();
-          loader.setMaterials(materials);
+          // loader.setMaterials(materials);
 
           loader.load(
             fileName,
