@@ -79,6 +79,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>번호</th>
             <th>이름</th>
             <th>이메일</th>
             <th>휴대폰 번호</th>
@@ -86,7 +87,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="member : ${memberList}">
+          <tr th:each="member, memberStat : ${memberList}">
+            <td th:text="${memberStat.count}"></td>
             <td th:text="${member.name}"></td>
             <td th:text="${member.email}"></td>
             <td th:text="${member.phoneNumber}"></td>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -53,7 +54,7 @@ public class MemberController {
                     memberForm.getPassword(),
                     memberForm.getPhoneNumber(),
                     memberForm.isMarketingOk());
-
+            member.setRegisterDate(LocalDate.now());
             memberService.saveMember(member);
 
         } catch (IllegalStateException exception) {

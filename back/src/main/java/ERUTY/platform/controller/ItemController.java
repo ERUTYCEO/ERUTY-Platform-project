@@ -171,9 +171,4 @@ public class ItemController {
         log.info("비동일 인물");
         return "redirect:/members/" + itemMemberId + "/mypage";
     }
-
-    
 }
-
-
-
